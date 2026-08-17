@@ -1,0 +1,187 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3.3 effective-5.10 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name SmsOtp -package-name smsotp
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
+@_exported import FinosCore
+import Foundation
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum FinOSOtp {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  public static func setNetworkLoggingEnabled(_ enabled: Swift.Bool)
+  public static func sendOtp(apiKey: Swift.String, smsOtpConfig: SmsOtp.SmsOtpConfig, callbackSuccess: @escaping SmsOtp.FinOSOtp.SuccessCallback = { _, _ in }, callbackError: @escaping SmsOtp.FinOSOtp.ErrorCallback = { _, _ in })
+  public static func verifyOtp(apiKey: Swift.String, smsOtpConfig: SmsOtp.SmsOtpConfig, otpCode: Swift.String, callbackSuccess: @escaping SmsOtp.FinOSOtp.SuccessCallback = { _, _ in }, callbackError: @escaping SmsOtp.FinOSOtp.ErrorCallback = { _, _ in })
+  public static func resendOtp(apiKey: Swift.String, smsOtpConfig: SmsOtp.SmsOtpConfig, callbackSuccess: @escaping SmsOtp.FinOSOtp.SuccessCallback = { _, _ in }, callbackError: @escaping SmsOtp.FinOSOtp.ErrorCallback = { _, _ in })
+}
+@available(*, deprecated, renamed: "FinOSOtp", message: "Use FinOSOtp. This alias is kept for source compatibility.")
+public typealias FinOSOTP = SmsOtp.FinOSOtp
+public struct SmsOtpConfig {
+  public let appKey: Swift.String
+  public let phoneNumber: Swift.String
+  public let purpose: Swift.String
+  public let referenceId: Swift.String
+  public var requestId: Swift.String?
+  public init(appKey: Swift.String, phoneNumber: Swift.String, purpose: Swift.String = "transaction", referenceId: Swift.String, requestId: Swift.String? = nil)
+}
+@_hasMissingDesignatedInitializers final public class SdkSmsOtpService {
+  public static let shared: SmsOtp.SdkSmsOtpService
+  final public func sendOtp(config: SmsOtp.SmsOtpConfig, callbackSuccess: @escaping (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func verifyOtp(config: SmsOtp.SmsOtpConfig, otpCode: Swift.String, callbackSuccess: @escaping (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func resendOtp(config: SmsOtp.SmsOtpConfig, callbackSuccess: @escaping (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  @objc deinit
+}
+public class SmsOtpSession {
+  public typealias ResultCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  public init(appKey: Swift.String, phoneNumber: Swift.String, referenceId: Swift.String = UUID().uuidString, purpose: Swift.String = "transaction")
+  public func send(callbackSuccess: @escaping SmsOtp.SmsOtpSession.ResultCallback, callbackError: @escaping SmsOtp.SmsOtpSession.ErrorCallback)
+  public func verify(_ otpCode: Swift.String, callbackSuccess: @escaping SmsOtp.SmsOtpSession.ResultCallback, callbackError: @escaping SmsOtp.SmsOtpSession.ErrorCallback)
+  public func resend(callbackSuccess: @escaping SmsOtp.SmsOtpSession.ResultCallback, callbackError: @escaping SmsOtp.SmsOtpSession.ErrorCallback)
+  public func reset()
+  @objc deinit
+}
+public protocol SDKSmsOtpServiceCoreProtocol {
+  func sendOtp(apiKey: Swift.String, request: SmsOtp.SendOtpRequest) async throws -> FinosCore.APIResponse<SmsOtp.SendOtpResponse>
+  func verifyOtp(apiKey: Swift.String, request: SmsOtp.VerifyOtpRequest) async throws -> FinosCore.APIResponse<SmsOtp.VerifyOtpResponse>
+  func resendOtp(apiKey: Swift.String, request: SmsOtp.ResendOtpRequest) async throws -> FinosCore.APIResponse<SmsOtp.ResendOtpResponse>
+}
+@objc public class CheckC06Request : ObjectiveC.NSObject, Swift.Codable {
+  public var deviceType: Swift.String?
+  public var sod: Swift.String?
+  public var idCardNumber: Swift.String?
+  public var recentLocation: Swift.String?
+  public init(deviceType: Swift.String? = nil, sod: Swift.String? = nil, idCardNumber: Swift.String? = nil, recentLocation: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class AuditNfcRequest : ObjectiveC.NSObject, Swift.Codable {
+  public var finOSApiKey: Swift.String?
+  public var gwRequestId: Swift.String?
+  public var deviceType: Swift.String?
+  public var idNumber: Swift.String?
+  public var name: Swift.String?
+  public var dob: Swift.String?
+  public var gender: Swift.String?
+  public var nationality: Swift.String?
+  public var ethnic: Swift.String?
+  public var religion: Swift.String?
+  public var homeTown: Swift.String?
+  public var permanentAddress: Swift.String?
+  public var features: Swift.String?
+  public var doi: Swift.String?
+  public var doe: Swift.String?
+  public var fatherName: Swift.String?
+  public var motherName: Swift.String?
+  public var spouseName: Swift.String?
+  public var oldId: Swift.String?
+  public var imageFace: Swift.String?
+  public var mrz: Swift.String?
+  public var sdkStatus: Swift.String?
+  public var transactionId: Swift.String?
+  public var corporateCode: Swift.String?
+  public var com: Swift.String?
+  public var sod: Swift.String?
+  public var dg1: Swift.String?
+  public var dg2: Swift.String?
+  public var dg3: Swift.String?
+  public var dg4: Swift.String?
+  public var dg5: Swift.String?
+  public var dg6: Swift.String?
+  public var dg7: Swift.String?
+  public var dg8: Swift.String?
+  public var dg9: Swift.String?
+  public var dg10: Swift.String?
+  public var dg11: Swift.String?
+  public var dg12: Swift.String?
+  public var dg13: Swift.String?
+  public var dg14: Swift.String?
+  public var dg15: Swift.String?
+  public init(finOSApiKey: Swift.String? = nil, gwRequestId: Swift.String? = nil, deviceType: Swift.String? = nil, idNumber: Swift.String? = nil, name: Swift.String? = nil, dob: Swift.String? = nil, gender: Swift.String? = nil, nationality: Swift.String? = nil, ethnic: Swift.String? = nil, religion: Swift.String? = nil, homeTown: Swift.String? = nil, permanentAddress: Swift.String? = nil, features: Swift.String? = nil, doi: Swift.String? = nil, doe: Swift.String? = nil, fatherName: Swift.String? = nil, motherName: Swift.String? = nil, spouseName: Swift.String? = nil, oldId: Swift.String? = nil, imageFace: Swift.String? = nil, mrz: Swift.String? = nil, sdkStatus: Swift.String? = nil, transactionId: Swift.String? = nil, corporateCode: Swift.String? = nil, com: Swift.String? = nil, sod: Swift.String? = nil, dg1: Swift.String? = nil, dg2: Swift.String? = nil, dg3: Swift.String? = nil, dg4: Swift.String? = nil, dg5: Swift.String? = nil, dg6: Swift.String? = nil, dg7: Swift.String? = nil, dg8: Swift.String? = nil, dg9: Swift.String? = nil, dg10: Swift.String? = nil, dg11: Swift.String? = nil, dg12: Swift.String? = nil, dg13: Swift.String? = nil, dg14: Swift.String? = nil, dg15: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class SendOtpRequest : ObjectiveC.NSObject, Swift.Codable {
+  public var phoneNumber: Swift.String
+  public var purpose: Swift.String
+  public var referenceId: Swift.String
+  public init(phoneNumber: Swift.String, purpose: Swift.String = "transaction", referenceId: Swift.String)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class VerifyOtpRequest : ObjectiveC.NSObject, Swift.Codable {
+  public var requestId: Swift.String
+  public var otpCode: Swift.String
+  public init(requestId: Swift.String, otpCode: Swift.String)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class ResendOtpRequest : ObjectiveC.NSObject, Swift.Codable {
+  public var requestId: Swift.String
+  public init(requestId: Swift.String)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class SendOtpResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var success: Swift.Bool?
+  public var requestId: Swift.String?
+  public var expiresIn: Swift.Int?
+  public var resendAfter: Swift.Int?
+  public var error: Swift.String?
+  public init(success: Swift.Bool? = nil, requestId: Swift.String? = nil, expiresIn: Swift.Int? = nil, resendAfter: Swift.Int? = nil, error: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class VerifyOtpResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var success: Swift.Bool?
+  public var verified: Swift.Bool?
+  public var verifiedAt: Swift.String?
+  public var attemptsRemaining: Swift.Int?
+  public var error: Swift.String?
+  public init(success: Swift.Bool? = nil, verified: Swift.Bool? = nil, verifiedAt: Swift.String? = nil, attemptsRemaining: Swift.Int? = nil, error: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class ResendOtpResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var success: Swift.Bool?
+  public var requestId: Swift.String?
+  public var expiresIn: Swift.Int?
+  public var resendAfter: Swift.Int?
+  public var attemptsRemaining: Swift.Int?
+  public var error: Swift.String?
+  public init(success: Swift.Bool? = nil, requestId: Swift.String? = nil, expiresIn: Swift.Int? = nil, resendAfter: Swift.Int? = nil, attemptsRemaining: Swift.Int? = nil, error: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class SdkInitResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var finosJwt: Swift.String
+  public var transactionId: Swift.String
+  public var expiresIn: Swift.Int
+  public init(finosJwt: Swift.String, transactionId: Swift.String, expiresIn: Swift.Int)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class SDKEkycService {
+  public static let shared: SmsOtp.SDKEkycService
+  public func sendOtp(apiKey: Swift.String, request: SmsOtp.SendOtpRequest) async throws -> FinosCore.APIResponse<SmsOtp.SendOtpResponse>
+  public func verifyOtp(apiKey: Swift.String, request: SmsOtp.VerifyOtpRequest) async throws -> FinosCore.APIResponse<SmsOtp.VerifyOtpResponse>
+  public func resendOtp(apiKey: Swift.String, request: SmsOtp.ResendOtpRequest) async throws -> FinosCore.APIResponse<SmsOtp.ResendOtpResponse>
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SDKSmsOtpServiceCoreImpl : SmsOtp.SDKSmsOtpServiceCoreProtocol {
+  public func sendOtp(apiKey: Swift.String, request: SmsOtp.SendOtpRequest) async throws -> FinosCore.APIResponse<SmsOtp.SendOtpResponse>
+  public func verifyOtp(apiKey: Swift.String, request: SmsOtp.VerifyOtpRequest) async throws -> FinosCore.APIResponse<SmsOtp.VerifyOtpResponse>
+  public func resendOtp(apiKey: Swift.String, request: SmsOtp.ResendOtpRequest) async throws -> FinosCore.APIResponse<SmsOtp.ResendOtpResponse>
+  @objc deinit
+}

@@ -1,0 +1,1202 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3.3 effective-5.10 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name Ekyc -package-name ios
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
+import AVFoundation
+import AudioToolbox
+import CommonCrypto
+import CoreImage
+import CoreML
+import CoreNFC
+import CoreText
+import CryptoKit
+import CryptoTokenKit
+@_exported @preconcurrency import FinosCore
+import Foundation
+import Foundation/*.Bundle*/
+import Foundation/*.ProcessInfo*/
+import Foundation/*.URL*/
+import ImageIO
+import MobileCoreServices
+import OpenSSL
+import Swift
+import UIKit
+import Vision
+import _Concurrency
+import _CoreNFC_UIKit
+import _StringProcessing
+import _SwiftConcurrencyShims
+import shared
+@_hasMissingDesignatedInitializers public class SDKC06Init {
+  public static let shared: Ekyc.SDKC06Init
+  public func initialize()
+  public func getViewModel() -> Ekyc.SDKC06ViewModel
+  public func cleanup()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class SDKC06ViewModel : FinosCore.SDKBaseViewModel {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @objc override dynamic public init()
+  public func checkC06(apiKey: Swift.String, c06Config: FinosCore.C06Config, callbackSuccess: @escaping Ekyc.SDKC06ViewModel.SuccessCallback, callbackError: @escaping Ekyc.SDKC06ViewModel.ErrorCallback)
+  public func cancelRequest()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SdkEkycC06 : ObjectiveC.NSObject {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @objc public static func startEkyc(ekycConfigSDK: FinosCore.EKYCConfigSDK, callbackSuccess: Ekyc.SdkEkycC06.SuccessCallback? = nil, callbackError: Ekyc.SdkEkycC06.ErrorCallback? = nil)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum FinOSeKYC {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, [Swift.String : Any]?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  public static func setNetworkLoggingEnabled(_ enabled: Swift.Bool)
+  public static func setDebugLoggingEnabled(_ enabled: Swift.Bool)
+  public static func quickStart(appKey: Swift.String = "", flow: [FinosCore.EkycFlow] = [], language: Swift.String = "vi", env: FinosCore.SDKEnv = .test, theme: Ekyc.SDKTheme = .default, from viewController: UIKit.UIViewController? = nil, callbackSuccess: Ekyc.FinOSeKYC.SuccessCallback?, callbackError: Ekyc.FinOSeKYC.ErrorCallback?)
+  public static func quickStart(ekycConfigSDK: FinosCore.EKYCConfigSDK, theme: Ekyc.SDKTheme = .default, from viewController: UIKit.UIViewController? = nil, callbackSuccess: Ekyc.FinOSeKYC.SuccessCallback?, callbackError: Ekyc.FinOSeKYC.ErrorCallback?)
+  public static func initSDKEkyc(appKey: Swift.String = "", environment: FinosCore.SDKEnvironment = .test, callback: (() -> Swift.Void)? = nil)
+  @available(*, deprecated, message: "Use initSDKEkyc(appKey:environment:callback:) so staging and UAT are preserved")
+  public static func initSDKEkyc(isProd: Swift.Bool, callback: (() -> Swift.Void)? = nil)
+  @discardableResult
+  public static func setEnv(_ env: FinosCore.SDKEnv) -> FinosCore.SDKEnv
+  @discardableResult
+  public static func setTransactionId(_ transactionId: Swift.String? = nil) -> Swift.String
+  public static func getLatestTransactionsHistoryDetail(transactionId: Swift.String? = nil, callbackSuccess: @escaping (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func getEkycImageResult(transactionId: Swift.String? = nil, callbackSuccess: @escaping (FinosCore.EKYCEvent, [FinosCore.SDKImageResultModel]?) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func onResumeNfc()
+  public static func onPauseNfc()
+  public static func startEkyc(from viewController: UIKit.UIViewController, ekycConfigSDK: FinosCore.EKYCConfigSDK, callbackSuccess: Ekyc.FinOSeKYC.SuccessCallback?, callbackError: Ekyc.FinOSeKYC.ErrorCallback?)
+}
+@_hasMissingDesignatedInitializers public class FaceUtils {
+  public static func sampleBufferToImage(_ sampleBuffer: CoreMedia.CMSampleBuffer) -> UIKit.UIImage?
+  public static func pixelBufferToImage(_ pixelBuffer: CoreVideo.CVPixelBuffer, orientation: UIKit.UIImage.Orientation = .up) -> UIKit.UIImage?
+  public static func pixelBufferToImage(_ pixelBuffer: CoreVideo.CVPixelBuffer, rotationDegrees: Swift.Int) -> UIKit.UIImage?
+  public static func cropToBBox(image: UIKit.UIImage, boundingBox: CoreFoundation.CGRect) -> UIKit.UIImage?
+  public static func cropToBBox(image: UIKit.UIImage, box: CoreFoundation.CGRect) -> UIKit.UIImage?
+  public static func saveImage(_ image: UIKit.UIImage) -> Foundation.URL?
+  public static func saveImage(_ image: UIKit.UIImage, quality: CoreFoundation.CGFloat) -> Foundation.URL?
+  public static func saveImage(_ image: UIKit.UIImage, to fileURL: Foundation.URL, quality: CoreFoundation.CGFloat = 0.9) -> Swift.Bool
+  public static func imageToData(_ image: UIKit.UIImage, quality: CoreFoundation.CGFloat = 0.9) -> Foundation.Data?
+  public static func rotateImage(_ image: UIKit.UIImage, byDegrees degrees: CoreFoundation.CGFloat) -> UIKit.UIImage?
+  public static func transformImage(_ image: UIKit.UIImage, transform: CoreFoundation.CGAffineTransform) -> UIKit.UIImage?
+  public static func flipImageHorizontally(_ image: UIKit.UIImage) -> UIKit.UIImage?
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SDKCropImageUtils {
+  public static func cropImage(_ image: UIKit.UIImage, toRect rect: CoreFoundation.CGRect) -> UIKit.UIImage?
+  public static func resizeImage(_ image: UIKit.UIImage, maxWidth: CoreFoundation.CGFloat, maxHeight: CoreFoundation.CGFloat) -> UIKit.UIImage?
+  public static func rotateImage(_ image: UIKit.UIImage, byDegrees degrees: CoreFoundation.CGFloat) -> UIKit.UIImage?
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SDKImageProcessingUtils {
+  public static func processCapturedImage(imageFile: Foundation.URL, previewView: UIKit.UIView, cameraMode: Ekyc.SdkCameraMode, isFrontCamera: Swift.Bool = false, cropFraction: CoreFoundation.CGRect = CGRect(x: 0, y: 0, width: 1, height: 1)) -> Foundation.URL?
+  public static func processCapturedImageOcr(imageFile: Foundation.URL, previewView: UIKit.UIView, isFrontCamera: Swift.Bool = false, maxWidth: Swift.Int = 1920, maxHeight: Swift.Int = 1080, enableResize: Swift.Bool = false) -> Foundation.URL?
+  public static func processCapturedImageLiveness(imageFile: Foundation.URL, previewView: UIKit.UIView, isFrontCamera: Swift.Bool = false, maxWidth: Swift.Int = 1920, maxHeight: Swift.Int = 1080, enableResize: Swift.Bool = false) -> Foundation.URL?
+  public static func getExifOrientation(imageFile: Foundation.URL) -> UIKit.UIImage.Orientation
+  public static func resizeToMaxHDIfNeeded(imageFile: Foundation.URL, maxWidth: Swift.Int, maxHeight: Swift.Int) -> UIKit.UIImage?
+  public static func resizeImage(_ image: UIKit.UIImage, targetWidth: CoreFoundation.CGFloat, targetHeight: CoreFoundation.CGFloat) -> UIKit.UIImage?
+  public static func getCameraSensorOrientation(isFrontCamera: Swift.Bool) -> Swift.Int
+  public static func transformBitmap(_ image: UIKit.UIImage, rotation: Swift.Int, isFrontCamera: Swift.Bool) -> UIKit.UIImage
+  public static func flipBitmap(_ image: UIKit.UIImage) -> UIKit.UIImage?
+  public static func flipBitmapVertical(_ image: UIKit.UIImage) -> UIKit.UIImage?
+  public static func rotate180(_ image: UIKit.UIImage) -> UIKit.UIImage?
+  public static func calculateCropRect(previewView: UIKit.UIView, imageSize: CoreFoundation.CGSize) -> CoreFoundation.CGRect
+  public static func cropImage(_ image: UIKit.UIImage, toRect rect: CoreFoundation.CGRect) -> UIKit.UIImage?
+  public static func saveBitmapToFile(_ image: UIKit.UIImage, outputFile: Foundation.URL, quality: CoreFoundation.CGFloat = 1.0) -> Foundation.URL?
+  public static func jpegDataOpaque(from image: UIKit.UIImage, quality: CoreFoundation.CGFloat) -> Foundation.Data?
+  public static func createTempImageFile() -> Foundation.URL
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SdkCameraConfig : ObjectiveC.NSObject {
+  public var onQrScanned: ((Swift.String) -> Swift.Void)?
+  public var onImageCaptured: ((Foundation.Data) -> Swift.Void)?
+  public var onImagePreview: ((Foundation.Data) -> Swift.Void)?
+  public var callbackError: ((FinosCore.EKYCErrorEvent, Swift.String) -> Swift.Void)?
+  public var onPermissionRequired: (() -> Swift.Void)?
+  public var onFaceDetected: ((Swift.Bool) -> Swift.Void)?
+  public var onFaceDetectionDetails: ((Swift.Int, Swift.String?) -> Swift.Void)?
+  public var onLivenessFrame: ((_ image: UIKit.UIImage, _ onFaceResult: @escaping ([(face: Any, maskLabel: Swift.String?)]) -> Swift.Void, _ callbackUpdate: @escaping (Swift.String) -> Swift.Void, _ callbackSuccess: @escaping (FinosCore.EKYCEvent, Any?) -> Swift.Void, _ callbackError: @escaping (FinosCore.EKYCErrorEvent, Swift.String) -> Swift.Void) -> Swift.Void)?
+  public var isCropInPreview: Swift.Bool
+  public var debugShowFaceRegion: Swift.Bool
+  public var overlayRadius: CoreFoundation.CGFloat?
+  public var captureCropFraction: CoreFoundation.CGRect
+  @objc override dynamic public init()
+  public init(onQrScanned: ((Swift.String) -> Swift.Void)? = nil, onImageCaptured: ((Foundation.Data) -> Swift.Void)? = nil, onImagePreview: ((Foundation.Data) -> Swift.Void)? = nil, callbackError: ((FinosCore.EKYCErrorEvent, Swift.String) -> Swift.Void)? = nil, onPermissionRequired: (() -> Swift.Void)? = nil, onFaceDetected: ((Swift.Bool) -> Swift.Void)? = nil, onFaceDetectionDetails: ((Swift.Int, Swift.String?) -> Swift.Void)? = nil, onLivenessFrame: ((_ image: UIKit.UIImage, _ onFaceResult: @escaping ([(face: Any, maskLabel: Swift.String?)]) -> Swift.Void, _ callbackUpdate: @escaping (Swift.String) -> Swift.Void, _ callbackSuccess: @escaping (FinosCore.EKYCEvent, Any?) -> Swift.Void, _ callbackError: @escaping (FinosCore.EKYCErrorEvent, Swift.String) -> Swift.Void) -> Swift.Void)? = nil, isCropInPreview: Swift.Bool = false, debugShowFaceRegion: Swift.Bool = false)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class SdkCameraHelper : ObjectiveC.NSObject {
+  @objc public var previewLayerPublic: AVFoundation.AVCaptureVideoPreviewLayer? {
+    @objc get
+  }
+  @objc public static func create(mode: Ekyc.SdkCameraMode, config: Ekyc.SdkCameraConfig) -> Ekyc.SdkCameraHelper
+  @objc public func updatePreviewBoundsCache()
+  @objc public func setupPreview(on view: UIKit.UIView)
+  @objc public func updatePreviewFrame()
+  @objc public func start()
+  @objc public func pause()
+  public func setPreviewFrozen(_ frozen: Swift.Bool)
+  @objc public func resume()
+  @objc public func stop()
+  @objc public func shutdown()
+  @objc public func switchCamera()
+  @objc public func isRunning() -> Swift.Bool
+  @objc public func captureImage()
+  @objc deinit
+}
+extension Ekyc.SdkCameraHelper : AVFoundation.AVCapturePhotoCaptureDelegate {
+  @objc dynamic public func photoOutput(_ output: AVFoundation.AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVFoundation.AVCapturePhoto, error: (any Swift.Error)?)
+}
+extension Ekyc.SdkCameraHelper : AVFoundation.AVCaptureVideoDataOutputSampleBufferDelegate {
+  @objc dynamic public func captureOutput(_ output: AVFoundation.AVCaptureOutput, didOutput sampleBuffer: CoreMedia.CMSampleBuffer, from connection: AVFoundation.AVCaptureConnection)
+}
+extension Ekyc.SdkCameraHelper : AVFoundation.AVCaptureMetadataOutputObjectsDelegate {
+  @objc dynamic public func metadataOutput(_ output: AVFoundation.AVCaptureMetadataOutput, didOutput metadataObjects: [AVFoundation.AVMetadataObject], from connection: AVFoundation.AVCaptureConnection)
+}
+@objc public enum SdkCameraMode : Swift.Int {
+  case qrCode = 0
+  case ocr = 1
+  case livenessCapture = 2
+  case liveness = 3
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class SquareOverlayView : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public var borderColor: UIKit.UIColor {
+    get
+    set
+  }
+  @_Concurrency.MainActor @preconcurrency public var borderWidth: CoreFoundation.CGFloat {
+    get
+    set
+  }
+  @_Concurrency.MainActor @preconcurrency public var cornerRadius: CoreFoundation.CGFloat {
+    get
+    set
+  }
+  @_Concurrency.MainActor @preconcurrency public var overlayColor: UIKit.UIColor {
+    get
+    set
+  }
+  @_Concurrency.MainActor @preconcurrency public var aspectRatio: CoreFoundation.CGFloat {
+    get
+    set
+  }
+  @_Concurrency.MainActor @preconcurrency public var maxHeightRatio: CoreFoundation.CGFloat {
+    get
+    set
+  }
+  @_Concurrency.MainActor @preconcurrency public var overlayRect: CoreFoundation.CGRect {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func draw(_ rect: CoreFoundation.CGRect)
+  @_Concurrency.MainActor @preconcurrency public func configureForQRCode()
+  @_Concurrency.MainActor @preconcurrency public func configureForIDCard()
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency final public class EKFinosFlowCoordinator : UIKit.UINavigationController {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, [Swift.String : Any]?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @_Concurrency.MainActor @preconcurrency public init(ekycConfig: FinosCore.EKYCConfigSDK, onComplete: @escaping Ekyc.EKFinosFlowCoordinator.SuccessCallback, onError: @escaping Ekyc.EKFinosFlowCoordinator.ErrorCallback)
+  @objc deinit
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class BaseSDKeKYCLoadingView : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor @preconcurrency public func show()
+  @_Concurrency.MainActor @preconcurrency public func hide()
+  @_Concurrency.MainActor @preconcurrency public func isShowing() -> Swift.Bool
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class StyleApplier {
+  public static func setTitleTag(_ view: UIKit.UIView)
+  public static func setToolbarTag(_ view: UIKit.UIView)
+  public static func setInstructionTag(_ view: UIKit.UIView)
+  public static func setErrorTag(_ view: UIKit.UIView)
+  public static func setSuccessTag(_ view: UIKit.UIView)
+  public static func setWarningTag(_ view: UIKit.UIView)
+  public static func setInstructionTagAndApply(_ view: UIKit.UIView)
+  public static func setTitleTagAndApply(_ view: UIKit.UIView)
+  public static func setToolbarTagAndApply(_ view: UIKit.UIView)
+  public static func applyToView(_ view: UIKit.UIView?)
+  public static func applyToRoot(_ root: UIKit.UIView?)
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency final public class EKLoadingOverlay : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public init()
+  @_Concurrency.MainActor @preconcurrency final public func show(message: Swift.String? = nil)
+  @_Concurrency.MainActor @preconcurrency final public func hide()
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency final public class EKMockIDCardView : UIKit.UIView {
+  public enum Side {
+    case front, back
+    public static func == (a: Ekyc.EKMockIDCardView.Side, b: Ekyc.EKMockIDCardView.Side) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  @_Concurrency.MainActor @preconcurrency final public var side: Ekyc.EKMockIDCardView.Side {
+    get
+    set
+  }
+  @_Concurrency.MainActor @preconcurrency final public var tilt: CoreFoundation.CGFloat {
+    get
+    set
+  }
+  @_Concurrency.MainActor @preconcurrency public init(side: Ekyc.EKMockIDCardView.Side = .front)
+  @_Concurrency.MainActor @preconcurrency @objc override final public func draw(_ rect: CoreFoundation.CGRect)
+  @objc deinit
+}
+public struct SDKTheme {
+  public var accent: UIKit.UIColor?
+  public var logo: UIKit.UIImage?
+  public var fontSansFamily: Swift.String?
+  public var fontMonoFamily: Swift.String?
+  public var strings: [Swift.String : Swift.String]
+  public enum ColorScheme {
+    case light
+    case dark
+    case system
+    public static func == (a: Ekyc.SDKTheme.ColorScheme, b: Ekyc.SDKTheme.ColorScheme) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public var colorScheme: Ekyc.SDKTheme.ColorScheme
+  public var colorOverrides: [Swift.String : UIKit.UIColor]
+  public var fontSizeScale: CoreFoundation.CGFloat
+  public var spacingScale: CoreFoundation.CGFloat
+  public var hideSecurityStrip: Swift.Bool
+  public var hideNFCFindLink: Swift.Bool
+  public var hideContactSupport: Swift.Bool
+  public var localizedStrings: [Swift.String : [Swift.String : Swift.String]]
+  public init(accent: UIKit.UIColor? = nil, logo: UIKit.UIImage? = nil, fontSansFamily: Swift.String? = nil, fontMonoFamily: Swift.String? = nil, strings: [Swift.String : Swift.String] = [:], colorScheme: Ekyc.SDKTheme.ColorScheme = .light, colorOverrides: [Swift.String : UIKit.UIColor] = [:], fontSizeScale: CoreFoundation.CGFloat = 1.0, spacingScale: CoreFoundation.CGFloat = 1.0, hideSecurityStrip: Swift.Bool = false, hideNFCFindLink: Swift.Bool = false, hideContactSupport: Swift.Bool = false, localizedStrings: [Swift.String : [Swift.String : Swift.String]] = [:])
+  public static var `default`: Ekyc.SDKTheme {
+    get
+  }
+  public static var current: Ekyc.SDKTheme
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency final public class EKFailureViewController : UIKit.UIViewController {
+  public enum FailureReason {
+    case faceMismatch
+    case chipReadFailed
+    case documentExpired
+    case generic(title: Swift.String, description: Swift.String, stage: Swift.String, code: Swift.String)
+  }
+  @_Concurrency.MainActor @preconcurrency final public var reason: Ekyc.EKFailureViewController.FailureReason
+  @_Concurrency.MainActor @preconcurrency final public var issueCode: Swift.String?
+  @_Concurrency.MainActor @preconcurrency final public var onRetry: (() -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency final public var onClose: (() -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency final public var onContact: (() -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency final public var frontImage: UIKit.UIImage?
+  @_Concurrency.MainActor @preconcurrency final public var backImage: UIKit.UIImage?
+  @_Concurrency.MainActor @preconcurrency final public var idPortraitImage: UIKit.UIImage?
+  @_Concurrency.MainActor @preconcurrency final public var selfieImage: UIKit.UIImage?
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency final public class EKLivenessCaptureViewController : UIKit.UIViewController {
+  public enum LivenessMode {
+    case active, passive
+    public static func == (a: Ekyc.EKLivenessCaptureViewController.LivenessMode, b: Ekyc.EKLivenessCaptureViewController.LivenessMode) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  @_Concurrency.MainActor @preconcurrency final public var mode: Ekyc.EKLivenessCaptureViewController.LivenessMode
+  @_Concurrency.MainActor @preconcurrency final public var activeActionCount: Swift.Int
+  @_Concurrency.MainActor @preconcurrency final public var customActions: [FinosCore.SDKFaceDetectStatus]?
+  @_Concurrency.MainActor @preconcurrency final public var onBack: (() -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency final public var onDone: (() -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency final public var onSelfieCaptured: ((Foundation.Data) -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency final public var onError: ((FinosCore.EKYCErrorResult) -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency final public var simulateError: Swift.Bool
+  @_Concurrency.MainActor @preconcurrency final public var vendorDriven: Swift.Bool
+  @_Concurrency.MainActor @preconcurrency final public func applyVendorCondition(_ c: FinosCore.EKFaceCondition)
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLayoutSubviews()
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewWillDisappear(_ animated: Swift.Bool)
+  @objc deinit
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+extension Ekyc.EKLivenessCaptureViewController : AVFoundation.AVCapturePhotoCaptureDelegate {
+  @_Concurrency.MainActor @preconcurrency @objc final public func photoOutput(_ output: AVFoundation.AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVFoundation.AVCapturePhoto, error: (any Swift.Error)?)
+}
+extension Ekyc.EKLivenessCaptureViewController : AVFoundation.AVCaptureVideoDataOutputSampleBufferDelegate {
+  @_Concurrency.MainActor @preconcurrency @objc final public func captureOutput(_ output: AVFoundation.AVCaptureOutput, didOutput sampleBuffer: CoreMedia.CMSampleBuffer, from connection: AVFoundation.AVCaptureConnection)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency final public class EKSuccessViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor @preconcurrency final public var onViewSummary: (() -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency final public var onDone: (() -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency final public var name: Swift.String
+  @_Concurrency.MainActor @preconcurrency final public var idNumber: Swift.String
+  @_Concurrency.MainActor @preconcurrency final public var dob: Swift.String
+  @_Concurrency.MainActor @preconcurrency final public var sex: Swift.String
+  @_Concurrency.MainActor @preconcurrency final public var nationality: Swift.String
+  @_Concurrency.MainActor @preconcurrency final public var expiry: Swift.String
+  @_Concurrency.MainActor @preconcurrency final public var verifiedAtText: Swift.String
+  @_Concurrency.MainActor @preconcurrency final public var referenceCode: Swift.String
+  @_Concurrency.MainActor @preconcurrency final public var faceMatchScorePercent: Swift.Int?
+  @_Concurrency.MainActor @preconcurrency final public var livenessNoSpoofing: Swift.Bool?
+  @_Concurrency.MainActor @preconcurrency final public var nfcDataRead: Swift.Bool
+  @_Concurrency.MainActor @preconcurrency final public var nfcVerified: Swift.Bool
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency final public class EKWelcomeViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor @preconcurrency final public var onStart: (() -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency final public var onBack: (() -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency @objc override final public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SDKUITheme : ObjectiveC.NSObject {
+  @_inheritsConvenienceInitializers @objc public class Theme : ObjectiveC.NSObject {
+    public var primaryColor: UIKit.UIColor
+    public var secondaryColor: UIKit.UIColor
+    public var backgroundColor: UIKit.UIColor
+    public var textColor: UIKit.UIColor
+    public var errorColor: UIKit.UIColor
+    @objc override dynamic public init()
+    @objc deinit
+  }
+  @objc public static var theme: Ekyc.SDKUITheme.Theme
+  @objc public static func configure(theme: Ekyc.SDKUITheme.Theme)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor @preconcurrency open class SDKBaseViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency open func setupUI()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc @_Concurrency.MainActor @preconcurrency public class SDKLoadingView : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @objc @_Concurrency.MainActor @preconcurrency public func show(message: Swift.String = "Loading...")
+  @objc @_Concurrency.MainActor @preconcurrency public func hide()
+  @objc deinit
+}
+public class SDKeKYCUIViewModel {
+  public struct EkycStateModel {
+    public var transactionId: Swift.String
+    public var frontResult: FinosCore.CheckOcrResponse.OcrCheckResult?
+    public var backResult: FinosCore.CheckOcrResponse.OcrCheckResult?
+    public var qrCodeData: FinosCore.QRCodeData?
+    public var livenessCheckResult: FinosCore.CheckLivenessResponse.LivenessCheckResult?
+    public var checkFaceResponse: FinosCore.CheckFaceResponse?
+    public var nfcData: Ekyc.SDKeKYCUIViewModel.EkycStateModel.NFCDataModel?
+    public init(transactionId: Swift.String = UUID().uuidString, frontResult: FinosCore.CheckOcrResponse.OcrCheckResult? = nil, backResult: FinosCore.CheckOcrResponse.OcrCheckResult? = nil, qrCodeData: FinosCore.QRCodeData? = nil, livenessCheckResult: FinosCore.CheckLivenessResponse.LivenessCheckResult? = nil, checkFaceResponse: FinosCore.CheckFaceResponse? = nil, nfcData: Ekyc.SDKeKYCUIViewModel.EkycStateModel.NFCDataModel? = nil)
+    public typealias NFCDataModel = FinosCore.DataMapper.NFCDataModel
+  }
+  public var ekycStateModel: Ekyc.SDKeKYCUIViewModel.EkycStateModel?
+  public var isQRCode: Swift.Bool
+  public var screenStep: FinosCore.SDKStepType
+  public var mrzField: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.FieldsExtracted.MrzString? {
+    get
+  }
+  public init()
+  public func setSDKStepType(_ step: FinosCore.SDKStepType)
+  public func observeScreenStep(_ callback: @escaping (FinosCore.SDKStepType) -> Swift.Void)
+  public func navigateToNextStep()
+  public func clearAllCameraData()
+  public func setOcrResultFront(_ value: [Swift.String : Any]?)
+  public func setOcrResultBack(_ value: [Swift.String : Any]?, callbackSuccess: @escaping (Swift.Bool) -> Swift.Void)
+  public func setLiveness(_ value: [Swift.String : Any]?)
+  public func setLiveness(_ value: FinosCore.CheckLivenessResponse.LivenessCheckResult?)
+  public func setNfcData(_ nfcData: [Swift.String : Any]?)
+  public func setNfcDataWithFaceImage(faceImageBase64: Swift.String?)
+  public func setImageData(_ value: [[Swift.String : Any]]?)
+  public func setImageData(_ value: [FinosCore.SDKImageResultModel]?)
+  public func setImageFile(ocrFrontFile: Foundation.URL? = nil, ocrBackFile: Foundation.URL? = nil, faceFile: Foundation.URL? = nil)
+  public func setId9Number(_ value: Swift.String)
+  public func setTransactionId(_ value: Swift.String)
+  public func setQrCodeData(from qrString: Swift.String)
+  public func setQrCodeData(_ data: FinosCore.QRCodeData)
+  public func createSDKEkycResultWithState(checkFaceResponse: FinosCore.CheckFaceResponse) -> FinosCore.SDKEkycResult
+  public func clearAllResults()
+  public func getOcrFrontResult() -> [Swift.String : Any]?
+  public func getOcrBackResult() -> [Swift.String : Any]?
+  public func getLivenessResult() -> [Swift.String : Any]?
+  public func getNfcData() -> [Swift.String : Any]?
+  public func getTransactionId() -> Swift.String?
+  public func getDocumentNumberOld() -> Swift.String?
+  public func getImageFile(for key: Swift.String) -> Foundation.URL?
+  public func getQrCodeData() -> FinosCore.QRCodeData?
+  public func getQrCodeIdNumber() -> Swift.String?
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SDKFaceServiceInit {
+  public static let shared: Ekyc.SDKFaceServiceInit
+  public func initialize()
+  public func getViewModel() -> Ekyc.SDKFaceServiceViewModel
+  public func cleanup()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class SDKFaceServiceViewModel : FinosCore.SDKBaseViewModel {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @objc override dynamic public init()
+  public func checkFace(appKey: Swift.String, faceServiceConfig: FinosCore.FaceServiceConfig, callbackSuccess: @escaping Ekyc.SDKFaceServiceViewModel.SuccessCallback, callbackError: @escaping Ekyc.SDKFaceServiceViewModel.ErrorCallback)
+  public func cancelRequest()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SdkEkycFaceService : ObjectiveC.NSObject {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @objc public static func startEkyc(ekycConfigSDK: FinosCore.EKYCConfigSDK, callbackSuccess: Ekyc.SdkEkycFaceService.SuccessCallback?, callbackError: Ekyc.SdkEkycFaceService.ErrorCallback?)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol SDKEkycServiceCoreProtocol {
+  func sdkInit(appKey: Swift.String, deviceFingerprint: Swift.String) async throws -> Ekyc.SdkInitResponse
+  func ocrCheck(transactionId: Swift.String, imageBytes: Foundation.Data, side: Swift.String) async throws -> FinosCore.CheckOcrResponse
+  func livenessPassiveCheck(transactionId: Swift.String, imageBytes: Foundation.Data) async throws -> FinosCore.CheckLivenessResponse
+  func nfcCheck(transactionId: Swift.String, request: Ekyc.AuditNfcRequest) async throws -> FinosCore.APIResponse<FinosCore.SDKBaseResponse>
+  func c06Check(transactionId: Swift.String, request: Ekyc.CheckC06Request) async throws -> FinosCore.CheckC06Response
+  func compareCheck(transactionId: Swift.String, requestId: Swift.String, idBytes: Foundation.Data, selfieBytes: Foundation.Data) async throws -> FinosCore.CheckFaceResponse
+  func livenessActiveCheck(transactionId: Swift.String, requestId: Swift.String, result: Swift.String, selfieBytes: Foundation.Data) async throws -> FinosCore.APIResponse<FinosCore.SubmitLivenessResponse>
+}
+public protocol SDKSmsOtpServiceCoreProtocol {
+  func sendOtp(apiKey: Swift.String, request: Ekyc.SendOtpRequest) async throws -> FinosCore.APIResponse<Ekyc.SendOtpResponse>
+  func verifyOtp(apiKey: Swift.String, request: Ekyc.VerifyOtpRequest) async throws -> FinosCore.APIResponse<Ekyc.VerifyOtpResponse>
+  func resendOtp(apiKey: Swift.String, request: Ekyc.ResendOtpRequest) async throws -> FinosCore.APIResponse<Ekyc.ResendOtpResponse>
+}
+public protocol SDKBackOfficeServiceCoreProtocol {
+  func fetchTransactionHistories(appKey: Swift.String?, requestIds: Swift.String) async throws -> FinosCore.APIResponse<FinosCore.SDKListTransactionResponse>
+  func getTransactionHistoryDetail(appKey: Swift.String?, transactionId: Swift.String) async throws -> FinosCore.APIResponse<FinosCore.SDKBaseResponse>
+}
+@objc public class CheckC06Request : ObjectiveC.NSObject, Swift.Codable {
+  public var deviceType: Swift.String?
+  public var sod: Swift.String?
+  public var idCardNumber: Swift.String?
+  public var recentLocation: Swift.String?
+  public init(deviceType: Swift.String? = nil, sod: Swift.String? = nil, idCardNumber: Swift.String? = nil, recentLocation: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class AuditNfcRequest : ObjectiveC.NSObject, Swift.Codable {
+  public var finOSApiKey: Swift.String?
+  public var gwRequestId: Swift.String?
+  public var deviceType: Swift.String?
+  public var idNumber: Swift.String?
+  public var name: Swift.String?
+  public var dob: Swift.String?
+  public var gender: Swift.String?
+  public var nationality: Swift.String?
+  public var ethnic: Swift.String?
+  public var religion: Swift.String?
+  public var homeTown: Swift.String?
+  public var permanentAddress: Swift.String?
+  public var features: Swift.String?
+  public var doi: Swift.String?
+  public var doe: Swift.String?
+  public var fatherName: Swift.String?
+  public var motherName: Swift.String?
+  public var spouseName: Swift.String?
+  public var oldId: Swift.String?
+  public var imageFace: Swift.String?
+  public var mrz: Swift.String?
+  public var sdkStatus: Swift.String?
+  public var transactionId: Swift.String?
+  public var corporateCode: Swift.String?
+  public var com: Swift.String?
+  public var sod: Swift.String?
+  public var dg1: Swift.String?
+  public var dg2: Swift.String?
+  public var dg3: Swift.String?
+  public var dg4: Swift.String?
+  public var dg5: Swift.String?
+  public var dg6: Swift.String?
+  public var dg7: Swift.String?
+  public var dg8: Swift.String?
+  public var dg9: Swift.String?
+  public var dg10: Swift.String?
+  public var dg11: Swift.String?
+  public var dg12: Swift.String?
+  public var dg13: Swift.String?
+  public var dg14: Swift.String?
+  public var dg15: Swift.String?
+  public init(finOSApiKey: Swift.String? = nil, gwRequestId: Swift.String? = nil, deviceType: Swift.String? = nil, idNumber: Swift.String? = nil, name: Swift.String? = nil, dob: Swift.String? = nil, gender: Swift.String? = nil, nationality: Swift.String? = nil, ethnic: Swift.String? = nil, religion: Swift.String? = nil, homeTown: Swift.String? = nil, permanentAddress: Swift.String? = nil, features: Swift.String? = nil, doi: Swift.String? = nil, doe: Swift.String? = nil, fatherName: Swift.String? = nil, motherName: Swift.String? = nil, spouseName: Swift.String? = nil, oldId: Swift.String? = nil, imageFace: Swift.String? = nil, mrz: Swift.String? = nil, sdkStatus: Swift.String? = nil, transactionId: Swift.String? = nil, corporateCode: Swift.String? = nil, com: Swift.String? = nil, sod: Swift.String? = nil, dg1: Swift.String? = nil, dg2: Swift.String? = nil, dg3: Swift.String? = nil, dg4: Swift.String? = nil, dg5: Swift.String? = nil, dg6: Swift.String? = nil, dg7: Swift.String? = nil, dg8: Swift.String? = nil, dg9: Swift.String? = nil, dg10: Swift.String? = nil, dg11: Swift.String? = nil, dg12: Swift.String? = nil, dg13: Swift.String? = nil, dg14: Swift.String? = nil, dg15: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class SendOtpRequest : ObjectiveC.NSObject, Swift.Codable {
+  public var phoneNumber: Swift.String
+  public var purpose: Swift.String
+  public var referenceId: Swift.String
+  public init(phoneNumber: Swift.String, purpose: Swift.String = "transaction", referenceId: Swift.String)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class VerifyOtpRequest : ObjectiveC.NSObject, Swift.Codable {
+  public var requestId: Swift.String
+  public var otpCode: Swift.String
+  public init(requestId: Swift.String, otpCode: Swift.String)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class ResendOtpRequest : ObjectiveC.NSObject, Swift.Codable {
+  public var requestId: Swift.String
+  public init(requestId: Swift.String)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class SendOtpResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var success: Swift.Bool?
+  public var requestId: Swift.String?
+  public var expiresIn: Swift.Int?
+  public var resendAfter: Swift.Int?
+  public var error: Swift.String?
+  public init(success: Swift.Bool? = nil, requestId: Swift.String? = nil, expiresIn: Swift.Int? = nil, resendAfter: Swift.Int? = nil, error: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class VerifyOtpResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var success: Swift.Bool?
+  public var verified: Swift.Bool?
+  public var verifiedAt: Swift.String?
+  public var attemptsRemaining: Swift.Int?
+  public var error: Swift.String?
+  public init(success: Swift.Bool? = nil, verified: Swift.Bool? = nil, verifiedAt: Swift.String? = nil, attemptsRemaining: Swift.Int? = nil, error: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class ResendOtpResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var success: Swift.Bool?
+  public var requestId: Swift.String?
+  public var expiresIn: Swift.Int?
+  public var resendAfter: Swift.Int?
+  public var attemptsRemaining: Swift.Int?
+  public var error: Swift.String?
+  public init(success: Swift.Bool? = nil, requestId: Swift.String? = nil, expiresIn: Swift.Int? = nil, resendAfter: Swift.Int? = nil, attemptsRemaining: Swift.Int? = nil, error: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class SdkInitResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var finosJwt: Swift.String
+  public var transactionId: Swift.String
+  public var expiresIn: Swift.Int
+  public init(finosJwt: Swift.String, transactionId: Swift.String, expiresIn: Swift.Int)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class SDKLivenessInit {
+  public static let shared: Ekyc.SDKLivenessInit
+  public func initialize()
+  public func getViewModel() -> Ekyc.SDKLivenessViewModel
+  public func cleanup()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class SDKLivenessViewModel : FinosCore.SDKBaseViewModel {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @objc override dynamic public init()
+  public func uploadFace(appKey: Swift.String, livenessConfig: FinosCore.LivenessConfig, imageData: Foundation.Data, callbackSuccess: @escaping Ekyc.SDKLivenessViewModel.SuccessCallback, callbackError: @escaping Ekyc.SDKLivenessViewModel.ErrorCallback)
+  public func cancelRequest()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SdkEkycLiveness : ObjectiveC.NSObject {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @objc public static func startEkyc(ekycConfigSDK: FinosCore.EKYCConfigSDK, callbackSuccess: Ekyc.SdkEkycLiveness.SuccessCallback? = nil, callbackError: Ekyc.SdkEkycLiveness.ErrorCallback? = nil)
+  @objc public static func initializeModule()
+  @objc public static func cancelRequest()
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class LivenessLogic {
+  public static func detectFaceDirection(face: Vision.VNFaceObservation, facePitchRad: Swift.Float? = nil) -> FinosCore.SDKFaceDetectStatus
+  public static func detectSmile(face: Vision.VNFaceObservation) -> Swift.Bool
+  public static func detectBlink(face: Vision.VNFaceObservation) -> Swift.Bool
+  public static func resetBaseline()
+  public static func detectWink(face: Vision.VNFaceObservation) -> FinosCore.SDKFaceDetectStatus?
+  public static func debugAngles(face: Vision.VNFaceObservation, facePitchRad: Swift.Float? = nil) -> (eulerY: Swift.Float, eulerX: Swift.Float, rawYawDeg: Swift.Float, rawPitchDeg: Swift.Float)
+  public static func eyeOpenRatios(face: Vision.VNFaceObservation) -> (left: Swift.Float, right: Swift.Float)
+  public static func smileDebugInfo(face: Vision.VNFaceObservation) -> (liftRatio: Swift.Float, threshold: Swift.Float)
+  public static func detectDistance(face: Vision.VNFaceObservation, imageWidth: Swift.Float) -> FinosCore.SDKFaceDetectStatus?
+  public static func generateLivenessSteps(isActiveLiveness: Swift.Bool = true, customActions: [FinosCore.SDKFaceDetectStatus]? = nil, activeActionCount: Swift.Int = 2) -> [FinosCore.SDKFaceDetectStatus]
+  @objc deinit
+}
+final public class LivenessStepMachine {
+  final public var currentIndex: Swift.Int {
+    get
+  }
+  public init(steps: [FinosCore.SDKFaceDetectStatus])
+  final public var totalCount: Swift.Int {
+    get
+  }
+  final public var expectedStep: FinosCore.SDKFaceDetectStatus? {
+    get
+  }
+  final public var nextStep: FinosCore.SDKFaceDetectStatus? {
+    get
+  }
+  final public var isComplete: Swift.Bool {
+    get
+  }
+  final public var completedCount: Swift.Int {
+    get
+  }
+  @discardableResult
+  final public func advance() -> Swift.Bool
+  final public func reset()
+  @objc deinit
+}
+public enum LivenessClassifier {
+  public static let pitchUp: Swift.Float
+  public static let pitchDown: Swift.Float
+  public static let yawLeft: Swift.Float
+  public static let yawRight: Swift.Float
+  public static func classifyDirection(eulerY: Swift.Float, eulerX: Swift.Float) -> FinosCore.SDKFaceDetectStatus
+  public static let faceRatioTooFar: Swift.Float
+  public static let faceRatioTooClose: Swift.Float
+  public static func classifyDistance(faceRatio: Swift.Float) -> FinosCore.SDKFaceDetectStatus?
+}
+@_hasMissingDesignatedInitializers public class MaskDetector {
+  public static func get(_ context: Any? = nil) -> Ekyc.MaskDetector
+  public func detect(_ faceBitmap: UIKit.UIImage) -> Swift.String
+  @available(*, deprecated, message: "Use detect() instead")
+  public func detectOld(_ faceBitmap: UIKit.UIImage) -> Swift.String
+  public func setThreshold(_ threshold: Swift.Float)
+  public func getThreshold() -> Swift.Float
+  @objc deinit
+}
+@available(iOS 13, macOS 10.15, *)
+public func AESDecrypt(key: [Swift.UInt8], message: [Swift.UInt8], iv: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func AESECBEncrypt(key: [Swift.UInt8], message: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func tripleDESEncrypt(key: [Swift.UInt8], message: [Swift.UInt8], iv: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func tripleDESDecrypt(key: [Swift.UInt8], message: [Swift.UInt8], iv: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func DESEncrypt(key: [Swift.UInt8], message: [Swift.UInt8], iv: [Swift.UInt8], options: Swift.UInt32 = 0) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func DESDecrypt(key: [Swift.UInt8], message: [Swift.UInt8], iv: [Swift.UInt8], options: Swift.UInt32 = 0) -> [Swift.UInt8]
+public enum ASN1IndexEnum : Swift.Int {
+  case none
+  case cardNumber
+  case name
+  case dob
+  case sex
+  case naionality
+  case national
+  case religion
+  case hometown
+  case address
+  case charater
+  case issueDate
+  case expiredDate
+  case parents
+  case partnerName
+  case previousNumber
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+precedencegroup ExponentiationPrecedence {
+  associativity: left
+  higherThan: MultiplicationPrecedence
+  lowerThan: BitwiseShiftPrecedence
+}
+infix operator ** : ExponentiationPrecedence
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(iOS 13, macOS 10.15, *)
+public class COM : Ekyc.DataGroup {
+  public var version: Swift.String {
+    get
+  }
+  public var unicodeVersion: Swift.String {
+    get
+  }
+  public var dataGroupsPresent: [Swift.String] {
+    get
+  }
+  override public var datagroupType: Ekyc.DataGroupId {
+    get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @available(iOS 13, macOS 10.15, *)
+public class DataGroup {
+  public var datagroupType: Ekyc.DataGroupId {
+    get
+  }
+  public var body: [Swift.UInt8] {
+    get
+  }
+  public var data: [Swift.UInt8] {
+    get
+  }
+  public func hash(_ hashAlgorythm: Swift.String) -> [Swift.UInt8]
+  public func verifyTag(_ tag: Swift.Int, equals expectedTag: Swift.Int) throws
+  public func verifyTag(_ tag: Swift.Int, oneOf expectedTags: [Swift.Int]) throws
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(iOS 13, macOS 10.15, *)
+public class DataGroup2 : Ekyc.DataGroup {
+  public var nrImages: Swift.Int {
+    get
+  }
+  public var versionNumber: Swift.Int {
+    get
+  }
+  public var lengthOfRecord: Swift.Int {
+    get
+  }
+  public var numberOfFacialImages: Swift.Int {
+    get
+  }
+  public var facialRecordDataLength: Swift.Int {
+    get
+  }
+  public var nrFeaturePoints: Swift.Int {
+    get
+  }
+  public var gender: Swift.Int {
+    get
+  }
+  public var eyeColor: Swift.Int {
+    get
+  }
+  public var hairColor: Swift.Int {
+    get
+  }
+  public var featureMask: Swift.Int {
+    get
+  }
+  public var expression: Swift.Int {
+    get
+  }
+  public var poseAngle: Swift.Int {
+    get
+  }
+  public var poseAngleUncertainty: Swift.Int {
+    get
+  }
+  public var faceImageType: Swift.Int {
+    get
+  }
+  public var imageDataType: Swift.Int {
+    get
+  }
+  public var imageWidth: Swift.Int {
+    get
+  }
+  public var imageHeight: Swift.Int {
+    get
+  }
+  public var imageColorSpace: Swift.Int {
+    get
+  }
+  public var sourceType: Swift.Int {
+    get
+  }
+  public var deviceType: Swift.Int {
+    get
+  }
+  public var quality: Swift.Int {
+    get
+  }
+  public var imageData: [Swift.UInt8] {
+    get
+  }
+  override public var datagroupType: Ekyc.DataGroupId {
+    get
+  }
+  @objc deinit
+}
+@available(iOS 13, macOS 10.15, *)
+public enum DataGroupId : Swift.Int, Swift.CaseIterable, Swift.Sendable {
+  case COM
+  case DG1
+  case DG2
+  case DG3
+  case DG4
+  case DG5
+  case DG6
+  case DG7
+  case DG8
+  case DG9
+  case DG10
+  case DG11
+  case DG12
+  case DG13
+  case DG14
+  case DG15
+  case DG16
+  case SOD
+  case Unknown
+  public func getName() -> Swift.String
+  public static func getIDFromName(name: Swift.String) -> Ekyc.DataGroupId
+  public init?(rawValue: Swift.Int)
+  @available(iOS 13, macOS 10.15, *)
+  public typealias AllCases = [Ekyc.DataGroupId]
+  @available(iOS 13, macOS 10.15, *)
+  public typealias RawValue = Swift.Int
+  nonisolated public static var allCases: [Ekyc.DataGroupId] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(iOS 13, macOS 10.15, *)
+public class NotImplementedDG : Ekyc.DataGroup {
+  override public var datagroupType: Ekyc.DataGroupId {
+    get
+  }
+  @objc deinit
+}
+@available(iOS 13, macOS 10.15, *)
+public enum NFCPassportReaderError : Swift.Error {
+  case ResponseError(Swift.String, Swift.UInt8, Swift.UInt8)
+  case InvalidResponse(dataGroupId: Ekyc.DataGroupId, expectedTag: Swift.Int, actualTag: Swift.Int)
+  case UnexpectedError
+  case NFCNotSupported
+  case NoConnectedTag
+  case D087Malformed
+  case InvalidResponseChecksum
+  case MissingMandatoryFields
+  case CannotDecodeASN1Length
+  case InvalidASN1Value
+  case UnableToProtectAPDU
+  case UnableToUnprotectAPDU
+  case UnsupportedDataGroup
+  case DataGroupNotRead
+  case UnknownTag
+  case UnknownImageFormat
+  case NotImplemented
+  case TagNotValid
+  case ConnectionError
+  case UserCanceled
+  case InvalidMRZKey
+  case MoreThanOneTagFound
+  case SystemBusy
+  case InvalidHashAlgorithmSpecified
+  case UnsupportedCipherAlgorithm
+  case UnsupportedMappingType
+  case PACEError(Swift.String, Swift.String)
+  case ChipAuthenticationFailed
+  case PassiveAuthenticationFailed
+  case InvalidDataPassed(Swift.String)
+  case NotYetSupported(Swift.String)
+  case Unknown(any Swift.Error)
+}
+@available(iOS 13, macOS 10.15, *)
+extension Ekyc.NFCPassportReaderError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@available(iOS 13, macOS 10.15, *)
+public enum OpenSSLError : Swift.Error {
+  case UnableToGetX509CertificateFromPKCS7(Swift.String)
+  case UnableToVerifyX509CertificateForSOD(Swift.String)
+  case VerifyAndReturnSODEncapsulatedData(Swift.String)
+  case UnableToReadECPublicKey(Swift.String)
+  case UnableToExtractSignedDataFromPKCS7(Swift.String)
+  case VerifySignedAttributes(Swift.String)
+  case UnableToParseASN1(Swift.String)
+  case UnableToDecryptRSASignature(Swift.String)
+}
+@available(iOS 13, macOS 10.15, *)
+extension Ekyc.OpenSSLError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public enum PassiveAuthenticationError : Swift.Error {
+  case UnableToParseSODHashes(Swift.String)
+  case InvalidDataGroupHash(Swift.String)
+  case SODMissing(Swift.String)
+}
+extension Ekyc.PassiveAuthenticationError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @available(iOS 13, macOS 10.15, *)
+public class OpenSSLUtils {
+  public static func getOpenSSLError() -> Swift.String
+  @available(iOS 13, macOS 10.15, *)
+  public static func getPublicKeyData(from key: Swift.OpaquePointer) -> [Swift.UInt8]?
+  @available(iOS 13, macOS 10.15, *)
+  public static func decodePublicKeyFromBytes(pubKeyData: [Swift.UInt8], params: Swift.OpaquePointer) -> Swift.OpaquePointer?
+  public static func computeSharedSecret(privateKeyPair: Swift.OpaquePointer, publicKey: Swift.OpaquePointer) -> [Swift.UInt8]
+  @objc deinit
+}
+public struct NFCReaderTask {
+  public static func checkNFCSupport() -> Swift.Bool
+  public static func scanNFC(idNo: Swift.String, dob: Swift.String, doe: Swift.String, optionalSOD: Swift.Bool = false, onDone: @escaping (Swift.String) -> ()?, onFailure: @escaping (Swift.String) -> ()?, onTagDetected: ((Swift.Bool) -> ())? = nil, onScannerReady: (() -> ())? = nil)
+}
+public enum SecureMessagingSupportedAlgorithms {
+  case DES
+  case AES
+  public static func == (a: Ekyc.SecureMessagingSupportedAlgorithms, b: Ekyc.SecureMessagingSupportedAlgorithms) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@available(iOS 13, *)
+public class SecureMessaging {
+  public init(encryptionAlgorithm: Ekyc.SecureMessagingSupportedAlgorithms = .DES, ksenc: [Swift.UInt8], ksmac: [Swift.UInt8], ssc: [Swift.UInt8])
+  @objc deinit
+}
+public func binToHexRep(_ val: [Swift.UInt8], asArray: Swift.Bool = false) -> Swift.String
+public func binToHexRep(_ val: Swift.UInt8) -> Swift.String
+public func binToHex(_ val: Swift.UInt8) -> Swift.Int
+public func binToHex(_ val: [Swift.UInt8]) -> Swift.UInt64
+public func binToHex(_ val: Swift.ArraySlice<Swift.UInt8>) -> Swift.UInt64
+public func hexToBin(_ val: Swift.UInt64) -> [Swift.UInt8]
+public func binToInt(_ val: Swift.ArraySlice<Swift.UInt8>) -> Swift.Int
+public func binToInt(_ val: [Swift.UInt8]) -> Swift.Int
+public func intToBin(_ data: Swift.Int, pad: Swift.Int = 2) -> [Swift.UInt8]
+public func hexRepToBin(_ val: Swift.String) -> [Swift.UInt8]
+public func xor(_ kifd: [Swift.UInt8], _ response_kicc: [Swift.UInt8]) -> [Swift.UInt8]
+public func generateRandomUInt8Array(_ size: Swift.Int) -> [Swift.UInt8]
+public func pad(_ toPad: [Swift.UInt8], blockSize: Swift.Int) -> [Swift.UInt8]
+public func unpad(_ tounpad: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func mac(algoName: Ekyc.SecureMessagingSupportedAlgorithms, key: [Swift.UInt8], msg: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func desMAC(key: [Swift.UInt8], msg: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func aesMAC(key: [Swift.UInt8], msg: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func wrapDO(b: Swift.UInt8, arr: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func unwrapDO(tag: Swift.UInt8, wrappedData: [Swift.UInt8]) throws -> [Swift.UInt8]
+public func intToBytes(val: Swift.Int, removePadding: Swift.Bool) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func oidToBytes(oid: Swift.String, replaceTag: Swift.Bool) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func asn1Length(_ data: Swift.ArraySlice<Swift.UInt8>) throws -> (Swift.Int, Swift.Int)
+@available(iOS 13, macOS 10.15, *)
+public func asn1Length(_ data: [Swift.UInt8]) throws -> (Swift.Int, Swift.Int)
+@available(iOS 13, macOS 10.15, *)
+public func toAsn1Length(_ data: Swift.Int) throws -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func calcHash(data: [Swift.UInt8], hashAlgorithm: Swift.String) throws -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func calcSHA1Hash(_ data: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func calcSHA224Hash(_ data: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func calcSHA256Hash(_ data: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func calcSHA512Hash(_ data: [Swift.UInt8]) -> [Swift.UInt8]
+@available(iOS 13, macOS 10.15, *)
+public func calcSHA384Hash(_ data: [Swift.UInt8]) -> [Swift.UInt8]
+@_hasMissingDesignatedInitializers @available(iOS 13, *)
+public class SDKNfcInit {
+  public static let shared: Ekyc.SDKNfcInit
+  public func initialize()
+  public func getViewModel() -> Ekyc.SDKNfcViewModel
+  public func cleanup()
+  public func reset()
+  @objc deinit
+}
+public protocol ModuleLoader {
+  var moduleName: Swift.String { get }
+  func load()
+  func unload()
+}
+@available(iOS 13, *)
+extension Ekyc.SDKNfcInit : Ekyc.ModuleLoader {
+  public var moduleName: Swift.String {
+    get
+  }
+  public func load()
+  public func unload()
+}
+@objc @_inheritsConvenienceInitializers @available(iOS 13, *)
+public class SDKNfcViewModel : FinosCore.SDKBaseViewModel, @unchecked Swift.Sendable {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  public typealias StartCallback = () -> Swift.Void
+  @objc override dynamic public init()
+  public func startScanNFC(nfcConfig: FinosCore.NfcConfig, appKey: Swift.String? = nil, onStart: @escaping Ekyc.SDKNfcViewModel.StartCallback, onSuccess: @escaping Ekyc.SDKNfcViewModel.SuccessCallback, onError: @escaping Ekyc.SDKNfcViewModel.ErrorCallback)
+  public func setNfcConfig(_ nfcConfig: FinosCore.NfcConfig?)
+  public func isScanningNFC() -> Swift.Bool
+  public func cancelScan()
+  public func cleanup()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @available(iOS 13, *)
+@objc public class SdkEkycNfc : ObjectiveC.NSObject {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @objc public static func startEkyc(ekycConfigSDK: FinosCore.EKYCConfigSDK, callbackOnStart: (() -> Swift.Void)? = nil, callbackSuccess: Ekyc.SdkEkycNfc.SuccessCallback?, callbackError: Ekyc.SdkEkycNfc.ErrorCallback?)
+  @objc public static func onResumeNfc()
+  @objc public static func onPauseNfc()
+  @objc public static func onNewIntentNfc()
+  @objc public static func handleTag()
+  @objc public static func checkNFCSupport() -> Swift.Bool
+  @objc public static func checkNfcEnabled() -> Swift.Bool
+  @objc public static func cancelNFC()
+  @objc public static func isScanningNFC() -> Swift.Bool
+  @objc public static func cleanup()
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum NFCFrameworkException : Swift.Error, Foundation.LocalizedError {
+  case invalidMRZKey
+  case chipAuthenticationFailed
+  case connectionError
+  case paceSecureMessagingNotEstablished
+  case deviceNotSupported
+  case userCanceled
+  case unknown
+  case checkC06Fail
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public var code: Swift.String {
+    get
+  }
+  public static func == (a: Ekyc.NFCFrameworkException, b: Ekyc.NFCFrameworkException) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class SDKOcrInit {
+  public static let shared: Ekyc.SDKOcrInit
+  public func initialize()
+  public func getViewModel() -> Ekyc.SDKOcrViewModel
+  public func cleanup()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SDKOcrResult : ObjectiveC.NSObject {
+  public var ocrResultDetailFont: FinosCore.CheckOcrResponse.OcrCheckResult.Detail?
+  public var ocrResultDetailBack: FinosCore.CheckOcrResponse.OcrCheckResult.Detail?
+  @objc override dynamic public init()
+  public init(ocrResultDetailFont: FinosCore.CheckOcrResponse.OcrCheckResult.Detail? = nil, ocrResultDetailBack: FinosCore.CheckOcrResponse.OcrCheckResult.Detail? = nil)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class SDKOcrViewModel : FinosCore.SDKBaseViewModel {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @objc override dynamic public init()
+  public func verifyNationalIdOcr(apiKey: Swift.String, ocrConfig: FinosCore.OcrConfig, qrCodeIdNumber: Swift.String? = nil, callbackSuccess: @escaping Ekyc.SDKOcrViewModel.SuccessCallback, callbackError: @escaping Ekyc.SDKOcrViewModel.ErrorCallback)
+  public func getOcrResult() -> Ekyc.SDKOcrResult
+  public func cancelRequest()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SdkEkycOcr : ObjectiveC.NSObject {
+  public typealias SuccessCallback = (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @objc public static func startEkyc(ekycConfigSDK: FinosCore.EKYCConfigSDK, callbackSuccess: Ekyc.SdkEkycOcr.SuccessCallback? = nil, callbackError: Ekyc.SdkEkycOcr.ErrorCallback? = nil)
+  @objc public static func getOcrResult() -> Ekyc.SDKOcrResult
+  @objc public static func cancelRequest()
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class SDKActivityQRCode : UIKit.UIViewController {
+  public typealias QRCodeCallback = (Swift.String) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, Swift.String) -> Swift.Void
+  @_Concurrency.MainActor @preconcurrency convenience public init(onQRCodeScanned: @escaping Ekyc.SDKActivityQRCode.QRCodeCallback, onError: Ekyc.SDKActivityQRCode.ErrorCallback? = nil)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
+  @objc deinit
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+@_inheritsConvenienceInitializers @objc public class SdkEkycQRCode : ObjectiveC.NSObject {
+  public typealias QRScanCallback = (Swift.String) -> Swift.Void
+  public typealias ErrorCallback = (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void
+  @objc public static func startScan(from presentingViewController: UIKit.UIViewController?, onQrScanned: Ekyc.SdkEkycQRCode.QRScanCallback?, callbackError: Ekyc.SdkEkycQRCode.ErrorCallback?)
+  @objc public static func createQRScanner(onQrScanned: Ekyc.SdkEkycQRCode.QRScanCallback?, callbackError: Ekyc.SdkEkycQRCode.ErrorCallback?) -> UIKit.UIViewController
+  @objc public static func parseCCCDQRCode(_ qrData: Swift.String) -> [Swift.String : Swift.String]?
+  @objc public static func checkCameraPermission(completion: @escaping (Swift.Bool) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SDKEkycService {
+  public static let shared: Ekyc.SDKEkycService
+  public func ocrCheck(transactionId: Swift.String, imageBytes: Foundation.Data, side: Swift.String) async throws -> FinosCore.CheckOcrResponse
+  public func livenessPassiveCheck(transactionId: Swift.String, imageBytes: Foundation.Data) async throws -> FinosCore.CheckLivenessResponse
+  public func compareCheck(transactionId: Swift.String, requestId: Swift.String, idBytes: Foundation.Data, selfieBytes: Foundation.Data) async throws -> FinosCore.CheckFaceResponse
+  public func nfcCheck(transactionId: Swift.String, request: Ekyc.AuditNfcRequest) async throws -> FinosCore.APIResponse<FinosCore.SDKBaseResponse>
+  public func c06Check(transactionId: Swift.String, request: Ekyc.CheckC06Request) async throws -> FinosCore.CheckC06Response
+  public func livenessActiveCheck(transactionId: Swift.String, requestId: Swift.String, result: Swift.String, selfieBytes: Foundation.Data) async throws -> FinosCore.APIResponse<FinosCore.SubmitLivenessResponse>
+  public func sendOtp(apiKey: Swift.String, request: Ekyc.SendOtpRequest) async throws -> FinosCore.APIResponse<Ekyc.SendOtpResponse>
+  public func verifyOtp(apiKey: Swift.String, request: Ekyc.VerifyOtpRequest) async throws -> FinosCore.APIResponse<Ekyc.VerifyOtpResponse>
+  public func resendOtp(apiKey: Swift.String, request: Ekyc.ResendOtpRequest) async throws -> FinosCore.APIResponse<Ekyc.ResendOtpResponse>
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class SDKEkycServiceCoreImpl : FinosCore.SDKServiceCoreBase, Ekyc.SDKEkycServiceCoreProtocol {
+  public static let shared: Ekyc.SDKEkycServiceCoreImpl
+  public func sdkInit(appKey: Swift.String, deviceFingerprint: Swift.String) async throws -> Ekyc.SdkInitResponse
+  public func ocrCheck(transactionId: Swift.String, imageBytes: Foundation.Data, side: Swift.String) async throws -> FinosCore.CheckOcrResponse
+  public func livenessPassiveCheck(transactionId: Swift.String, imageBytes: Foundation.Data) async throws -> FinosCore.CheckLivenessResponse
+  public func compareCheck(transactionId: Swift.String, requestId: Swift.String, idBytes: Foundation.Data, selfieBytes: Foundation.Data) async throws -> FinosCore.CheckFaceResponse
+  public func livenessActiveCheck(transactionId: Swift.String, requestId: Swift.String, result: Swift.String, selfieBytes: Foundation.Data) async throws -> FinosCore.APIResponse<FinosCore.SubmitLivenessResponse>
+  public func c06Check(transactionId: Swift.String, request: Ekyc.CheckC06Request) async throws -> FinosCore.CheckC06Response
+  public func nfcCheck(transactionId: Swift.String, request: Ekyc.AuditNfcRequest) async throws -> FinosCore.APIResponse<FinosCore.SDKBaseResponse>
+  public func sendOtp(apiKey: Swift.String, request: Ekyc.SendOtpRequest) async throws -> FinosCore.APIResponse<Ekyc.SendOtpResponse>
+  public func verifyOtp(apiKey: Swift.String, request: Ekyc.VerifyOtpRequest) async throws -> FinosCore.APIResponse<Ekyc.VerifyOtpResponse>
+  public func resendOtp(apiKey: Swift.String, request: Ekyc.ResendOtpRequest) async throws -> FinosCore.APIResponse<Ekyc.ResendOtpResponse>
+  override public init()
+  @objc deinit
+}
+extension Ekyc.SdkCameraMode : Swift.Equatable {}
+extension Ekyc.SdkCameraMode : Swift.Hashable {}
+extension Ekyc.SdkCameraMode : Swift.RawRepresentable {}
+extension Ekyc.EKMockIDCardView.Side : Swift.Equatable {}
+extension Ekyc.EKMockIDCardView.Side : Swift.Hashable {}
+extension Ekyc.SDKTheme.ColorScheme : Swift.Equatable {}
+extension Ekyc.SDKTheme.ColorScheme : Swift.Hashable {}
+extension Ekyc.EKLivenessCaptureViewController.LivenessMode : Swift.Equatable {}
+extension Ekyc.EKLivenessCaptureViewController.LivenessMode : Swift.Hashable {}
+extension Ekyc.ASN1IndexEnum : Swift.Equatable {}
+extension Ekyc.ASN1IndexEnum : Swift.Hashable {}
+extension Ekyc.ASN1IndexEnum : Swift.RawRepresentable {}
+@available(iOS 13, macOS 10.15, *)
+extension Ekyc.DataGroupId : Swift.Equatable {}
+@available(iOS 13, macOS 10.15, *)
+extension Ekyc.DataGroupId : Swift.Hashable {}
+@available(iOS 13, macOS 10.15, *)
+extension Ekyc.DataGroupId : Swift.RawRepresentable {}
+extension Ekyc.SecureMessagingSupportedAlgorithms : Swift.Equatable {}
+extension Ekyc.SecureMessagingSupportedAlgorithms : Swift.Hashable {}
+extension Ekyc.NFCFrameworkException : Swift.Equatable {}
+extension Ekyc.NFCFrameworkException : Swift.Hashable {}

@@ -1,0 +1,42 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "FinosSDK",
+    "printedName": "FinosSDK",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "FinosCore",
+        "printedName": "FinosCore",
+        "declKind": "Import",
+        "moduleName": "FinosSDK",
+        "declAttributes": [
+          "Exported",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "SmsOtp",
+        "printedName": "SmsOtp",
+        "declKind": "Import",
+        "moduleName": "FinosSDK",
+        "declAttributes": [
+          "Exported"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "ESign",
+        "printedName": "ESign",
+        "declKind": "Import",
+        "moduleName": "FinosSDK",
+        "declAttributes": [
+          "Exported"
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": []
+}

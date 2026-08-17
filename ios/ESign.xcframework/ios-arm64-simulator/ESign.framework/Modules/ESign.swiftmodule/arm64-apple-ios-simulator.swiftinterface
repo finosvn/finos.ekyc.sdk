@@ -1,0 +1,195 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3.3 effective-5.10 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name ESign -package-name esign
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
+import FinosCore
+import Foundation
+import SDKCA
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_hasMissingDesignatedInitializers final public class ESignFlow {
+  public struct SignPosition {
+    public let visibleX: Swift.Int
+    public let visibleY: Swift.Int
+    public let visibleWidth: Swift.Int
+    public let visibleHeight: Swift.Int
+    public let pageNum: Swift.Int
+    public init(visibleX: Swift.Int, visibleY: Swift.Int, visibleWidth: Swift.Int, visibleHeight: Swift.Int, pageNum: Swift.Int = 1)
+  }
+  public enum Step : Swift.String {
+    case initialized
+    case sessionOpened
+    case deviceRegistered
+    case certsLoaded
+    case certVerified
+    case signRequested
+    case signConfirmed
+    case completed
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public struct StepResult {
+    public let step: ESign.ESignFlow.Step
+    public let deviceState: Swift.String?
+    public let certs: [ESign.ESignCertInfo]?
+    public let elapsedMs: Swift.Int64
+    public init(step: ESign.ESignFlow.Step, deviceState: Swift.String? = nil, certs: [ESign.ESignCertInfo]? = nil, elapsedMs: Swift.Int64 = 0)
+  }
+  final public class Builder {
+    public init()
+    @discardableResult
+    final public func setFinosToken(_ token: Swift.String) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setIdentity(_ cccd: Swift.String) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setUserName(_ name: Swift.String) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setDeviceId(_ id: Swift.String) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setEnvironment(_ env: FinosCore.SDKEnvironment) -> ESign.ESignFlow.Builder
+    @available(*, deprecated, message: "Use setEnvironment(_:) so staging and UAT are preserved")
+    @discardableResult
+    final public func setIsProd(_ prod: Swift.Bool) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setPinCode(_ pin: Swift.String) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setRecoverCode(_ code: Swift.String) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setPdfBase64(_ data: Swift.String) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setDocumentName(_ name: Swift.String) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func addSignPosition(_ visibleX: Swift.Int, _ visibleY: Swift.Int, _ visibleWidth: Swift.Int, _ visibleHeight: Swift.Int, pageNum: Swift.Int = 1) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setSignPositions(_ positions: [ESign.ESignFlow.SignPosition]) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setSignatureTemplateId(_ id: Swift.Int) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setImageSignature(_ base64: Swift.String) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setUrlCallback(_ url: Swift.String) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setMaxPollAttempts(_ max: Swift.Int) -> ESign.ESignFlow.Builder
+    @discardableResult
+    final public func setPollDelaySeconds(_ seconds: Foundation.TimeInterval) -> ESign.ESignFlow.Builder
+    final public func build() -> ESign.ESignFlow
+    @objc deinit
+  }
+  final public func start(callbackSuccess: @escaping (ESign.ESignFlow.Step, ESign.ESignFlow.StepResult?) -> Swift.Void, callbackError: @escaping (ESign.ESignFlow.Step, FinosCore.EKYCErrorResult) -> Swift.Void)
+  @objc deinit
+}
+public struct ESignCertInfo {
+  public let serial: Swift.String
+  public let subject: Swift.String
+  public let validFrom: Swift.String?
+  public let validTo: Swift.String?
+  public init(serial: Swift.String, subject: Swift.String, validFrom: Swift.String? = nil, validTo: Swift.String? = nil)
+}
+public struct ESignSignRequestInfo {
+  public let requestId: Swift.String
+  public let authData: Swift.String?
+  public let authId: Swift.String?
+  public init(requestId: Swift.String, authData: Swift.String? = nil, authId: Swift.String? = nil)
+}
+public struct ESignAuthorizeInfo {
+  public let authorizeRequestId: Swift.String
+  public let serial: Swift.String
+  public let quantity: Swift.Int
+  public let time: Swift.Int
+  public let message: Swift.String?
+  public let authId: Swift.String?
+  public let authData: Swift.String?
+  public let createTime: Swift.String?
+  public let expireTime: Swift.String?
+  public init(authorizeRequestId: Swift.String, serial: Swift.String, quantity: Swift.Int, time: Swift.Int, message: Swift.String? = nil, authId: Swift.String? = nil, authData: Swift.String? = nil, createTime: Swift.String? = nil, expireTime: Swift.String? = nil)
+}
+public enum ESignAuthorizationStatus : Swift.String {
+  case waitingToAccess
+  case revoked
+  case expired
+  case inactive
+  case rejected
+  case active
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct ESignPdfResult {
+  public let status: Swift.Int
+  public let message: Swift.String
+  public let transactionId: Swift.String?
+  public let rawResponse: Swift.String
+  public init(status: Swift.Int, message: Swift.String, transactionId: Swift.String? = nil, rawResponse: Swift.String)
+}
+@_hasMissingDesignatedInitializers final public class ESignSDKManager {
+  public static let shared: ESign.ESignSDKManager
+  final public func fetchAccessToken(authTokenUrl: Swift.String = "", authApiKey: Swift.String, clientSecret: Swift.String, clientId: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func initializeESign(finosToken: Swift.String?, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func getSdkToken(identity: Swift.String, name: Swift.String, deviceId: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func registerRemoteSigning(requestJson: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func signPdf(requestJson: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func signPdfMultiplePositions(requestJson: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func sendConfirmationDocument(requestJson: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func registerAndConfirm(requestJson: Swift.String, confirmationDocBase64: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func initialize(licenseCode: Swift.String?, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func openSessionId(accessToken: Swift.String?, username: Swift.String = "", rememberMe: Swift.Bool = false, callbackSuccess: @escaping (Swift.String, Swift.String, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func registerDevice(recoverCode: Swift.String, pinCode: Swift.String, fcmToken: Swift.String = "", callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func listCerts(pageNumber: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_NUMBER), pageSize: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_SIZE), callbackSuccess: @escaping ([ESign.ESignCertInfo]) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func verifyCert(serial: Swift.String, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func listSignRequest(pageNumber: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_NUMBER), pageSize: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_SIZE), callbackSuccess: @escaping ([ESign.ESignSignRequestInfo]) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func confirmSign(signRequestId: Swift.String, pinCode: Swift.String, authId: Swift.String = "", authData: Swift.String = "", confirm: Swift.Bool = true, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func initAuthorize(serial: Swift.String, quantity: Swift.Int, time: Swift.Int, message: Swift.String, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func listAuthorize(pageNumber: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_NUMBER), pageSize: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_SIZE), status: Swift.String = "", callbackSuccess: @escaping ([ESign.ESignAuthorizeInfo]) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  final public func registerAuthorize(authId: Swift.String, authData: Swift.String, authorizeRequestId: Swift.String, userPin: Swift.String, confirm: Swift.Bool = true, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  @objc deinit
+}
+public struct EasyCAApiException : Swift.Error, Foundation.LocalizedError {
+  public let code: Swift.String
+  public let message: Swift.String
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+final public class EasyCAApiClient {
+  public static let shared: ESign.EasyCAApiClient
+  public init()
+  final public func fetchAccessToken(authTokenUrl: Swift.String = "", authApiKey: Swift.String, clientSecret: Swift.String, clientId: Swift.String) async throws -> Swift.String
+  final public func getSdkToken(cccd: Swift.String, name: Swift.String, deviceId: Swift.String) async throws -> Swift.String
+  final public func registerRemoteSigning(requestJson: Swift.String) async throws -> Swift.String
+  final public func signPdf(requestJson: Swift.String) async throws -> Swift.String
+  final public func signPdfMultiplePositions(requestJson: Swift.String) async throws -> Swift.String
+  final public func sendConfirmationDocument(requestJson: Swift.String) async throws -> Swift.String
+  @objc deinit
+}
+public enum FinOSeSign {
+  public static func getSdkToken(cccd: Swift.String, name: Swift.String, deviceId: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func initializeESign(finosToken: Swift.String?, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func openSessionId(accessToken: Swift.String, username: Swift.String = "", rememberMe: Swift.Bool = false, callbackSuccess: @escaping (Swift.String, Swift.String, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func registerDevice(recoverCode: Swift.String, pinCode: Swift.String, fcmToken: Swift.String = "", callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func listCerts(pageNumber: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_NUMBER), pageSize: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_SIZE), callbackSuccess: @escaping ([ESign.ESignCertInfo]) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func verifyCert(serial: Swift.String, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func listSignRequest(pageNumber: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_NUMBER), pageSize: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_SIZE), callbackSuccess: @escaping ([ESign.ESignSignRequestInfo]) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func confirmSign(signRequestId: Swift.String, pinCode: Swift.String, authId: Swift.String = "", authData: Swift.String = "", confirm: Swift.Bool = true, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func registerRemoteSigning(requestJson: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func signPdf(requestJson: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func signPdfMultiplePositions(requestJson: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func registerAndConfirm(requestJson: Swift.String, confirmationDocBase64: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func sendConfirmationDocument(requestJson: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func initAuthorize(serial: Swift.String, quantity: Swift.Int, time: Swift.Int, message: Swift.String, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func listAuthorize(pageNumber: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_NUMBER), pageSize: Swift.Int = Int(GeneratedSdkDefaults.shared.ESIGN_DEFAULT_PAGE_SIZE), status: Swift.String = "", callbackSuccess: @escaping ([ESign.ESignAuthorizeInfo]) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func registerAuthorize(authId: Swift.String, authData: Swift.String, authorizeRequestId: Swift.String, userPin: Swift.String, confirm: Swift.Bool = true, callbackSuccess: @escaping (Swift.Int, Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  public static func fetchAccessToken(authTokenUrl: Swift.String = "", authApiKey: Swift.String, clientSecret: Swift.String, clientId: Swift.String, callbackSuccess: @escaping (Swift.String) -> Swift.Void, callbackError: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+}
+extension ESign.ESignFlow.Step : Swift.Equatable {}
+extension ESign.ESignFlow.Step : Swift.Hashable {}
+extension ESign.ESignFlow.Step : Swift.RawRepresentable {}
+extension ESign.ESignAuthorizationStatus : Swift.Equatable {}
+extension ESign.ESignAuthorizationStatus : Swift.Hashable {}
+extension ESign.ESignAuthorizationStatus : Swift.RawRepresentable {}

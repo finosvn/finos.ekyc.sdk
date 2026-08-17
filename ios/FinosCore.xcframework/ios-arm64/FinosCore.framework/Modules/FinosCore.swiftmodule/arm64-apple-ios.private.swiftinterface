@@ -1,0 +1,2238 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3.3 effective-5.10 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -O -enable-experimental-feature DebugDescriptionMacro -module-name FinosCore -package-name core
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.3
+import AVFoundation
+import AudioToolbox
+import Combine
+import CoreGraphics
+import CoreVideo
+import CryptoKit
+import Darwin
+import DeviceCheck
+import Foundation
+import Foundation/*.Bundle*/
+import Foundation/*.ProcessInfo*/
+import Foundation/*.URL*/
+import MachO
+import Photos
+import Swift
+import UIKit
+import Vision
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os.log
+import os
+import shared
+public typealias KoinBridge = shared.KoinBridge
+public typealias GeneratedDevConfig = shared.GeneratedDevConfig
+public typealias GeneratedSdkDefaults = shared.GeneratedSdkDefaults
+public typealias TlsPinConfig = shared.TlsPinConfig
+public typealias KotlinByteArray = shared.KotlinByteArray
+public typealias ResponseInterpreter = shared.ResponseInterpreter
+public typealias InterpreterOutcome = shared.InterpreterOutcome
+public typealias KotlinEKCaptureMetrics = shared.EKCaptureMetrics
+public typealias KotlinEKFaceMetrics = shared.EKFaceMetrics
+public typealias KotlinEKCaptureCondition = shared.EKCaptureCondition
+public typealias KotlinEKFaceCondition = shared.EKFaceCondition
+public typealias KotlinEKCaptureQuality = shared.EKCaptureQuality
+public typealias KotlinEKFaceQuality = shared.EKFaceQuality
+public typealias KotlinEKDetectionMapping = shared.EKDetectionMapping
+public typealias KotlinEKCardTextFlags = shared.EKCardTextFlags
+public typealias KotlinEKCardTextClassifier = shared.EKCardTextClassifier
+public typealias KotlinBoolean = shared.KotlinBoolean
+public typealias KotlinEKYCErrorResult = shared.EKYCErrorResult
+public typealias KotlinSDKInputValidator = shared.SDKInputValidator
+public typealias KotlinEKCaptureTimings = shared.EKCaptureTimings
+public typealias KotlinEKFrameDebounce = shared.EKFrameDebounce
+public typealias KotlinEKNeutralResetFilter = shared.EKNeutralResetFilter
+public typealias KotlinEKConditionStabilizer = shared.EKConditionStabilizer
+public typealias KotlinSendOtpRequest = shared.SendOtpRequest
+public typealias KotlinVerifyOtpRequest = shared.VerifyOtpRequest
+public typealias KotlinResendOtpRequest = shared.ResendOtpRequest
+public typealias InterpretationResultSuccess = shared.InterpretationResult.Success
+public typealias InterpretationResultFailure = shared.InterpretationResult.Failure
+@_inheritsConvenienceInitializers @objc open class SDKBaseViewModel : ObjectiveC.NSObject {
+  public var cancellables: Swift.Set<Combine.AnyCancellable>
+  public var maxNetworkRetries: Swift.Int
+  public func handleNetworkErrorAndCheckMaxRetry() -> Swift.Bool
+  public func resetNetworkRetryCount()
+  public enum APIErrorClass {
+    case validation(message: Swift.String)
+    case retryableNetwork
+    case maxRetryExceeded
+    case schemaError(message: Swift.String)
+    case unknown(message: Swift.String)
+  }
+  public func logDecodingError(_ error: Swift.DecodingError)
+  public func classifyAPIError(_ error: any Swift.Error) -> FinosCore.SDKBaseViewModel.APIErrorClass
+  @_Concurrency.MainActor public func dispatchAPIError(_ error: any Swift.Error, moduleErrorEvent: FinosCore.EKYCErrorEvent, callback: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)
+  @objc override dynamic public init()
+  public func launchTask(key: Swift.String = UUID().uuidString, priority: _Concurrency.TaskPriority = .medium, block: @escaping () async -> Swift.Void)
+  @objc public func cancelTask(key: Swift.String)
+  @objc public func isTaskRunning(key: Swift.String) -> Swift.Bool
+  @objc public func cancelAllTasks()
+  @_Concurrency.MainActor public func callbackSuccessOnMain(callback: @escaping (FinosCore.EKYCEvent, FinosCore.SDKEkycResult?) -> Swift.Void, event: FinosCore.EKYCEvent, data: Any? = nil)
+  @objc public func resolveTransactionId(_ transactionId: Swift.String?)
+  @_Concurrency.MainActor public func callbackErrorOnMain(callback: @escaping (FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void, event: FinosCore.EKYCErrorEvent, result: FinosCore.EKYCErrorResult)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class NativeConfig : ObjectiveC.NSObject {
+  @objc public static let shared: FinosCore.NativeConfig
+  @objc public func getBaseURL() -> Swift.String
+  @objc public func getBaseURLProd() -> Swift.String
+  @objc public func getBaseURLTest() -> Swift.String
+  @objc public func getActiveBaseURL() -> Swift.String
+  @objc public func getActiveBackofficeBaseURL() -> Swift.String
+  @objc public func getLicenseCodeESign() -> Swift.String
+  @objc public func resetConfiguration()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SDKEndpoints : ObjectiveC.NSObject {
+  public static let transactionHistories: Swift.String
+  public static func transactionHistoryDetail(_ id: Swift.String) -> Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class SDKNetworkConfig : ObjectiveC.NSObject {
+  @objc public static let shared: FinosCore.SDKNetworkConfig
+  public var baseURL: Swift.String {
+    get
+  }
+  public var esignGatewayURL: Swift.String? {
+    get
+  }
+  public var appKeyESign: Swift.String? {
+    get
+  }
+  @objc deinit
+}
+public struct SDKTestConfig {
+  public static let copyDebugCurlOnError: Swift.Bool
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class SdkEkycCore : ObjectiveC.NSObject {
+  @objc public static let shared: FinosCore.SdkEkycCore
+  public var enableSecurityRequest: Swift.Bool {
+    get
+    set
+  }
+  public var debugSaveToPhotos: Swift.Bool
+  @available(*, deprecated, message: "Use currentEnv or setEnv(_:) so staging and UAT are preserved")
+  public var isProd: Swift.Bool {
+    get
+    set
+  }
+  @objc public var ekycConfigSDK: FinosCore.EKYCConfigSDK {
+    @objc get
+  }
+  @discardableResult
+  @objc public func initDefaultTransactionId() -> Swift.String
+  @discardableResult
+  @objc public func setTransactionId(_ transactionId: Swift.String?) -> Swift.String
+  @objc public var defaultTransactionId: Swift.String {
+    @objc get
+  }
+  @objc public func resolveTransactionId(_ transactionId: Swift.String?) -> Swift.String
+  @objc public func updateTransactionIdFromServer(_ transactionId: Swift.String)
+  @objc public func setConfig(_ newConfig: FinosCore.EKYCConfigSDK)
+  @objc public func updateConfig(_ newConfig: FinosCore.EKYCConfigSDK)
+  @objc public var requestId: Swift.String {
+    @objc get
+  }
+  @objc public func setLivenessRequestId(_ requestId: Swift.String)
+  @discardableResult
+  public func setEnv(_ env: FinosCore.SDKEnv) -> FinosCore.SDKEnv
+  public func getSdkEnv() -> FinosCore.SDKEnv
+  public var currentEnv: FinosCore.SDKEnv {
+    get
+  }
+  @objc public func resetConfig()
+  @objc public func resetSession()
+  @objc deinit
+}
+@objc public enum EKYCErrorEvent : Swift.Int, Swift.CustomStringConvertible {
+  case sdkStartError = 0
+  case errorUnknown = 1
+  case ocrError = 2
+  case faceError = 3
+  case livenessError = 4
+  case userCancel = 5
+  case errorNetwork = 6
+  case errorMaxRetry = 7
+  case sdkInvalidLanguage = 8
+  case sdkInvalidConfig = 9
+  case ocrUnrecognizedIdCard = 100
+  case ocrWrongIdCardSide = 101
+  case ocrCannotGetIdNumber = 102
+  case ocrCannotGetName = 103
+  case ocrCannotGetBirthYear = 104
+  case ocrCannotGetExpiryDate = 105
+  case ocrCannotGetIssueDate = 106
+  case ocrCannotGetResidence = 107
+  case ocrCannotGetHometown = 108
+  case ocrCannotGetGender = 109
+  case ocrMissingIdCardPart = 110
+  case ocrNotOriginalIdCard = 111
+  case ocrIdCardFromOtherDevice = 112
+  case ocrCannotRecognizePortrait = 113
+  case ocrCutCornerIdCard = 114
+  case ocrBlurryIdCard = 115
+  case ocrGlareIdCard = 116
+  case ocrInvalidIdCard = 117
+  case ocrFakeMrz = 118
+  case ocrPhotocopyIdCard = 119
+  case ocrFontBackNotMatch = 120
+  case ocrQrCodeIdMismatch = 121
+  case ocrIdCardExpired = 122
+  case livenessFail = 200
+  case multipleFacesInSelfie = 201
+  case eyesClosedInSelfie = 202
+  case maskPresentInSelfie = 203
+  case faceIsBlurred = 204
+  case faceOccludedInSelfie = 205
+  case eyewearDetectedInSelfie = 206
+  case headIsTurnedInSelfie = 207
+  case scanNfcError = 300
+  case scanNfcCheck = 301
+  case scanNfcEnable = 302
+  case c06Error = 303
+  case nfcMutualAuthFailed = 304
+  case nfcConnectionLost = 305
+  case nfcInvalidMrzKey = 306
+  case nfcIoError = 307
+  case nfcUnknownError = 308
+  case nfcUserCancel = 309
+  case nfcChipAuthFailed = 310
+  case qrcodeError = 400
+  case fetchHistoryError = 500
+  case smsOtpError = 600
+  case smsOtpInvalidPhone = 601
+  case smsOtpMaxAttempts = 602
+  case smsOtpNotFound = 603
+  case smsOtpRateLimit = 604
+  case smsOtpMissingPhone = 605
+  case smsOtpMissingReferenceId = 606
+  case smsOtpMissingOtpCode = 607
+  case esignError = 700
+  case deviceJailbroken = 800
+  case deviceHooked = 801
+  case sdkTampered = 802
+  case deviceSimulator = 803
+  case deviceDebugging = 804
+  public var name: Swift.String {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public var code: Swift.String {
+    get
+  }
+  public var message: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class EKYCErrorResult : ObjectiveC.NSObject {
+  final public let event: FinosCore.EKYCErrorEvent
+  final public let code: Swift.String
+  final public let message: Swift.String
+  final public let details: [Swift.String : Any]?
+  final public let transactionId: Swift.String?
+  final public let requestId: Swift.String?
+  final public let httpStatus: Swift.Int?
+  final public let rawResponse: Swift.String?
+  final public let step: Swift.String?
+  final public let debugId: Swift.String?
+  public init(event: FinosCore.EKYCErrorEvent, code: Swift.String? = nil, message: Swift.String? = nil, details: [Swift.String : Any]? = nil, transactionId: Swift.String? = nil, requestId: Swift.String? = nil, httpStatus: Swift.Int? = nil, rawResponse: Swift.String? = nil, step: Swift.String? = nil, debugId: Swift.String? = nil)
+  public func withContext(transactionId: Swift.String? = nil, requestId: Swift.String? = nil, httpStatus: Swift.Int? = nil, rawResponse: Swift.String? = nil, step: Swift.String? = nil, debugId: Swift.String? = nil) -> FinosCore.EKYCErrorResult
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc public static let ocrFontBackNotMatch: FinosCore.EKYCErrorResult
+  @objc public static let cameraNotAvailable: FinosCore.EKYCErrorResult
+  @objc public static let photoOutputNotAvailable: FinosCore.EKYCErrorResult
+  @objc public static let cameraPermissionRequired: FinosCore.EKYCErrorResult
+  @objc public static let livenessAppKeyPassiveMissing: FinosCore.EKYCErrorResult
+  @objc public static let livenessAppKeyActiveMissing: FinosCore.EKYCErrorResult
+  @objc public static let livenessConfigMissing: FinosCore.EKYCErrorResult
+  @objc public static let livenessSelfieMissing: FinosCore.EKYCErrorResult
+  @objc public static let livenessCheckFailed: FinosCore.EKYCErrorResult
+  @objc public static let faceVerificationFailed: FinosCore.EKYCErrorResult
+  @objc public static let serverValidationFailed: FinosCore.EKYCErrorResult
+  @objc public static let nfcNotConfigured: FinosCore.EKYCErrorResult
+  @objc public static let nfcNotAvailable: FinosCore.EKYCErrorResult
+  @objc public static let nfcConfigMissing: FinosCore.EKYCErrorResult
+  @objc public static let nfcSerializeFailed: FinosCore.EKYCErrorResult
+  @objc public static let userCancelled: FinosCore.EKYCErrorResult
+  @objc public static let apiKeyRequired: FinosCore.EKYCErrorResult
+  @objc public static let noPresentingVC: FinosCore.EKYCErrorResult
+  @objc public static let invalidJson: FinosCore.EKYCErrorResult
+  @objc public static let cameraAccessFailed: FinosCore.EKYCErrorResult
+  @objc public static let noImageData: FinosCore.EKYCErrorResult
+  @objc public static let bridgeNoActivity: FinosCore.EKYCErrorResult
+  @objc public static let bridgeParseError: FinosCore.EKYCErrorResult
+  @objc public static let bridgeFileNotFound: FinosCore.EKYCErrorResult
+  @objc public static let bridgeInvalidSerial: FinosCore.EKYCErrorResult
+  @objc public static let bridgeConfigMissing: FinosCore.EKYCErrorResult
+  @objc public static let bridgeNoViewController: FinosCore.EKYCErrorResult
+  @objc public static let bridgeInvalidParams: FinosCore.EKYCErrorResult
+  @objc public static let smsOtpError: FinosCore.EKYCErrorResult
+  @objc public static let smsOtpInvalidPhone: FinosCore.EKYCErrorResult
+  @objc public static let smsOtpMaxAttempts: FinosCore.EKYCErrorResult
+  @objc public static let smsOtpNotFound: FinosCore.EKYCErrorResult
+  @objc public static let smsOtpRateLimit: FinosCore.EKYCErrorResult
+  @objc public static let sdkMissKey: FinosCore.EKYCErrorResult
+  @objc public static let sdkInvalidLanguage: FinosCore.EKYCErrorResult
+  @objc public static let sdkInvalidConfig: FinosCore.EKYCErrorResult
+  @objc public static let smsOtpMissingPhone: FinosCore.EKYCErrorResult
+  @objc public static let smsOtpMissingReferenceId: FinosCore.EKYCErrorResult
+  @objc public static let smsOtpMissingOtpCode: FinosCore.EKYCErrorResult
+  @objc public static let esignErrorUnknown: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingCccd: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingRequestJson: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingAccessToken: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidLicenseCode: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidRecoveryCode: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidPinCode: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingSerial: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingRequestId: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingConfirmationDoc: FinosCore.EKYCErrorResult
+  @objc public static let esignDeviceNotInit: FinosCore.EKYCErrorResult
+  @objc public static let esignNoSessionId: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingName: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingDeviceId: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidRequestJson: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingUserInfo: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldIdentity: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldName: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldAddress: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldRegisterDate: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidRegisterDateFormat: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldExpiredDate: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidExpiredDateFormat: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldSod: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldSignature: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingEmailOrPhone: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingPolicyAgreement: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldPolicyStatus: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldAcceptTime: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldDevice: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingSigningContents: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldData: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldDocumentName: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingTokenInfo: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldUsername: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldSerialToken: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingSignPositions: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingSignPositionLocation: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingFieldSessionId: FinosCore.EKYCErrorResult
+  @objc public static let esignMissingToken: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidPageParams: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidQuantity: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidTime: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidRecoveryFormat: FinosCore.EKYCErrorResult
+  @objc public static let esignInvalidPinFormat: FinosCore.EKYCErrorResult
+  @objc public static let errorUnknown: FinosCore.EKYCErrorResult
+  @objc public static func createCustom(code: Swift.String, message: Swift.String) -> FinosCore.EKYCErrorResult
+  @objc public static func messageForCode(_ code: Swift.String) -> Swift.String?
+  @objc public static func fromCode(_ code: Swift.String) -> FinosCore.EKYCErrorResult?
+  @objc public static func getErrorResultFromDetails(_ details: [Any]?) -> FinosCore.EKYCErrorResult
+  @objc deinit
+}
+@objc public enum EKYCEvent : Swift.Int, Swift.CustomStringConvertible {
+  case sdkStartSuccess = 0
+  case sdkEndSuccess = 1
+  case scanNfcStart = 2
+  case scanNfcSuccess = 3
+  case c06Success = 4
+  case livenessSuccess = 5
+  case faceProgress = 6
+  case faceSuccess = 7
+  case ocrSuccess = 8
+  case qrcodeSuccess = 9
+  case fetchLatestTransactionSuccess = 10
+  case smsOtpSendSuccess = 11
+  case smsOtpVerifySuccess = 12
+  case smsOtpResendSuccess = 13
+  case esignSuccess = 14
+  case logSuccess = 15
+  public init?(name: Swift.String)
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class EkycErrorSink {
+  public static let shared: FinosCore.EkycErrorSink
+  public struct ErrorLog {
+    public let event: FinosCore.EKYCErrorEvent
+    public let error: FinosCore.EKYCErrorResult
+    public let underlying: (any Swift.Error)?
+  }
+  final public var listener: ((FinosCore.EkycErrorSink.ErrorLog) -> Swift.Void)?
+  final public func nextDebugId() -> Swift.String
+  @discardableResult
+  final public func report(event: FinosCore.EKYCErrorEvent, error: FinosCore.EKYCErrorResult, step: Swift.String? = nil, transactionId: Swift.String? = nil, underlying: (any Swift.Error)? = nil, callback: ((FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)? = nil) -> FinosCore.EKYCErrorResult
+  @discardableResult
+  final public func reportError(_ underlying: any Swift.Error, event: FinosCore.EKYCErrorEvent, fallback: FinosCore.EKYCErrorResult, step: Swift.String? = nil, transactionId: Swift.String? = nil, callback: ((FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult) -> Swift.Void)? = nil) -> FinosCore.EKYCErrorResult
+  @objc deinit
+}
+@objc public enum FaceStateType : Swift.Int, Swift.CustomStringConvertible {
+  case noFace = 0
+  case smile = 1
+  case up = 2
+  case down = 3
+  case left = 4
+  case right = 5
+  case smash = 6
+  case straight = 7
+  public var value: Swift.Int {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public static func fromValue(_ value: Swift.Int) -> FinosCore.FaceStateType?
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum SDKApiCode : Swift.Int, Swift.CustomStringConvertible {
+  case sdkNfc = 0
+  case faceCompare = 1
+  case livenessCheckServer = 2
+  case ocrNationalId = 3
+  public var value: Swift.String {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class SDKBundleEvent : ObjectiveC.NSObject {
+  public static let BUNDLE_APP_KEY: Swift.String
+  public static let BUNDLE_FACE: Swift.String
+  @objc deinit
+}
+public enum SDKFaceDetectStatus : Swift.CaseIterable {
+  case left
+  case right
+  case up
+  case down
+  case straight
+  case smile
+  case blink
+  case winkLeft
+  case winkRight
+  case moveAway
+  case moveCloser
+  case start
+  case good
+  case processing
+  case completed
+  case unknown
+  public var key: Swift.String {
+    get
+  }
+  public var value: Swift.String {
+    get
+  }
+  public var label: Swift.String {
+    get
+  }
+  public func instruction(_ language: Swift.String? = nil) -> Swift.String
+  public func label(_ language: Swift.String? = nil) -> Swift.String
+  public var isInstant: Swift.Bool {
+    get
+  }
+  public static let successPrefix: Swift.String
+  public static let selectableActions: [FinosCore.SDKFaceDetectStatus]
+  public static func actionLabels(_ language: Swift.String? = nil) -> [Swift.String : Swift.String]
+  public static func == (a: FinosCore.SDKFaceDetectStatus, b: FinosCore.SDKFaceDetectStatus) -> Swift.Bool
+  public typealias AllCases = [FinosCore.SDKFaceDetectStatus]
+  nonisolated public static var allCases: [FinosCore.SDKFaceDetectStatus] {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class SDKJobType : ObjectiveC.NSObject {
+  public static let JobCheckAppKey: Swift.String
+  public static let JobCheckFaceServiceSync: Swift.String
+  public static let JobCheckC06Sync: Swift.String
+  public static let JobCallBackC06Sync: Swift.String
+  public static let JobLivenessSync: Swift.String
+  public static let JobUploadSync: Swift.String
+  public static let JobNfcSync: Swift.String
+  public static let JobOcrSync: Swift.String
+  public static let JobAuditNfc: Swift.String
+  public static let JobFetchLastResultSync: Swift.String
+  public static let JobFetchImageSync: Swift.String
+  @objc deinit
+}
+@objc public class SDKLanguage : ObjectiveC.NSObject {
+  @objc final public let code: Swift.String
+  @objc final public let nativeName: Swift.String
+  @objc final public let englishName: Swift.String
+  @objc public init(code: Swift.String, nativeName: Swift.String, englishName: Swift.String)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SDKLanguages : ObjectiveC.NSObject {
+  @objc public static let supported: [FinosCore.SDKLanguage]
+  @objc public static var codes: [Swift.String] {
+    @objc get
+  }
+  @objc public static func isSupported(_ code: Swift.String?) -> Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SDKResponseKey : ObjectiveC.NSObject {
+  public static let STATUS_C06_PASS: Swift.String
+  public static let STATUS_FACE_PASS: Swift.String
+  public static let STATUS_PASS: Swift.String
+  public static let TYPE_CCCD_FONT: Swift.String
+  public static let TYPE_CCCD_BACK: Swift.String
+  public static let TYPE_CCCD_CHIP_F: Swift.String
+  public static let TYPE_CCCD_CHIP_B: Swift.String
+  public static let TYPE_IMAGE_LIVENESS: Swift.String
+  public static let STATUS_SUCCESS_RAW: Swift.String
+  public static let SDK_STATUS_200_RAW: Swift.String
+  public static let SIDE_FRONT: Swift.String
+  public static let SIDE_BACK: Swift.String
+  public static func isFrontDocumentType(_ type: Swift.String?) -> Swift.Bool
+  public static func isBackDocumentType(_ type: Swift.String?) -> Swift.Bool
+  public static func matchesExpectedDocumentSide(expectedSide: Swift.String?, actualType: Swift.String?) -> Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum SDKStepType : Swift.Int, Swift.CustomStringConvertible {
+  case ocrFront = 0
+  case ocrBack = 1
+  case qrCode = 2
+  case nfc = 3
+  case liveness = 4
+  case result = 5
+  public var value: Swift.String {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension FinosCore.EKYCErrorResult {
+  @objc public static let SDK_NOT_INITIALIZED: FinosCore.EKYCErrorResult
+  @objc public static let CONFIG_NULL: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_TRANSACTION_ID: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_IMAGE_PATH: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_INVALID_SIDE: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_DOCUMENT_NUMBER: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_BIRTH_DATE: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_EXPIRE_DATE: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_EXPIRED_DATE: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_SOD: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_CARD_NUMBER: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_LOCATION: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_SELFIE: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_ID_IMAGE: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_PHONE: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_REFERENCE_ID: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_MISSING_REQUEST_ID: FinosCore.EKYCErrorResult
+  @objc public static let VALIDATION_INVALID_ENV: FinosCore.EKYCErrorResult
+  @objc public static let SDK_INVALID_LANGUAGE: FinosCore.EKYCErrorResult
+  @objc public static let SDK_START_FLOW_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let SDK_START_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let ERROR_UNKNOWN: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_KEY: FinosCore.EKYCErrorResult
+  @objc public static let SDK_NETWORK_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_APP_KEY_OCR: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_APP_KEY_NFC: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_APP_KEY_C06: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_APP_KEY_LIVENESS: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_APP_KEY_FACE_SERVICE: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_ACTIVITY: FinosCore.EKYCErrorResult
+  @objc public static let SDK_TLS_PINNING_FAILED: FinosCore.EKYCErrorResult
+  @objc public static let SDK_NETWORK_TIMEOUT: FinosCore.EKYCErrorResult
+  @objc public static let ERROR_SDK_KEY: FinosCore.EKYCErrorResult
+  @objc public static let SDK_TYPE_KEY: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_C06: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_FACE_SERVICE: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_OCR: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_NFC: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_LIVENESS: FinosCore.EKYCErrorResult
+  @objc public static let SDK_MISS_IMAGE: FinosCore.EKYCErrorResult
+  @objc public static let SDK_NO_DATA: FinosCore.EKYCErrorResult
+  @objc public static let OCR_UNRECOGNIZED_ID_CARD: FinosCore.EKYCErrorResult
+  @objc public static let OCR_WRONG_ID_CARD_SIDE: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CANNOT_GET_ID_NUMBER: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CANNOT_GET_NAME: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CANNOT_GET_BIRTH_YEAR: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CANNOT_GET_EXPIRY_DATE: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CANNOT_GET_ISSUE_DATE: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CANNOT_GET_RESIDENCE: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CANNOT_GET_HOMETOWN: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CANNOT_GET_GENDER: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CANNOT_GET_ISSUE_PLACE: FinosCore.EKYCErrorResult
+  @objc public static let OCR_MISSING_ID_CARD_PART: FinosCore.EKYCErrorResult
+  @objc public static let OCR_NOT_ORIGINAL_ID_CARD: FinosCore.EKYCErrorResult
+  @objc public static let OCR_ID_CARD_FROM_OTHER_DEVICE: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CANNOT_RECOGNIZE_PORTRAIT: FinosCore.EKYCErrorResult
+  @objc public static let OCR_CUT_CORNER_ID_CARD: FinosCore.EKYCErrorResult
+  @objc public static let OCR_BLURRY_ID_CARD: FinosCore.EKYCErrorResult
+  @objc public static let OCR_GLARE_ID_CARD: FinosCore.EKYCErrorResult
+  @objc public static let OCR_INVALID_ID_CARD: FinosCore.EKYCErrorResult
+  @objc public static let OCR_INVALID_GENDER_CODE: FinosCore.EKYCErrorResult
+  @objc public static let OCR_FAKE_MRZ: FinosCore.EKYCErrorResult
+  @objc public static let OCR_USE_NEW_ID_DOCUMENT_1: FinosCore.EKYCErrorResult
+  @objc public static let OCR_USE_NEW_ID_DOCUMENT_2: FinosCore.EKYCErrorResult
+  @objc public static let OCR_FAKE_CHARACTERS_DETECTED_CMND: FinosCore.EKYCErrorResult
+  @objc public static let OCR_FAKE_PORTRAIT_DETECTED_CMND: FinosCore.EKYCErrorResult
+  @objc public static let OCR_FAKE_BIRTH_DATE_DETECTED_CMND: FinosCore.EKYCErrorResult
+  @objc public static let OCR_MODIFIED_SYMBOL_DETECTED_CMND: FinosCore.EKYCErrorResult
+  @objc public static let OCR_MODIFIED_BIRTH_DATE_DETECTED_CMND: FinosCore.EKYCErrorResult
+  @objc public static let OCR_UNKNOWN_ID_NUMBER_LENGTH: FinosCore.EKYCErrorResult
+  @objc public static let OCR_FAKE_CHARACTERS_DETECTED_1: FinosCore.EKYCErrorResult
+  @objc public static let OCR_FAKE_CHARACTERS_DETECTED_2: FinosCore.EKYCErrorResult
+  @objc public static let OCR_FAKE_PORTRAIT_DETECTED: FinosCore.EKYCErrorResult
+  @objc public static let OCR_PHOTOCOPY_ID_CARD: FinosCore.EKYCErrorResult
+  @objc public static let OCR_FONT_BACK_NOT_MATCH: FinosCore.EKYCErrorResult
+  @objc public static let OCR_ID_INFO_MISMATCH: FinosCore.EKYCErrorResult
+  @objc public static let OCR_ID_CARD_EXPIRED: FinosCore.EKYCErrorResult
+  @objc public static let OCR_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let FACE_HAT_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let FACE_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let LIVENESS_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let LIVENESS_FAIL: FinosCore.EKYCErrorResult
+  @objc public static let MULTIPLE_FACES_IN_SELFIE: FinosCore.EKYCErrorResult
+  @objc public static let EYES_CLOSED_IN_SELFIE: FinosCore.EKYCErrorResult
+  @objc public static let MASK_PRESENT_IN_SELFIE: FinosCore.EKYCErrorResult
+  @objc public static let FACE_IS_BLURRED: FinosCore.EKYCErrorResult
+  @objc public static let FACE_OCCLUDED_IN_SELFIE: FinosCore.EKYCErrorResult
+  @objc public static let EYEWEAR_DETECTED_IN_SELFIE: FinosCore.EKYCErrorResult
+  @objc public static let READING_GLASSES_DETECTED_IN_SELFIE: FinosCore.EKYCErrorResult
+  @objc public static let NUDITY_DETECTED_IN_SELFIE: FinosCore.EKYCErrorResult
+  @objc public static let HEAD_IS_TURNED_IN_SELFIE: FinosCore.EKYCErrorResult
+  @objc public static let SCAN_NFC_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let SCAN_NFC_CHECK: FinosCore.EKYCErrorResult
+  @objc public static let SCAN_NFC_ENABLE: FinosCore.EKYCErrorResult
+  @objc public static let C06_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let NFC_MUTUAL_AUTH_FAILED: FinosCore.EKYCErrorResult
+  @objc public static let NFC_CONNECTION_LOST: FinosCore.EKYCErrorResult
+  @objc public static let NFC_INVALID_MRZ_KEY: FinosCore.EKYCErrorResult
+  @objc public static let NFC_IO_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let NFC_UNKNOWN_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let NFC_USER_CANCEL: FinosCore.EKYCErrorResult
+  @objc public static let NFC_CHIP_AUTH_FAILED: FinosCore.EKYCErrorResult
+  @objc public static let USER_CANCEL: FinosCore.EKYCErrorResult
+  @objc public static let SMS_OTP_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let SMS_OTP_INVALID_PHONE: FinosCore.EKYCErrorResult
+  @objc public static let SMS_OTP_MAX_ATTEMPTS: FinosCore.EKYCErrorResult
+  @objc public static let SMS_OTP_NOT_FOUND: FinosCore.EKYCErrorResult
+  @objc public static let SMS_OTP_RATE_LIMIT: FinosCore.EKYCErrorResult
+  @objc public static let SMS_OTP_MISSING_PHONE: FinosCore.EKYCErrorResult
+  @objc public static let SMS_OTP_MISSING_OTP_CODE: FinosCore.EKYCErrorResult
+  @objc public static let SMS_OTP_MISSING_REFERENCE_ID: FinosCore.EKYCErrorResult
+  @objc public static let QRCODE_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let FETCH_HISTORY_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_SESSION_INVALID: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_DEVICE_ALREADY_INIT: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_LICENSE: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_LICENSE_CONTENT: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_DEVICE_NOT_INIT: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_APP_LIMITED: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_USER_ACCOUNT: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_SESSION_INVALID_REGISTER: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_RECOVERY_OR_PIN: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_SESSION_INVALID_LIST_CERT: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_AUTH_EXISTS: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_SIGN_COUNT_OR_TIME: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_CERT_FOR_AUTH: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_AUTH_REQUEST_EXISTS: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_ERROR_UNKNOWN: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_STATUS: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_AUTH_ID: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_AUTH_DATA: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_AUTHORIZE_REQUEST_ID: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_TOKEN: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_CCCD: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_REQUEST_JSON: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_CONFIRMATION_DOC: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_NO_SESSION_ID: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_ACCESS_TOKEN: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_IDENTITY: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_SERIAL: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_REQUEST_ID: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_CONTEXT: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_LICENSE_CODE: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_RECOVERY_CODE: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_PIN_CODE: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_NAME: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_DEVICE_ID: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_REQUEST_JSON: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_PIN_CODE: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_USER_PIN: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_PAGE_PARAMS: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_QUANTITY: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_TIME: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_PIN_FORMAT: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_RECOVERY_FORMAT: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_USER_INFO: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_IDENTITY: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_SOD: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_REGISTER_DATE: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_EXPIRED_DATE: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_SIGNING_CONTENTS: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_DATA: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_TOKEN_INFO: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_USERNAME: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_SERIAL_TOKEN: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_SESSION_ID: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_NAME: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_ADDRESS: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_SIGNATURE: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_EMAIL_OR_PHONE: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_POLICY_AGREEMENT: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_POLICY_STATUS: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_ACCEPT_TIME: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_DEVICE: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_SIGN_POSITIONS: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_SIGN_POSITION_LOCATION: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_MISSING_FIELD_DOCUMENT_NAME: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_REGISTER_DATE_FORMAT: FinosCore.EKYCErrorResult
+  @objc public static let ESIGN_INVALID_EXPIRED_DATE_FORMAT: FinosCore.EKYCErrorResult
+  @objc public static let BRIDGE_NO_ACTIVITY: FinosCore.EKYCErrorResult
+  @objc public static let BRIDGE_PARSE_ERROR: FinosCore.EKYCErrorResult
+  @objc public static let BRIDGE_FILE_NOT_FOUND: FinosCore.EKYCErrorResult
+  @objc public static let BRIDGE_INVALID_SERIAL: FinosCore.EKYCErrorResult
+  @objc public static let BRIDGE_CONFIG_MISSING: FinosCore.EKYCErrorResult
+  @objc public static let BRIDGE_NO_VIEW_CONTROLLER: FinosCore.EKYCErrorResult
+  @objc public static let BRIDGE_INVALID_PARAMS: FinosCore.EKYCErrorResult
+  @objc public static let DEVICE_JAILBROKEN: FinosCore.EKYCErrorResult
+  @objc public static let DEVICE_HOOKED: FinosCore.EKYCErrorResult
+  @objc public static let SDK_TAMPERED: FinosCore.EKYCErrorResult
+  @objc public static let DEVICE_SIMULATOR: FinosCore.EKYCErrorResult
+  @objc public static let DEVICE_DEBUGGING: FinosCore.EKYCErrorResult
+}
+public enum GeneratedQualityRules {
+  public static let docMinFillRatio: Swift.Float
+  public static let docMaxFillRatio: Swift.Float
+  public static let docMinBlurScore: Swift.Float
+  public static let docMaxGlareRatio: Swift.Float
+  public static let docMinBrightness: Swift.Float
+  public static let faceMinFaceRatio: Swift.Float
+  public static let faceMaxFaceRatio: Swift.Float
+  public static let faceMinBlurScore: Swift.Float
+  public static let faceMinBrightness: Swift.Float
+  public static let faceCenterTolerance: Swift.Float
+  public static let livenessPitchUp: Swift.Float
+  public static let livenessPitchDown: Swift.Float
+  public static let livenessYawLeft: Swift.Float
+  public static let livenessYawRight: Swift.Float
+  public static let livenessFaceRatioTooFar: Swift.Float
+  public static let livenessFaceRatioTooClose: Swift.Float
+  public static let ovalMaxCenterDeviation: Swift.Float
+  public static let ovalTolerance: Swift.Float
+  public static let ovalMinFaceSize: Swift.Float
+  public static let ovalMaxFaceSize: Swift.Float
+  public static let ovalMaxStraightAngle: Swift.Float
+  public static let occlusionMinDarkRatio: Swift.Float
+  public static let occlusionDarkRelativeFraction: Swift.Float
+  public static let occlusionContentDebounceMs: Swift.Int64
+  public static let occlusionRequireQrWhenSeen: Swift.Bool
+  public static let occlusionMinContentBrightness: Swift.Float
+  public static let captureOcrMaxDimension: Swift.Int
+  public static let captureFullHdMaxDimension: Swift.Int
+  public static let captureJpegQuality: CoreFoundation.CGFloat
+  public static let captureResultImageJpegQuality: CoreFoundation.CGFloat
+  public static let timingAligningTipCount: Swift.Int
+  public static let maskThreshold: Swift.Float
+}
+@objc public class CommonField : ObjectiveC.NSObject, Swift.Codable {
+  public var confidence: Swift.String?
+  public var score: Swift.Int?
+  public var value: Swift.String?
+  public var toBeReviewed: Swift.String?
+  public var daysToExpiry: Swift.Int?
+  public init(confidence: Swift.String? = nil, score: Swift.Int? = nil, value: Swift.String? = nil, toBeReviewed: Swift.String? = nil, daysToExpiry: Swift.Int? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class CommonFieldWithRange : ObjectiveC.NSObject, Swift.Codable {
+  public var confidence: Swift.String?
+  public var score: Swift.Int?
+  public var value: Swift.String?
+  public var high: Swift.Int?
+  public var low: Swift.Int?
+  public init(confidence: Swift.String? = nil, score: Swift.Int? = nil, value: Swift.String? = nil, high: Swift.Int? = nil, low: Swift.Int? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class CheckSummaryResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var action: Swift.String?
+  public var details: [FinosCore.CheckSummaryResponse.Detail]?
+  public init(action: Swift.String? = nil, details: [FinosCore.CheckSummaryResponse.Detail]? = nil)
+  @objc public class Detail : ObjectiveC.NSObject, Swift.Codable {
+    public var code: Swift.String?
+    public var message: Swift.String?
+    public init(code: Swift.String? = nil, message: Swift.String? = nil)
+    @objc deinit
+    public func encode(to encoder: any Swift.Encoder) throws
+    required public init(from decoder: any Swift.Decoder) throws
+  }
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class CheckOcrResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var requestId: Swift.String?
+  public var result: FinosCore.CheckOcrResponse.OcrCheckResult?
+  public var status: Swift.String?
+  public var statusCode: Swift.String?
+  public init(requestId: Swift.String? = nil, result: FinosCore.CheckOcrResponse.OcrCheckResult? = nil, status: Swift.String? = nil, statusCode: Swift.String? = nil)
+  @objc public class OcrCheckResult : ObjectiveC.NSObject, Swift.Codable {
+    public var details: [FinosCore.CheckOcrResponse.OcrCheckResult.Detail]?
+    public var summary: FinosCore.CheckSummaryResponse?
+    public init(details: [FinosCore.CheckOcrResponse.OcrCheckResult.Detail]? = nil, summary: FinosCore.CheckSummaryResponse? = nil)
+    @objc public class Detail : ObjectiveC.NSObject, Swift.Codable {
+      public var fieldsExtracted: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.FieldsExtracted?
+      public var forgeryChecks: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.ForgeryChecks?
+      public var qualityChecks: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.QualityChecks?
+      public var ruleChecks: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.RuleChecks?
+      public var tamperChecks: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.TamperChecks?
+      public var type: Swift.String?
+      public var isWrongSide: Swift.String?
+      public init(fieldsExtracted: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.FieldsExtracted? = nil, forgeryChecks: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.ForgeryChecks? = nil, qualityChecks: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.QualityChecks? = nil, ruleChecks: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.RuleChecks? = nil, tamperChecks: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.TamperChecks? = nil, type: Swift.String? = nil, isWrongSide: Swift.String? = nil)
+      @objc public class FieldsExtracted : ObjectiveC.NSObject, Swift.Codable {
+        public var dob: FinosCore.CommonField?
+        public var doe: FinosCore.CommonField?
+        public var doi: FinosCore.CommonField?
+        public var facePhoto: FinosCore.CommonField?
+        public var gender: FinosCore.CommonField?
+        public var homeTown: FinosCore.CommonField?
+        public var idNumber: FinosCore.CommonField?
+        public var mrzString: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.FieldsExtracted.MrzString?
+        public var name: FinosCore.CommonField?
+        public var nationality: FinosCore.CommonField?
+        public var permanentAddress: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.FieldsExtracted.PermanentAddress?
+        public var placeOfIssue: FinosCore.CommonField?
+        public init(dob: FinosCore.CommonField? = nil, doe: FinosCore.CommonField? = nil, doi: FinosCore.CommonField? = nil, facePhoto: FinosCore.CommonField? = nil, gender: FinosCore.CommonField? = nil, homeTown: FinosCore.CommonField? = nil, idNumber: FinosCore.CommonField? = nil, mrzString: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.FieldsExtracted.MrzString? = nil, name: FinosCore.CommonField? = nil, nationality: FinosCore.CommonField? = nil, permanentAddress: FinosCore.CheckOcrResponse.OcrCheckResult.Detail.FieldsExtracted.PermanentAddress? = nil, placeOfIssue: FinosCore.CommonField? = nil)
+        @objc public class MrzString : ObjectiveC.NSObject, Swift.Codable {
+          public var confidence: Swift.String?
+          public var dateOfBirth: Swift.String?
+          public var dateOfExpiry: Swift.String?
+          public var fullName: Swift.String?
+          public var gender: Swift.String?
+          public var idNumber: Swift.String?
+          public var nationality: Swift.String?
+          public var score: Swift.Int?
+          public var toBeReviewed: Swift.String?
+          public var value: Swift.String?
+          public init(confidence: Swift.String? = nil, dateOfBirth: Swift.String? = nil, dateOfExpiry: Swift.String? = nil, fullName: Swift.String? = nil, gender: Swift.String? = nil, idNumber: Swift.String? = nil, nationality: Swift.String? = nil, score: Swift.Int? = nil, toBeReviewed: Swift.String? = nil, value: Swift.String? = nil)
+          @objc deinit
+          public func encode(to encoder: any Swift.Encoder) throws
+          required public init(from decoder: any Swift.Decoder) throws
+        }
+        @objc public class PermanentAddress : ObjectiveC.NSObject, Swift.Codable {
+          public var confidence: Swift.String?
+          public var district: Swift.String?
+          public var province: Swift.String?
+          public var score: Swift.Int?
+          public var street: Swift.String?
+          public var ward: Swift.String?
+          public var toBeReviewed: Swift.String?
+          public var value: Swift.String?
+          public init(confidence: Swift.String? = nil, district: Swift.String? = nil, province: Swift.String? = nil, score: Swift.Int? = nil, street: Swift.String? = nil, ward: Swift.String? = nil, toBeReviewed: Swift.String? = nil, value: Swift.String? = nil)
+          @objc deinit
+          public func encode(to encoder: any Swift.Encoder) throws
+          required public init(from decoder: any Swift.Decoder) throws
+        }
+        @objc deinit
+        public func encode(to encoder: any Swift.Encoder) throws
+        required public init(from decoder: any Swift.Decoder) throws
+      }
+      @objc public class ForgeryChecks : ObjectiveC.NSObject, Swift.Codable {
+        public var colorPrintout: FinosCore.CommonField?
+        public var digitalText: FinosCore.CommonField?
+        public var facePhoto: FinosCore.CommonField?
+        public var physicalText: FinosCore.CommonField?
+        public init(colorPrintout: FinosCore.CommonField? = nil, digitalText: FinosCore.CommonField? = nil, facePhoto: FinosCore.CommonField? = nil, physicalText: FinosCore.CommonField? = nil)
+        @objc deinit
+        public func encode(to encoder: any Swift.Encoder) throws
+        required public init(from decoder: any Swift.Decoder) throws
+      }
+      @objc public class QualityChecks : ObjectiveC.NSObject, Swift.Codable {
+        public var blackAndWhite: FinosCore.CommonField?
+        public var blur: FinosCore.CommonField?
+        public var capturedFromScreen: FinosCore.CommonField?
+        public var faceNotDetected: FinosCore.CommonField?
+        public var glare: FinosCore.CommonField?
+        public var partialId: FinosCore.CommonField?
+        public init(blackAndWhite: FinosCore.CommonField? = nil, blur: FinosCore.CommonField? = nil, capturedFromScreen: FinosCore.CommonField? = nil, faceNotDetected: FinosCore.CommonField? = nil, glare: FinosCore.CommonField? = nil, partialId: FinosCore.CommonField? = nil)
+        @objc deinit
+        public func encode(to encoder: any Swift.Encoder) throws
+        required public init(from decoder: any Swift.Decoder) throws
+      }
+      @objc public class TamperChecks : ObjectiveC.NSObject, Swift.Codable {
+        public var photoTampered: FinosCore.CommonField?
+        public init(photoTampered: FinosCore.CommonField? = nil)
+        @objc deinit
+        public func encode(to encoder: any Swift.Encoder) throws
+        required public init(from decoder: any Swift.Decoder) throws
+      }
+      @objc public class RuleChecks : ObjectiveC.NSObject, Swift.Codable {
+        public var idDOBGenderCodeInvalid: FinosCore.CommonField?
+        public var idProvinceCodeInvalid: FinosCore.CommonField?
+        public var expiredID: FinosCore.CommonField?
+        public var idNumberLengthMismatch: FinosCore.CommonField?
+        public init(idDOBGenderCodeInvalid: FinosCore.CommonField? = nil, idProvinceCodeInvalid: FinosCore.CommonField? = nil, expiredID: FinosCore.CommonField? = nil, idNumberLengthMismatch: FinosCore.CommonField? = nil)
+        @objc deinit
+        public func encode(to encoder: any Swift.Encoder) throws
+        required public init(from decoder: any Swift.Decoder) throws
+      }
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    @objc deinit
+    public func encode(to encoder: any Swift.Encoder) throws
+    required public init(from decoder: any Swift.Decoder) throws
+  }
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class CheckFaceResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var requestId: Swift.String?
+  public var result: FinosCore.CheckFaceResponse.FaceVerifyResult?
+  public var status: Swift.String?
+  public var statusCode: Swift.String?
+  public var error: Swift.String?
+  public var type: Swift.String?
+  public init(requestId: Swift.String? = nil, result: FinosCore.CheckFaceResponse.FaceVerifyResult? = nil, status: Swift.String? = nil, statusCode: Swift.String? = nil, error: Swift.String? = nil, type: Swift.String? = nil)
+  @objc public class FaceVerifyResult : ObjectiveC.NSObject, Swift.Codable {
+    public var conf: Swift.Double?
+    public var match: Swift.String?
+    public var matchScore: Swift.Int?
+    public var toBeReviewed: Swift.String?
+    public init(conf: Swift.Double? = nil, match: Swift.String? = nil, matchScore: Swift.Int? = nil, toBeReviewed: Swift.String? = nil)
+    @objc deinit
+    public func encode(to encoder: any Swift.Encoder) throws
+    required public init(from decoder: any Swift.Decoder) throws
+  }
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class CheckLivenessResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var metadata: FinosCore.CheckLivenessResponse.Metadata?
+  public var result: FinosCore.CheckLivenessResponse.LivenessCheckResult?
+  public var status: Swift.String?
+  public var statusCode: Swift.String?
+  public init(metadata: FinosCore.CheckLivenessResponse.Metadata? = nil, result: FinosCore.CheckLivenessResponse.LivenessCheckResult? = nil, status: Swift.String? = nil, statusCode: Swift.String? = nil)
+  @objc public class Metadata : ObjectiveC.NSObject, Swift.Codable {
+    public var requestId: Swift.String?
+    public var transactionId: Swift.String?
+    public init(requestId: Swift.String? = nil, transactionId: Swift.String? = nil)
+    @objc deinit
+    public func encode(to encoder: any Swift.Encoder) throws
+    required public init(from decoder: any Swift.Decoder) throws
+  }
+  @objc public class LivenessCheckResult : ObjectiveC.NSObject, Swift.Codable {
+    public var details: FinosCore.CheckLivenessResponse.LivenessCheckResult.Details?
+    public var summary: FinosCore.CheckSummaryResponse?
+    public init(details: FinosCore.CheckLivenessResponse.LivenessCheckResult.Details? = nil, summary: FinosCore.CheckSummaryResponse? = nil)
+    @objc public class Details : ObjectiveC.NSObject, Swift.Codable {
+      public var ageRange: FinosCore.CommonFieldWithRange?
+      public var liveFace: FinosCore.CommonField?
+      public var qualityChecks: FinosCore.CheckLivenessResponse.LivenessCheckResult.Details.QualityChecks?
+      public init(ageRange: FinosCore.CommonFieldWithRange? = nil, liveFace: FinosCore.CommonField? = nil, qualityChecks: FinosCore.CheckLivenessResponse.LivenessCheckResult.Details.QualityChecks? = nil)
+      @objc public class QualityChecks : ObjectiveC.NSObject, Swift.Codable {
+        public var blur: FinosCore.CommonField?
+        public var bright: FinosCore.CommonField?
+        public var dull: FinosCore.CommonField?
+        public var eyesClosed: FinosCore.CommonField?
+        public var eyewear: FinosCore.CommonField?
+        public var faceOccluded: FinosCore.CommonField?
+        public var hat: FinosCore.CommonField?
+        public var headTurned: FinosCore.CommonField?
+        public var maskPresent: FinosCore.CommonField?
+        public var multipleFaces: FinosCore.CommonField?
+        public var nudity: FinosCore.CommonField?
+        public var readingGlasses: FinosCore.CommonField?
+        public var sunglasses: FinosCore.CommonField?
+        public init(blur: FinosCore.CommonField? = nil, bright: FinosCore.CommonField? = nil, dull: FinosCore.CommonField? = nil, eyesClosed: FinosCore.CommonField? = nil, eyewear: FinosCore.CommonField? = nil, faceOccluded: FinosCore.CommonField? = nil, hat: FinosCore.CommonField? = nil, headTurned: FinosCore.CommonField? = nil, maskPresent: FinosCore.CommonField? = nil, multipleFaces: FinosCore.CommonField? = nil, nudity: FinosCore.CommonField? = nil, readingGlasses: FinosCore.CommonField? = nil, sunglasses: FinosCore.CommonField? = nil)
+        @objc deinit
+        public func encode(to encoder: any Swift.Encoder) throws
+        required public init(from decoder: any Swift.Decoder) throws
+      }
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    @objc deinit
+    public func encode(to encoder: any Swift.Encoder) throws
+    required public init(from decoder: any Swift.Decoder) throws
+  }
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class SubmitLivenessResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var messages: [FinosCore.SubmitLivenessResponse.SubmitLivenessMessage]?
+  public var data: FinosCore.SubmitLivenessResponse.DataPayload?
+  public init(messages: [FinosCore.SubmitLivenessResponse.SubmitLivenessMessage]? = nil, data: FinosCore.SubmitLivenessResponse.DataPayload? = nil)
+  @objc public class SubmitLivenessMessage : ObjectiveC.NSObject, Swift.Codable {
+    public var code: Swift.String?
+    public var message: Swift.String?
+    public init(code: Swift.String? = nil, message: Swift.String? = nil)
+    @objc deinit
+    public func encode(to encoder: any Swift.Encoder) throws
+    required public init(from decoder: any Swift.Decoder) throws
+  }
+  @objc public class DataPayload : ObjectiveC.NSObject, Swift.Codable {
+    public var result: Swift.String?
+    public var transactionId: Swift.String?
+    public var requestId: Swift.String?
+    public init(result: Swift.String? = nil, transactionId: Swift.String? = nil, requestId: Swift.String? = nil)
+    @objc deinit
+    public func encode(to encoder: any Swift.Encoder) throws
+    required public init(from decoder: any Swift.Decoder) throws
+  }
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public enum EkycFlow : Swift.Int, Swift.CustomStringConvertible {
+  case nfc = 0
+  case ocr = 1
+  case liveness = 2
+  case qrCode = 3
+  case c06 = 4
+  case faceService = 5
+  case livenessPassive = 6
+  public var description: Swift.String {
+    get
+  }
+  public var stringValue: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum GeneratedSecurityPolicy {
+  public static let jailbreakPaths: [Swift.String]
+  public static let hookImageSubstrings: [Swift.String]
+}
+public protocol FinOSeKYCInterface {
+  static func quickStart(flow: [FinosCore.EkycFlow], language: Swift.String, env: FinosCore.SDKEnv)
+}
+public protocol FinOSOtpInterface {
+  static func sendOtp(apiKey: Swift.String, smsOtpConfig: shared.SmsOtpConfig)
+  static func verifyOtp(apiKey: Swift.String, smsOtpConfig: shared.SmsOtpConfig, otpCode: Swift.String)
+}
+public struct SDKEventLogger {
+  public static func logValidationError(field: Swift.String, message: Swift.String)
+}
+@objc public class BaseResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var requestId: Swift.String?
+  public var status: Swift.String?
+  public var statusCode: Swift.String?
+  public var error: Swift.String?
+  public init(requestId: Swift.String? = nil, status: Swift.String? = nil, statusCode: Swift.String? = nil, error: Swift.String? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class SDKBaseResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var data: FinosCore.AnyCodable?
+  public var messages: [FinosCore.Message]?
+  public init(data: FinosCore.AnyCodable? = nil, messages: [FinosCore.Message]? = nil)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class Message : ObjectiveC.NSObject, Swift.Codable {
+  public var code: Swift.String
+  public var message: Swift.String
+  public init(code: Swift.String = "", message: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public struct AnyCodable : Swift.Codable {
+  public let value: Any
+  public init(_ value: Any)
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@_hasMissingDesignatedInitializers @objc public class CheckC06Response : FinosCore.BaseResponse {
+  public var resCode: Swift.String?
+  public var resData: FinosCore.CheckC06Response.C06CheckResult?
+  public var resMessage: Swift.String?
+  public init(resCode: Swift.String? = nil, resData: FinosCore.CheckC06Response.C06CheckResult? = nil, resMessage: Swift.String? = nil)
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc public class C06CheckResult : ObjectiveC.NSObject, Swift.Codable {
+    public var rarResponseId: Swift.String?
+    public var signature: Swift.String?
+    public var verifyStatus: Swift.Bool?
+    public init(rarResponseId: Swift.String? = nil, signature: Swift.String? = nil, verifyStatus: Swift.Bool? = nil)
+    @objc deinit
+    public func encode(to encoder: any Swift.Encoder) throws
+    required public init(from decoder: any Swift.Decoder) throws
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class QRCodeData : ObjectiveC.NSObject, Swift.Codable {
+  public var rawData: Swift.String?
+  public var idNumber: Swift.String?
+  public var idNumberOld: Swift.String?
+  public var fullName: Swift.String?
+  public var dateOfBirth: Swift.String?
+  public var gender: Swift.String?
+  public var address: Swift.String?
+  public var dateOfIssue: Swift.String?
+  @objc override dynamic public init()
+  public init(rawData: Swift.String? = nil, idNumber: Swift.String? = nil, idNumberOld: Swift.String? = nil, fullName: Swift.String? = nil, dateOfBirth: Swift.String? = nil, gender: Swift.String? = nil, address: Swift.String? = nil, dateOfIssue: Swift.String? = nil)
+  public static func parse(from qrString: Swift.String) -> FinosCore.QRCodeData?
+  public func toDictionary() -> [Swift.String : Any]
+  required public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class SDKEkycResult : ObjectiveC.NSObject {
+  public var ocrResponse: [Swift.String : Any]?
+  public var livenessResponse: [Swift.String : Any]?
+  public var faceServiceResponse: [Swift.String : Any]?
+  public var nfcResponse: [Swift.String : Any]?
+  public var c06Response: [Swift.String : Any]?
+  public var transactionResponse: [Swift.String : Any]?
+  public var qrCodeResponse: [Swift.String : Any]?
+  public var checkOcrResponse: FinosCore.CheckOcrResponse?
+  public var checkLivenessResponse: FinosCore.CheckLivenessResponse?
+  public var checkFaceResponse: FinosCore.CheckFaceResponse?
+  public var checkC06Response: FinosCore.CheckC06Response?
+  public var qrCodeData: FinosCore.QRCodeData?
+  public var customData: [Swift.String : Any]?
+  public var useMapping: Swift.Bool
+  @objc override dynamic public init()
+  public init(ocrResponse: [Swift.String : Any]? = nil, livenessResponse: [Swift.String : Any]? = nil, faceServiceResponse: [Swift.String : Any]? = nil, nfcResponse: [Swift.String : Any]? = nil, c06Response: [Swift.String : Any]? = nil, transactionResponse: [Swift.String : Any]? = nil, qrCodeResponse: [Swift.String : Any]? = nil, useMapping: Swift.Bool = true)
+  convenience public init(ocrResponse: [Swift.String : Any])
+  convenience public init(livenessResponse: [Swift.String : Any])
+  convenience public init(faceServiceResponse: [Swift.String : Any])
+  convenience public init(nfcResponse: [Swift.String : Any])
+  convenience public init(c06Response: [Swift.String : Any])
+  convenience public init(transactionResponse: [Swift.String : Any])
+  convenience public init(qrCodeResponse: [Swift.String : Any])
+  convenience public init(customData: [Swift.String : Any])
+  public func toDictionary() -> [Swift.String : Any]
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public class SDKImageResultModel : ObjectiveC.NSObject, Swift.Codable {
+  public var image: Any?
+  public var title: Swift.String
+  public init(image: Any? = nil, title: Swift.String = "")
+  required public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+@objc public class SDKListTransactionResponse : ObjectiveC.NSObject, Swift.Codable {
+  public var requestId: Swift.String?
+  public var result: FinosCore.SDKListTransactionResponse.ResultWrapper?
+  public var status: Swift.String?
+  public var statusCode: Swift.String?
+  public init(requestId: Swift.String? = nil, result: FinosCore.SDKListTransactionResponse.ResultWrapper? = nil, status: Swift.String? = nil, statusCode: Swift.String? = nil)
+  @objc public class ResultWrapper : ObjectiveC.NSObject, Swift.Codable {
+    public var details: FinosCore.SDKListTransactionResponse.ResultWrapper.Details?
+    public init(details: FinosCore.SDKListTransactionResponse.ResultWrapper.Details? = nil)
+    @objc public class Details : ObjectiveC.NSObject, Swift.Codable {
+      public var transactions: FinosCore.SDKListTransactionResponse.ResultWrapper.Details.Transactions?
+      public init(transactions: FinosCore.SDKListTransactionResponse.ResultWrapper.Details.Transactions? = nil)
+      @objc public class Transactions : ObjectiveC.NSObject, Swift.Codable {
+        public var page: Swift.Int?
+        public var size: Swift.Int?
+        public var totalElements: Swift.Int?
+        public var totalPages: Swift.Int?
+        public var elements: [FinosCore.SDKTransactionResponse]?
+        public var hasMore: Swift.Bool?
+        public var hasPrevious: Swift.Bool?
+        public init(page: Swift.Int? = nil, size: Swift.Int? = nil, totalElements: Swift.Int? = nil, totalPages: Swift.Int? = nil, elements: [FinosCore.SDKTransactionResponse]? = nil, hasMore: Swift.Bool? = nil, hasPrevious: Swift.Bool? = nil)
+        @objc deinit
+        public func encode(to encoder: any Swift.Encoder) throws
+        required public init(from decoder: any Swift.Decoder) throws
+      }
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    @objc deinit
+    public func encode(to encoder: any Swift.Encoder) throws
+    required public init(from decoder: any Swift.Decoder) throws
+  }
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers @objc public class SDKTransactionResponse : FinosCore.BaseResponse {
+  public var id: Swift.String?
+  public var apiCode: Swift.String?
+  public var apiId: Swift.String?
+  public var applicationId: Swift.String?
+  public var customerId: Swift.String?
+  public var externalId: Swift.String?
+  public var imagePath1: Swift.String?
+  public var imagePath2: Swift.String?
+  public var planId: Swift.String?
+  public var providerCode: Swift.String?
+  public var requestTime: Swift.String?
+  public var transactionId: Swift.String?
+  public var username: Swift.String?
+  public var data: Swift.String?
+  public var customTempData: FinosCore.AnyCodable?
+  public init(id: Swift.String? = nil, apiCode: Swift.String? = nil, apiId: Swift.String? = nil, applicationId: Swift.String? = nil, customerId: Swift.String? = nil, externalId: Swift.String? = nil, imagePath1: Swift.String? = nil, imagePath2: Swift.String? = nil, planId: Swift.String? = nil, providerCode: Swift.String? = nil, requestTime: Swift.String? = nil, transactionId: Swift.String? = nil, username: Swift.String? = nil, data: Swift.String? = nil, customTempData: FinosCore.AnyCodable? = nil)
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class DG13File : ObjectiveC.NSObject, Swift.Codable {
+  public static let EF_DG13_TAG: Swift.Int
+  public var cardNumber: Swift.String?
+  public var name: Swift.String?
+  public var dateOfBirth: Swift.String?
+  public var sex: Swift.String?
+  public var nationality: Swift.String?
+  public var nation: Swift.String?
+  public var religion: Swift.String?
+  public var hometown: Swift.String?
+  public var address: Swift.String?
+  public var character: Swift.String?
+  public var issueDate: Swift.String?
+  public var expiredDate: Swift.String?
+  public var motherName: Swift.String?
+  public var fatherName: Swift.String?
+  public var partnerName: Swift.String?
+  public var previousNumber: Swift.String?
+  public var rawData: Foundation.Data?
+  @objc override dynamic public init()
+  public init(cardNumber: Swift.String? = nil, name: Swift.String? = nil, dateOfBirth: Swift.String? = nil, sex: Swift.String? = nil, nationality: Swift.String? = nil, nation: Swift.String? = nil, religion: Swift.String? = nil, hometown: Swift.String? = nil, address: Swift.String? = nil, character: Swift.String? = nil, issueDate: Swift.String? = nil, expiredDate: Swift.String? = nil, motherName: Swift.String? = nil, fatherName: Swift.String? = nil, partnerName: Swift.String? = nil, previousNumber: Swift.String? = nil, rawData: Foundation.Data? = nil)
+  convenience public init(data: Foundation.Data)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class DG13InfoType : ObjectiveC.NSObject {
+  public static let CARD_NUMBER: Swift.UInt64
+  public static let NAME: Swift.UInt64
+  public static let DATE_OF_BIRTH: Swift.UInt64
+  public static let SEX: Swift.UInt64
+  public static let NATIONALITY: Swift.UInt64
+  public static let NATION: Swift.UInt64
+  public static let RELIGION: Swift.UInt64
+  public static let HOMETOWN: Swift.UInt64
+  public static let ADDRESS: Swift.UInt64
+  public static let CHARACTER: Swift.UInt64
+  public static let ISSUE_DATE: Swift.UInt64
+  public static let EXPIRED_DATE: Swift.UInt64
+  public static let PARENT: Swift.UInt64
+  public static let PARTNER_NAME: Swift.UInt64
+  public static let PREVIOUS_NUMBER: Swift.UInt64
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class NFCData : ObjectiveC.NSObject, Swift.Codable {
+  public var signature: Swift.String?
+  public var certificate: Swift.String?
+  public var sod: Swift.String?
+  public var mrz: Swift.String?
+  public var faceImage: Swift.String?
+  public var cardNumber: Swift.String?
+  public var dateOfBirth: Swift.String?
+  public var issueDate: Swift.String?
+  public var previousNumber: Swift.String?
+  public var name: Swift.String?
+  public var sex: Swift.String?
+  public var nationality: Swift.String?
+  public var nation: Swift.String?
+  public var religion: Swift.String?
+  public var hometown: Swift.String?
+  public var address: Swift.String?
+  public var character: Swift.String?
+  public var expiredDate: Swift.String?
+  public var fatherName: Swift.String?
+  public var motherName: Swift.String?
+  public var partnerName: Swift.String?
+  public var nfcInfo: FinosCore.NfcInfo
+  @objc override dynamic public init()
+  public init(signature: Swift.String? = nil, certificate: Swift.String? = nil, sod: Swift.String? = nil, mrz: Swift.String? = nil, faceImage: Swift.String? = nil, cardNumber: Swift.String? = nil, dateOfBirth: Swift.String? = nil, issueDate: Swift.String? = nil, previousNumber: Swift.String? = nil, name: Swift.String? = nil, sex: Swift.String? = nil, nationality: Swift.String? = nil, nation: Swift.String? = nil, religion: Swift.String? = nil, hometown: Swift.String? = nil, address: Swift.String? = nil, character: Swift.String? = nil, expiredDate: Swift.String? = nil, fatherName: Swift.String? = nil, motherName: Swift.String? = nil, partnerName: Swift.String? = nil, nfcInfo: FinosCore.NfcInfo = NfcInfo())
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  public func toJSON() -> Swift.String?
+  public static func fromJSON(_ jsonString: Swift.String) -> FinosCore.NFCData?
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@_inheritsConvenienceInitializers @objc public class NfcInfo : ObjectiveC.NSObject, Swift.Codable {
+  public var sod: Swift.String?
+  public var com: Swift.String?
+  public var dg1: Swift.String?
+  public var dg2: Swift.String?
+  public var dg13: Swift.String?
+  public var dg14: Swift.String?
+  public var dg15: Swift.String?
+  @objc override dynamic public init()
+  public init(sod: Swift.String? = nil, com: Swift.String? = nil, dg1: Swift.String? = nil, dg2: Swift.String? = nil, dg13: Swift.String? = nil, dg14: Swift.String? = nil, dg15: Swift.String? = nil)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc public enum AppIDType : Swift.Int {
+  case finos = 0
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum SDKEnvironment : Swift.Int {
+  case test = 0
+  case stag = 1
+  case uat = 2
+  case prod = 3
+  public var apigwURL: Swift.String {
+    get
+  }
+  public var wireValue: Swift.String {
+    get
+  }
+  public var apiURL: Swift.String {
+    get
+  }
+  public var name: Swift.String {
+    get
+  }
+  public static func from(_ string: Swift.String?) -> FinosCore.SDKEnvironment
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public typealias SDKEnv = FinosCore.SDKEnvironment
+@_inheritsConvenienceInitializers @objc public class AppKeyConfig : ObjectiveC.NSObject {
+  public var appKey: Swift.String?
+  public var appKeyESign: Swift.String?
+  @objc override dynamic public init()
+  public init(appKey: Swift.String? = nil, appKeyESign: Swift.String? = nil)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class OptionConfig : ObjectiveC.NSObject {
+  public var countMaxRetry: Swift.Int
+  public var language: Swift.String?
+  public var environment: FinosCore.SDKEnvironment
+  public var baseUrl: Swift.String?
+  public var esignGatewayUrl: Swift.String?
+  public var licenseCodeESign: Swift.String?
+  public var isOcrFollowedByQrCode: Swift.Bool
+  public var networkTimeoutMs: Swift.Int
+  public var showWelcomeScreen: Swift.Bool
+  public var showResultScreens: Swift.Bool
+  public var isCheckC06: Swift.Bool
+  public var returnToWelcomeOnComplete: Swift.Bool
+  public var allowedBundleIds: [Swift.String]
+  public var allowedTeamIds: [Swift.String]
+  @objc override dynamic public init()
+  public init(countMaxRetry: Swift.Int = Int(GeneratedSdkDefaults.shared.EKYC_COUNT_MAX_RETRY), language: Swift.String? = nil, environment: FinosCore.SDKEnvironment = .test, baseUrl: Swift.String? = nil, esignGatewayUrl: Swift.String? = nil, licenseCodeESign: Swift.String? = nil, isOcrFollowedByQrCode: Swift.Bool = false, networkTimeoutMs: Swift.Int = Int(GeneratedSdkDefaults.shared.EKYC_NETWORK_TIMEOUT_MS), showWelcomeScreen: Swift.Bool = false, showResultScreens: Swift.Bool = false, isCheckC06: Swift.Bool = false, returnToWelcomeOnComplete: Swift.Bool = false, allowedBundleIds: [Swift.String] = [], allowedTeamIds: [Swift.String] = [])
+  public func mergedWith(_ other: FinosCore.OptionConfig) -> FinosCore.OptionConfig
+  public var apigwURL: Swift.String {
+    get
+  }
+  public var apiURL: Swift.String {
+    get
+  }
+  public var baseURL: Swift.String {
+    get
+  }
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class StyleConfig : ObjectiveC.NSObject {
+  public var statusBarBackground: Swift.String?
+  public var toolbarBackground: Swift.String?
+  public var titleTextColor: Swift.String?
+  public var backIcon: Swift.String?
+  public var toolbarStyle: FinosCore.StyleConfig.TextStyle?
+  public var titleStyle: FinosCore.StyleConfig.TextStyle?
+  public var instructionStyle: FinosCore.StyleConfig.TextStyle?
+  public var errorStyle: FinosCore.StyleConfig.TextStyle?
+  public var successStyle: FinosCore.StyleConfig.TextStyle?
+  public var warningStyle: FinosCore.StyleConfig.TextStyle?
+  @objc override dynamic public init()
+  public init(statusBarBackground: Swift.String? = nil, toolbarBackground: Swift.String? = nil, titleTextColor: Swift.String? = nil, backIcon: Swift.String? = nil)
+  @_inheritsConvenienceInitializers @objc public class TextStyle : ObjectiveC.NSObject {
+    public var textSize: Swift.Int?
+    public var textColor: Swift.Int?
+    public var textFont: Swift.String?
+    @objc override dynamic public init()
+    public init(textSize: Swift.Int? = nil, textColor: Swift.Int? = nil, textFont: Swift.String? = nil)
+    @objc deinit
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class NfcConfig : ObjectiveC.NSObject {
+  public var documentNumber: Swift.String
+  public var expireDate: Swift.String
+  public var birthDate: Swift.String
+  public var facePathStorage: Swift.String
+  public var transactionId: Swift.String
+  public var documentNumberOld: Swift.String?
+  public var optionalSOD: Swift.Bool
+  public var isCheckC06: Swift.Bool
+  public var qrCodeData: FinosCore.QRCodeData?
+  @objc override dynamic public init()
+  public init(documentNumber: Swift.String = "", expireDate: Swift.String = "", birthDate: Swift.String = "", facePathStorage: Swift.String = "", transactionId: Swift.String = "", documentNumberOld: Swift.String? = nil, optionalSOD: Swift.Bool = false, isCheckC06: Swift.Bool = false, qrCodeData: FinosCore.QRCodeData? = nil)
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class OcrConfig : ObjectiveC.NSObject {
+  public var idImage: Foundation.Data?
+  public var transactionId: Swift.String
+  public var expectedDocumentSide: Swift.String
+  public var qrCodeData: FinosCore.QRCodeData?
+  @objc override dynamic public init()
+  public init(idImage: Foundation.Data? = nil, transactionId: Swift.String = "", expectedDocumentSide: Swift.String = "", qrCodeData: FinosCore.QRCodeData? = nil)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class LivenessConfig : ObjectiveC.NSObject {
+  public var transactionId: Swift.String
+  public var selfieImage: Foundation.Data?
+  public var isActiveLiveness: Swift.Bool
+  public var isShowCameraFront: Swift.Bool
+  public var customActions: [Swift.String]?
+  public var activeActionCount: Swift.Int
+  public var forceCaptureTimeout: Swift.Int
+  @objc override dynamic public init()
+  public init(transactionId: Swift.String = "", selfieImage: Foundation.Data? = nil, isActiveLiveness: Swift.Bool = true, isShowCameraFront: Swift.Bool = false, customActions: [Swift.String]? = nil, activeActionCount: Swift.Int = Int(GeneratedSdkDefaults.shared.EKYC_ACTIVE_ACTION_COUNT), forceCaptureTimeout: Swift.Int = 0)
+  public func getCustomActionStatuses() -> [FinosCore.SDKFaceDetectStatus]?
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class C06Config : ObjectiveC.NSObject {
+  public var transactionId: Swift.String
+  public var sod: Swift.String
+  public var idCardNumber: Swift.String
+  public var recentLocation: Swift.String
+  @objc override dynamic public init()
+  public init(transactionId: Swift.String = "", sod: Swift.String = "", idCardNumber: Swift.String = "", recentLocation: Swift.String = "")
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class FaceServiceConfig : ObjectiveC.NSObject {
+  public var transactionId: Swift.String
+  public var selfieImage: Foundation.Data?
+  public var idImage: Foundation.Data?
+  @objc override dynamic public init()
+  public init(transactionId: Swift.String = "", selfieImage: Foundation.Data? = nil, idImage: Foundation.Data? = nil)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class EKYCConfigSDK : ObjectiveC.NSObject {
+  public var appKey: FinosCore.AppKeyConfig
+  public var optionConfig: FinosCore.OptionConfig
+  public var styleConfig: FinosCore.StyleConfig
+  public var appIDType: FinosCore.AppIDType
+  public var flowSDK: [FinosCore.EkycFlow]
+  public var nfcConfig: FinosCore.NfcConfig?
+  public var ocrConfig: FinosCore.OcrConfig?
+  public var livenessConfig: FinosCore.LivenessConfig?
+  public var c06Config: FinosCore.C06Config?
+  public var faceServiceConfig: FinosCore.FaceServiceConfig?
+  @objc override dynamic public init()
+  public init(appKey: FinosCore.AppKeyConfig = AppKeyConfig(), optionConfig: FinosCore.OptionConfig = OptionConfig(), styleConfig: FinosCore.StyleConfig = StyleConfig(), appIDType: FinosCore.AppIDType = .finos, flowSDK: [FinosCore.EkycFlow] = [], nfcConfig: FinosCore.NfcConfig? = nil, ocrConfig: FinosCore.OcrConfig? = nil, livenessConfig: FinosCore.LivenessConfig? = nil, c06Config: FinosCore.C06Config? = nil, faceServiceConfig: FinosCore.FaceServiceConfig? = nil)
+  public var isNfcEnable: Swift.Bool {
+    get
+  }
+  public var isOcrEnable: Swift.Bool {
+    get
+  }
+  public var isLivenessEnable: Swift.Bool {
+    get
+  }
+  public var isC06Enable: Swift.Bool {
+    get
+  }
+  public var isFaceServiceEnable: Swift.Bool {
+    get
+  }
+  public var isQRCodeEnable: Swift.Bool {
+    get
+  }
+  public func getEffectiveFlow() -> [FinosCore.EkycFlow]
+  @discardableResult
+  public func setFlowOrder(_ steps: FinosCore.EkycFlow...) -> FinosCore.EKYCConfigSDK
+  @discardableResult
+  public func setFlowOrder(_ steps: [FinosCore.EkycFlow]) -> FinosCore.EKYCConfigSDK
+  public func nextStep(currentIndex: Swift.Int) -> FinosCore.EkycFlow?
+  public func indexOf(_ step: FinosCore.EkycFlow) -> Swift.Int
+  public func hasNext(currentIndex: Swift.Int) -> Swift.Bool
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  public static func fromDictionary(_ args: [Swift.String : Any]) -> FinosCore.EKYCConfigSDK
+  @objc deinit
+}
+@objc public class EkycStateModel : ObjectiveC.NSObject, Swift.Codable {
+  public var transactionId: Swift.String
+  public var frontResult: FinosCore.CheckOcrResponse.OcrCheckResult?
+  public var backResult: FinosCore.CheckOcrResponse.OcrCheckResult?
+  public var documentNumberOld: Swift.String
+  public var qrCodeData: FinosCore.QRCodeData?
+  public var livenessCheckResult: FinosCore.CheckLivenessResponse.LivenessCheckResult?
+  public var nfcData: FinosCore.NFCData?
+  public var imageData: [FinosCore.SDKImageResultModel]?
+  public var eKYCFileModel: FinosCore.EkycStateModel.FileEKYCModel
+  public init(transactionId: Swift.String = UUID().uuidString, frontResult: FinosCore.CheckOcrResponse.OcrCheckResult? = nil, backResult: FinosCore.CheckOcrResponse.OcrCheckResult? = nil, documentNumberOld: Swift.String = "", qrCodeData: FinosCore.QRCodeData? = nil, livenessCheckResult: FinosCore.CheckLivenessResponse.LivenessCheckResult? = nil, nfcData: FinosCore.NFCData? = nil, imageData: [FinosCore.SDKImageResultModel]? = nil, eKYCFileModel: FinosCore.EkycStateModel.FileEKYCModel = FileEKYCModel())
+  required public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  @_inheritsConvenienceInitializers @objc public class FileEKYCModel : ObjectiveC.NSObject, Swift.Codable {
+    public var imageOcrFront: Foundation.URL?
+    public var imageOcrBack: Foundation.URL?
+    public var imageFace: Foundation.URL?
+    @objc override dynamic public init()
+    public init(imageOcrFront: Foundation.URL? = nil, imageOcrBack: Foundation.URL? = nil, imageFace: Foundation.URL? = nil)
+    required public init(from decoder: any Swift.Decoder) throws
+    public func encode(to encoder: any Swift.Encoder) throws
+    @objc override dynamic public var description: Swift.String {
+      @objc get
+    }
+    @objc deinit
+  }
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+public struct EKRoi {
+  public let left: Swift.Int, top: Swift.Int, right: Swift.Int, bottom: Swift.Int
+  public init(left: Swift.Int, top: Swift.Int, right: Swift.Int, bottom: Swift.Int)
+}
+public enum EKImageMetrics {
+  public static func meanBrightness(_ luma: [Swift.UInt8], width: Swift.Int, height: Swift.Int, roi: FinosCore.EKRoi? = nil) -> Swift.Float
+  public static func saturatedRatio(_ luma: [Swift.UInt8], width: Swift.Int, height: Swift.Int, threshold: Swift.Int = 250, roi: FinosCore.EKRoi? = nil) -> Swift.Float
+  public static func laplacianVariance(_ luma: [Swift.UInt8], width: Swift.Int, height: Swift.Int, roi: FinosCore.EKRoi? = nil) -> Swift.Float
+}
+public enum EKCaptureCondition : Swift.String {
+  case ok
+  case noCard
+  case notInFrame
+  case tooFar
+  case tooNear
+  case tooDark
+  case glare
+  case blurry
+  case occluded
+  case wrongSide
+  public var messageKey: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct EKCaptureMetrics {
+  public let cardDetected: Swift.Bool, cardFillRatio: Swift.Float, cardInsideFrame: Swift.Bool
+  public let blurScore: Swift.Float, glareRatio: Swift.Float, brightness: Swift.Float
+  public init(cardDetected: Swift.Bool, cardFillRatio: Swift.Float, cardInsideFrame: Swift.Bool, blurScore: Swift.Float, glareRatio: Swift.Float, brightness: Swift.Float)
+}
+public enum EKCaptureQuality {
+  public static var minFillRatio: Swift.Float {
+    get
+  }
+  public static var maxFillRatio: Swift.Float {
+    get
+  }
+  public static var minBlurScore: Swift.Float {
+    get
+  }
+  public static var maxGlareRatio: Swift.Float {
+    get
+  }
+  public static var minBrightness: Swift.Float {
+    get
+  }
+  public static func evaluate(_ m: FinosCore.EKCaptureMetrics) -> FinosCore.EKCaptureCondition
+  public static func isReady(_ m: FinosCore.EKCaptureMetrics) -> Swift.Bool
+  public static func evaluateContent(isBackSide: Swift.Bool, faceCount: Swift.Int, frontTextConfirmed: Swift.Bool, idNumberFound: Swift.Bool, backTextConfirmed: Swift.Bool, qrDetected: Swift.Bool?, qrEverDetected: Swift.Bool, brightness: Swift.Float, faceEverDetected: Swift.Bool = false) -> FinosCore.EKCaptureCondition?
+}
+public struct EKCardTextFlags {
+  public let frontConfirmed: Swift.Bool, backConfirmed: Swift.Bool, idNumberFound: Swift.Bool
+}
+public enum EKCardTextClassifier {
+  public static func classify(_ rawText: Swift.String) -> FinosCore.EKCardTextFlags
+}
+public enum EKFaceCondition {
+  case ok, noFace, tooFar, tooNear, offCenter, tooDark, blurry
+  public var messageKey: Swift.String {
+    get
+  }
+  public static func == (a: FinosCore.EKFaceCondition, b: FinosCore.EKFaceCondition) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct EKFaceMetrics {
+  public let faceDetected: Swift.Bool, faceRatio: Swift.Float, centered: Swift.Bool, blurScore: Swift.Float, brightness: Swift.Float
+  public init(faceDetected: Swift.Bool, faceRatio: Swift.Float, centered: Swift.Bool, blurScore: Swift.Float, brightness: Swift.Float)
+}
+public enum EKFaceQuality {
+  public static var minFaceRatio: Swift.Float {
+    get
+  }
+  public static var maxFaceRatio: Swift.Float {
+    get
+  }
+  public static var minBlurScore: Swift.Float {
+    get
+  }
+  public static var minBrightness: Swift.Float {
+    get
+  }
+  public static func evaluate(_ m: FinosCore.EKFaceMetrics) -> FinosCore.EKFaceCondition
+  public static func isReady(_ m: FinosCore.EKFaceMetrics) -> Swift.Bool
+}
+public enum EKIssueKind {
+  case quality, environment, spoof, validation, unknown
+  public var retryable: Swift.Bool {
+    get
+  }
+  public static func == (a: FinosCore.EKIssueKind, b: FinosCore.EKIssueKind) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum EKDetectionMapping {
+  public static func kind(for code: Swift.String) -> FinosCore.EKIssueKind
+  public static func isRetryable(_ code: Swift.String) -> Swift.Bool
+}
+public enum EKCaptureSide {
+  case front, back
+  public static func == (a: FinosCore.EKCaptureSide, b: FinosCore.EKCaptureSide) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum EKVisionDetector {
+  public static func lumaPlane(_ pb: CoreVideo.CVPixelBuffer) -> (luma: [Swift.UInt8], width: Swift.Int, height: Swift.Int)?
+  public static func detectFaces(_ pb: CoreVideo.CVPixelBuffer) -> [CoreFoundation.CGRect]
+  public static var lastCardConfidence: Swift.Float
+  public static func detectCard(_ pb: CoreVideo.CVPixelBuffer) -> CoreFoundation.CGRect?
+  public static func evaluateFace(_ pb: CoreVideo.CVPixelBuffer) -> FinosCore.EKFaceCondition
+  public static func evaluateFace(_ pb: CoreVideo.CVPixelBuffer, faceBox: CoreFoundation.CGRect, faceCount: Swift.Int, centered: Swift.Bool) -> FinosCore.EKFaceCondition
+  public static var lastQrDetected: Swift.Bool
+  public static var lastFaceCount: Swift.Int
+  @available(iOS 14.0, macOS 11.0, *)
+  public static func detectHands(_ pb: CoreVideo.CVPixelBuffer) -> Swift.Bool
+  public static func detectQR(_ pb: CoreVideo.CVPixelBuffer) -> Swift.Bool
+  public static func detectText(_ pb: CoreVideo.CVPixelBuffer) -> (textCardDetected: Swift.Bool, textFrontConfirmed: Swift.Bool, textBackConfirmed: Swift.Bool, idNumberFound: Swift.Bool)
+  public static func evaluateCapture(_ pb: CoreVideo.CVPixelBuffer, side: FinosCore.EKCaptureSide = .front, qrEverDetected: Swift.Bool = false, faceEverDetected: Swift.Bool = false) -> FinosCore.EKCaptureCondition
+}
+public enum EKAppAttestError : Swift.Error {
+  case unsupported
+  public static func == (a: FinosCore.EKAppAttestError, b: FinosCore.EKAppAttestError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@available(iOS 14.0, *)
+public enum EKAppAttest {
+  public static var isSupported: Swift.Bool {
+    get
+  }
+  public static func attest(challenge: Swift.String) async throws -> (keyId: Swift.String, attestation: Foundation.Data)
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class EKSecurityManager : ObjectiveC.NSObject {
+  @objc public static let shared: FinosCore.EKSecurityManager
+  @objc public var isJailbroken: Swift.Bool {
+    get
+  }
+  @objc public var isHooked: Swift.Bool {
+    get
+  }
+  @objc public var isTampered: Swift.Bool {
+    get
+  }
+  @objc public var isSimulator: Swift.Bool {
+    get
+  }
+  @objc public var isDebugging: Swift.Bool {
+    get
+  }
+  @objc public var allowedBundleIds: [Swift.String]
+  @objc public var allowedTeamIds: [Swift.String]
+  @objc public var pinnedPublicKeyHashes: [Swift.String]
+  @objc public var requestSigningSecret: Swift.String?
+  @objc public func configure(allowedBundleIds: [Swift.String] = [], allowedTeamIds: [Swift.String] = [], pinnedPublicKeyHashes: [Swift.String] = [], requestSigningSecret: Swift.String? = nil)
+  @objc public func startAsyncScan()
+  @objc public func performSynchronousEnforcement() -> FinosCore.EKYCErrorResult?
+  public func shouldApplyNetworkHardening() -> Swift.Bool
+  public func signRequest(_ request: Foundation.URLRequest) -> Foundation.URLRequest
+  public func validateServerTrust(_ trust: Security.SecTrust) -> Swift.Bool
+  @objc public func disableGdbDebugger()
+  @objc deinit
+}
+public struct ResponseMessage : Swift.Decodable {
+  public let code: Swift.String?
+  public let message: Swift.String?
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct APIResponse<T> : Swift.Decodable where T : Swift.Decodable {
+  public let data: T?
+  public let message: Swift.String?
+  public let status: Swift.Int?
+  public let messages: [FinosCore.ResponseMessage]?
+  public var isSuccess: Swift.Bool {
+    get
+  }
+  public init(data: T?, message: Swift.String?, status: Swift.Int?)
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension Foundation.Data {
+  public func toKotlinByteArray() -> FinosCore.KotlinByteArray
+}
+@_hasMissingDesignatedInitializers public class SDKBackOfficeKyc {
+  public static let shared: FinosCore.SDKBackOfficeKyc
+  public func fetchTransactionHistories(appKey: Swift.String?, requestIds: Swift.String) async throws -> FinosCore.APIResponse<FinosCore.SDKListTransactionResponse>
+  public func getTransactionHistoryDetail(appKey: Swift.String?, transactionId: Swift.String) async throws -> FinosCore.APIResponse<FinosCore.SDKBaseResponse>
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class SDKNetworkManager : ObjectiveC.NSObject, Foundation.URLSessionDelegate {
+  public static let shared: FinosCore.SDKNetworkManager
+  public var debugLoggingEnabled: Swift.Bool
+  public var baseURL: Swift.String {
+    get
+  }
+  public var baseURLOCR: Swift.String {
+    get
+  }
+  public var baseURLBackoffice: Swift.String {
+    get
+  }
+  public var baseURLApi: Swift.String {
+    get
+  }
+  public var session: Foundation.URLSession {
+    get
+  }
+  public func reloadConfiguration()
+  public func createEkycRequest(endpoint: Swift.String, method: Swift.String = "POST", headers: [Swift.String : Swift.String] = [:]) -> Foundation.URLRequest?
+  public func createBackOfficeRequest(endpoint: Swift.String, method: Swift.String = "POST", headers: [Swift.String : Swift.String] = [:]) -> Foundation.URLRequest?
+  public func createOCRRequest(endpoint: Swift.String, method: Swift.String = "POST", headers: [Swift.String : Swift.String] = [:]) -> Foundation.URLRequest?
+  public func performRequest<T>(_ request: Foundation.URLRequest, responseType: T.Type, keyDecodingStrategy: Foundation.JSONDecoder.KeyDecodingStrategy = .convertFromSnakeCase) async throws -> T where T : Swift.Decodable
+  @objc public func urlSession(_ session: Foundation.URLSession, didReceive challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  public func copyDebugCurlToClipboard()
+  @objc deinit
+}
+public enum NetworkError : Foundation.LocalizedError {
+  case invalidURL
+  case invalidResponse
+  case httpError(statusCode: Swift.Int, data: Foundation.Data? = nil)
+  case decodingError(any Swift.Error)
+  case encodingError(any Swift.Error)
+  case noData
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public var serverMessage: Swift.String? {
+    get
+  }
+}
+open class SDKServiceCoreBase {
+  final public let networkManager: FinosCore.SDKNetworkManager
+  public init()
+  open func createMultipartRequest(endpoint: Swift.String, appKey: Swift.String, transactionId: Swift.String? = nil) -> (request: Foundation.URLRequest, boundary: Swift.String)?
+  open func addImagePart(to body: inout Foundation.Data, boundary: Swift.String, fieldName: Swift.String, image: Foundation.Data, fileName: Swift.String)
+  open func addTextField(to body: inout Foundation.Data, boundary: Swift.String, fieldName: Swift.String, value: Swift.String)
+  open func closeMultipart(body: inout Foundation.Data, boundary: Swift.String)
+  open func performJSONPost<T, R>(endpoint: Swift.String, appKey: Swift.String, transactionId: Swift.String? = nil, body: T, keyEncodingStrategy: Foundation.JSONEncoder.KeyEncodingStrategy = .convertToSnakeCase) async throws -> FinosCore.APIResponse<R> where T : Swift.Encodable, R : Swift.Decodable
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class CodableHelper {
+  public static func toDictionary<T>(_ object: T) -> [Swift.String : Any]? where T : Swift.Encodable
+  public static func fromDictionary<T>(_ dictionary: [Swift.String : Any], type: T.Type) -> T? where T : Swift.Decodable
+  public static func extractValue(_ dictionary: [Swift.String : Any], path: [Any]) -> Any?
+  public static func extractString(_ dictionary: [Swift.String : Any], path: [Any]) -> Swift.String?
+  public static func extractDictionary(_ dictionary: [Swift.String : Any], path: [Any]) -> [Swift.String : Any]?
+  public static func extractArray(_ dictionary: [Swift.String : Any], path: [Any]) -> [[Swift.String : Any]]?
+  @objc deinit
+}
+extension FinosCore.CodableHelper {
+  public static func extractFrontIdNumber(from ocrResult: [Swift.String : Any]) -> Swift.String?
+  public static func extractBackIdNumber(from ocrResult: [Swift.String : Any]) -> Swift.String?
+  public static func validateOcrIdMatch(frontResult: [Swift.String : Any], backResult: [Swift.String : Any]) -> (success: Swift.Bool, frontId: Swift.String?, backId: Swift.String?)
+}
+extension FinosCore.CodableHelper {
+  public static func extractFrontIdNumber(from response: FinosCore.CheckOcrResponse) -> Swift.String?
+  public static func extractBackIdNumber(from response: FinosCore.CheckOcrResponse) -> Swift.String?
+  public static func validateOcrIdMatch(frontResponse: FinosCore.CheckOcrResponse, backResponse: FinosCore.CheckOcrResponse) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class DataMapper {
+  public static func mapToOcrCheckResult(from dictionary: [Swift.String : Any]?) -> FinosCore.CheckOcrResponse.OcrCheckResult?
+  public static func mapToNFCData(from dictionary: [Swift.String : Any]?) -> FinosCore.NFCData
+  public static func mapToNFCDataModel(from dictionary: [Swift.String : Any]?) -> FinosCore.DataMapper.NFCDataModel
+  public static func mapToLivenessCheckResult(from dictionary: [Swift.String : Any]?) -> FinosCore.CheckLivenessResponse.LivenessCheckResult?
+  public struct NFCDataModel {
+    public var faceImage: Swift.String?
+    public var name: Swift.String?
+    public var cardNumber: Swift.String?
+    public var previousNumber: Swift.String?
+    public var sex: Swift.String?
+    public var dateOfBirth: Swift.String?
+    public var nationality: Swift.String?
+    public var nation: Swift.String?
+    public var hometown: Swift.String?
+    public var issueDate: Swift.String?
+    public var expiredDate: Swift.String?
+    public var address: Swift.String?
+    public var fatherName: Swift.String?
+    public var motherName: Swift.String?
+    public var character: Swift.String?
+    public init(faceImage: Swift.String? = nil, name: Swift.String? = nil, cardNumber: Swift.String? = nil, previousNumber: Swift.String? = nil, sex: Swift.String? = nil, dateOfBirth: Swift.String? = nil, nationality: Swift.String? = nil, nation: Swift.String? = nil, hometown: Swift.String? = nil, issueDate: Swift.String? = nil, expiredDate: Swift.String? = nil, address: Swift.String? = nil, fatherName: Swift.String? = nil, motherName: Swift.String? = nil, character: Swift.String? = nil)
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DeviceUtils {
+  public static func getDeviceId() -> Swift.String
+  public static func getDeviceModel() -> Swift.String
+  public static func getOSVersion() -> Swift.String
+  public static func getDeviceName() -> Swift.String
+  public static func getDeviceInfo() -> Swift.String
+  public static func resetDeviceId()
+  public static func isSimulator() -> Swift.Bool
+  public static func isCameraAvailable() -> Swift.Bool
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class FileUtils : ObjectiveC.NSObject {
+  @objc public static func createOcrOutputFile() -> Foundation.URL
+  @objc public static func createFaceOutputFile() -> Foundation.URL
+  @objc public static func createLivenessOutputFile() -> Foundation.URL
+  @objc public static func createQrCodeOutputFile() -> Foundation.URL
+  @objc public static func createNfcOutputFile() -> Foundation.URL
+  @objc public static func createOutputFile(prefix: Swift.String, subDirectory: Swift.String? = nil) -> Foundation.URL
+  @objc public static func deleteAllCameraFolders() -> Swift.Bool
+  @objc public static func deleteCameraFolder(folderName: Swift.String) -> Swift.Bool
+  @objc public static func getTotalCameraFoldersSize() -> Swift.Int64
+  @objc public static func getCameraFoldersInfo() -> [Swift.String : Swift.Int64]
+  @objc public static func clearImageCache()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class ImageUtils : ObjectiveC.NSObject {
+  @objc public static func saveBase64ImageToTempFile(base64Image: Swift.String?) -> Swift.String
+  @objc public static func imageToBase64(image: UIKit.UIImage, compressionQuality: CoreFoundation.CGFloat = GeneratedQualityRules.captureResultImageJpegQuality) -> Swift.String?
+  @objc public static func dataToBase64(data: Foundation.Data) -> Swift.String
+  @objc public static func imageFromBase64(base64String: Swift.String?) -> UIKit.UIImage?
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class LocalizationHelper {
+  public static var resourceBundle: Foundation.Bundle {
+    get
+  }
+  public static func localizedString(for key: Swift.String, comment: Swift.String = "") -> Swift.String
+  public static func localizedString(for key: Swift.String, arguments: any Swift.CVarArg...) -> Swift.String
+  public static func currentLanguageCode() -> Swift.String
+  public static func setOverrideLanguage(_ languageCode: Swift.String)
+  public static func clearOverrideLanguage()
+  public static func isVietnamese() -> Swift.Bool
+  public static func isEnglish() -> Swift.Bool
+  public static func clearCache()
+  public static func setLanguage(_ languageCode: Swift.String)
+  public static func debugLocalization() -> Swift.String
+  public static var appName: Swift.String {
+    get
+  }
+  public static var back: Swift.String {
+    get
+  }
+  public static var next: Swift.String {
+    get
+  }
+  public static var cancel: Swift.String {
+    get
+  }
+  public static var ok: Swift.String {
+    get
+  }
+  public static var errorTitle: Swift.String {
+    get
+  }
+  public static func systemError(_ message: Swift.String) -> Swift.String
+  public static func errorCount(attempt: Swift.Int, message: Swift.String) -> Swift.String
+  public static var ocrTitle: Swift.String {
+    get
+  }
+  public static var ocrCaptureFront: Swift.String {
+    get
+  }
+  public static var ocrCaptureBack: Swift.String {
+    get
+  }
+  public static var ocrInstruction: Swift.String {
+    get
+  }
+  public static func ocrSuccess(_ info: Swift.String) -> Swift.String
+  public static var qrCodeTitle: Swift.String {
+    get
+  }
+  public static var qrCodeCapture: Swift.String {
+    get
+  }
+  public static var qrCodeInstruction: Swift.String {
+    get
+  }
+  public static var nfcTitle: Swift.String {
+    get
+  }
+  public static var nfcScanInstruction: Swift.String {
+    get
+  }
+  public static var nfcScanDescription: Swift.String {
+    get
+  }
+  public static var nfcScanningTitle: Swift.String {
+    get
+  }
+  public static var nfcSuccessMessage: Swift.String {
+    get
+  }
+  public static var livenessTitle: Swift.String {
+    get
+  }
+  public static var livenessCapture: Swift.String {
+    get
+  }
+  public static var livenessInstruction: Swift.String {
+    get
+  }
+  public static var livenessSuccessMessage: Swift.String {
+    get
+  }
+  public static var faceNotDetected: Swift.String {
+    get
+  }
+  public static func faceMultipleDetected(_ count: Swift.Int) -> Swift.String
+  public static var faceLookStraight: Swift.String {
+    get
+  }
+  public static var faceTurnLeft: Swift.String {
+    get
+  }
+  public static var faceTurnRight: Swift.String {
+    get
+  }
+  public static var faceLookDown: Swift.String {
+    get
+  }
+  public static var faceLookUp: Swift.String {
+    get
+  }
+  public static var faceSmiling: Swift.String {
+    get
+  }
+  public static var faceEyesClosed: Swift.String {
+    get
+  }
+  public static var faceNormal: Swift.String {
+    get
+  }
+  public static var cameraPermissionRequired: Swift.String {
+    get
+  }
+  public static var cameraNotReady: Swift.String {
+    get
+  }
+  public static var imageIdFront: Swift.String {
+    get
+  }
+  public static var imageIdBack: Swift.String {
+    get
+  }
+  public static var imageSelfie: Swift.String {
+    get
+  }
+  public static var imageIdPhoto: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public enum LogLevel : Swift.String {
+  case debug
+  case info
+  case warning
+  case error
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct Log {
+  public static func debug(_ message: Swift.String, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  public static func info(_ message: Swift.String, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  public static func warning(_ message: Swift.String, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+  public static func error(_ message: Swift.String, functionName: Swift.String = #function, fileName: Swift.String = #file, lineNumber: Swift.Int = #line)
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class NfcHelper : ObjectiveC.NSObject {
+  @objc public static func createNfcConfig(idNumber: Swift.String?, dateOfBirth: Swift.String?, dateOfExpiry: Swift.String?, transactionId: Swift.String, documentNumberOld: Swift.String? = nil, qrCodeData: FinosCore.QRCodeData? = nil) -> FinosCore.NfcConfig?
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class PermissionUtils : ObjectiveC.NSObject {
+  @objc public static func isCameraGranted() -> Swift.Bool
+  @objc public static func cameraAuthorizationStatus() -> AVFoundation.AVAuthorizationStatus
+  @objc public static func requestCameraPermission(completion: @escaping (Swift.Bool) -> Swift.Void)
+  @objc public static func isPhotoLibraryGranted() -> Swift.Bool
+  @objc public static func photoLibraryAuthorizationStatus() -> Photos.PHAuthorizationStatus
+  @objc public static func requestPhotoLibraryPermission(completion: @escaping (Swift.Bool) -> Swift.Void)
+  @objc public static func isPermissionGranted(permission: Swift.String) -> Swift.Bool
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ResourceDebugHelper {
+  public static func debugAllResources()
+  public static func debugLocalization()
+  public static func debugBundles()
+  public static func debugImages()
+  public static func getResourceStatus() -> FinosCore.ResourceStatus
+  @objc deinit
+}
+public struct ResourceStatus {
+  public let hasLocalization: Swift.Bool
+  public let hasEnglish: Swift.Bool
+  public let hasVietnamese: Swift.Bool
+  public let bundlePath: Swift.String
+  public var isHealthy: Swift.Bool {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class SDKHapticHelper {
+  public static func playMediumImpact()
+  public static func playHeavyImpact()
+  public static func playNfcDetectionVibration()
+  @objc deinit
+}
+public enum SDKPhotoLibrarySaver {
+  public static func saveIfDebugEnabled(fileURL: Foundation.URL, label: Swift.String)
+}
+extension UIKit.UIScreen {
+  @_Concurrency.MainActor @preconcurrency public static var screenWidth: CoreFoundation.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static var screenHeight: CoreFoundation.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static let baseWidth: CoreFoundation.CGFloat
+  @_Concurrency.MainActor @preconcurrency public static let baseHeight: CoreFoundation.CGFloat
+  @_Concurrency.MainActor @preconcurrency public static var widthScale: CoreFoundation.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static var heightScale: CoreFoundation.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static func scaleWidth(_ value: CoreFoundation.CGFloat) -> CoreFoundation.CGFloat
+  @_Concurrency.MainActor @preconcurrency public static func scaleHeight(_ value: CoreFoundation.CGFloat) -> CoreFoundation.CGFloat
+  @_Concurrency.MainActor @preconcurrency public static func scaleFont(_ fontSize: CoreFoundation.CGFloat, minScale: CoreFoundation.CGFloat = 0.85, maxScale: CoreFoundation.CGFloat = 1.15) -> CoreFoundation.CGFloat
+  @_Concurrency.MainActor @preconcurrency public static var isSmallDevice: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static var isMediumDevice: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static var isLargeDevice: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static var isIPad: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static var hasNotch: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static func adaptiveSpacing(small: CoreFoundation.CGFloat, medium: CoreFoundation.CGFloat, large: CoreFoundation.CGFloat) -> CoreFoundation.CGFloat
+  @_Concurrency.MainActor @preconcurrency public static func adaptiveValue(phone: CoreFoundation.CGFloat, pad: CoreFoundation.CGFloat? = nil) -> CoreFoundation.CGFloat
+  @_Concurrency.MainActor @preconcurrency public static func adaptiveFontSize(small: CoreFoundation.CGFloat, medium: CoreFoundation.CGFloat, large: CoreFoundation.CGFloat) -> CoreFoundation.CGFloat
+  @_Concurrency.MainActor @preconcurrency public static var safeAreaInsets: UIKit.UIEdgeInsets {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static var bottomSafeAreaInset: CoreFoundation.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static var topSafeAreaInset: CoreFoundation.CGFloat {
+    get
+  }
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public func addScaledConstraints(top: CoreFoundation.CGFloat? = nil, leading: CoreFoundation.CGFloat? = nil, trailing: CoreFoundation.CGFloat? = nil, bottom: CoreFoundation.CGFloat? = nil, to view: UIKit.UIView)
+}
+extension UIKit.UIFont {
+  public static func responsiveSystemFont(ofSize size: CoreFoundation.CGFloat, weight: UIKit.UIFont.Weight = .regular) -> UIKit.UIFont
+  public static func responsiveBoldSystemFont(ofSize size: CoreFoundation.CGFloat) -> UIKit.UIFont
+}
+extension CoreFoundation.CGFloat {
+  public var scaled: CoreFoundation.CGFloat {
+    get
+  }
+  public var scaledHeight: CoreFoundation.CGFloat {
+    get
+  }
+  public var scaledFont: CoreFoundation.CGFloat {
+    get
+  }
+}
+extension Swift.Int {
+  public var scaled: CoreFoundation.CGFloat {
+    get
+  }
+  public var scaledHeight: CoreFoundation.CGFloat {
+    get
+  }
+  public var scaledFont: CoreFoundation.CGFloat {
+    get
+  }
+}
+extension Swift.Double {
+  public var scaled: CoreFoundation.CGFloat {
+    get
+  }
+  public var scaledHeight: CoreFoundation.CGFloat {
+    get
+  }
+  public var scaledFont: CoreFoundation.CGFloat {
+    get
+  }
+}
+extension Foundation.URLRequest {
+  public var curlCommand: Swift.String {
+    get
+  }
+}
+extension Swift.Optional {
+  public var isNull: Swift.Bool {
+    get
+  }
+  public var isNotNull: Swift.Bool {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class SDKUtils : ObjectiveC.NSObject {
+  @objc public static func isStringEmpty(_ string: Swift.String?) -> Swift.Bool
+  @objc public static func isStringNotEmpty(_ string: Swift.String?) -> Swift.Bool
+  @objc public static func isDictionaryEmpty(_ dict: [Swift.AnyHashable : Any]?) -> Swift.Bool
+  @objc public static func isDictionaryNotEmpty(_ dict: [Swift.AnyHashable : Any]?) -> Swift.Bool
+  @objc public static func isArrayEmpty(_ array: [Any]?) -> Swift.Bool
+  @objc public static func isArrayNotEmpty(_ array: [Any]?) -> Swift.Bool
+  @objc public static func formatDateForOCR(_ dateString: Swift.String) -> Swift.String
+  @objc deinit
+}
+public enum ValidationResult {
+  case ok
+  case error(FinosCore.EKYCErrorEvent, FinosCore.EKYCErrorResult)
+}
+public struct SDKInputValidator {
+  public static func apiKey(_ key: Swift.String, event: FinosCore.EKYCErrorEvent = .sdkStartError) -> FinosCore.ValidationResult
+  public static func language(_ language: Swift.String, event: FinosCore.EKYCErrorEvent = .sdkStartError) -> FinosCore.ValidationResult
+  public static func phoneNumber(_ phone: Swift.String, event: FinosCore.EKYCErrorEvent = .smsOtpError) -> FinosCore.ValidationResult
+  public static func otpCode(_ code: Swift.String, event: FinosCore.EKYCErrorEvent = .smsOtpError) -> FinosCore.ValidationResult
+  public static func recoveryCode(_ code: Swift.String, event: FinosCore.EKYCErrorEvent = .esignError) -> FinosCore.ValidationResult
+  public static func pinCode(_ code: Swift.String, event: FinosCore.EKYCErrorEvent = .esignError) -> FinosCore.ValidationResult
+  public static func notBlank(_ value: Swift.String, errorResult: FinosCore.EKYCErrorResult, event: FinosCore.EKYCErrorEvent) -> FinosCore.ValidationResult
+  public static func notNilOrBlank(_ value: Swift.String?, errorResult: FinosCore.EKYCErrorResult, event: FinosCore.EKYCErrorEvent) -> FinosCore.ValidationResult
+  public static func positiveInt(_ value: Swift.Int, errorResult: FinosCore.EKYCErrorResult, event: FinosCore.EKYCErrorEvent) -> FinosCore.ValidationResult
+  public static func all(_ checks: FinosCore.ValidationResult...) -> FinosCore.ValidationResult
+}
+extension FinosCore.EKYCErrorEvent : Swift.Equatable {}
+extension FinosCore.EKYCErrorEvent : Swift.Hashable {}
+extension FinosCore.EKYCErrorEvent : Swift.RawRepresentable {}
+extension FinosCore.EKYCEvent : Swift.Equatable {}
+extension FinosCore.EKYCEvent : Swift.Hashable {}
+extension FinosCore.EKYCEvent : Swift.RawRepresentable {}
+extension FinosCore.FaceStateType : Swift.Equatable {}
+extension FinosCore.FaceStateType : Swift.Hashable {}
+extension FinosCore.FaceStateType : Swift.RawRepresentable {}
+extension FinosCore.SDKApiCode : Swift.Equatable {}
+extension FinosCore.SDKApiCode : Swift.Hashable {}
+extension FinosCore.SDKApiCode : Swift.RawRepresentable {}
+extension FinosCore.SDKFaceDetectStatus : Swift.Equatable {}
+extension FinosCore.SDKFaceDetectStatus : Swift.Hashable {}
+extension FinosCore.SDKStepType : Swift.Equatable {}
+extension FinosCore.SDKStepType : Swift.Hashable {}
+extension FinosCore.SDKStepType : Swift.RawRepresentable {}
+extension FinosCore.EkycFlow : Swift.Equatable {}
+extension FinosCore.EkycFlow : Swift.Hashable {}
+extension FinosCore.EkycFlow : Swift.RawRepresentable {}
+extension FinosCore.AppIDType : Swift.Equatable {}
+extension FinosCore.AppIDType : Swift.Hashable {}
+extension FinosCore.AppIDType : Swift.RawRepresentable {}
+extension FinosCore.SDKEnvironment : Swift.Equatable {}
+extension FinosCore.SDKEnvironment : Swift.Hashable {}
+extension FinosCore.SDKEnvironment : Swift.RawRepresentable {}
+extension FinosCore.EKCaptureCondition : Swift.Equatable {}
+extension FinosCore.EKCaptureCondition : Swift.Hashable {}
+extension FinosCore.EKCaptureCondition : Swift.RawRepresentable {}
+extension FinosCore.EKFaceCondition : Swift.Equatable {}
+extension FinosCore.EKFaceCondition : Swift.Hashable {}
+extension FinosCore.EKIssueKind : Swift.Equatable {}
+extension FinosCore.EKIssueKind : Swift.Hashable {}
+extension FinosCore.EKCaptureSide : Swift.Equatable {}
+extension FinosCore.EKCaptureSide : Swift.Hashable {}
+extension FinosCore.EKAppAttestError : Swift.Equatable {}
+extension FinosCore.EKAppAttestError : Swift.Hashable {}
+extension FinosCore.LogLevel : Swift.Equatable {}
+extension FinosCore.LogLevel : Swift.Hashable {}
+extension FinosCore.LogLevel : Swift.RawRepresentable {}

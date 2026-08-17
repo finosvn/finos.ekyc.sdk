@@ -1,0 +1,48 @@
+{
+    "commonTexts": {
+        "success": "Thao tác thành công",
+        "serverError": "Lỗi xảy ra từ phía máy chủ",
+        "invalidPin": "Mã PIN không chính xác",
+        "existingPrivateKey": "Đã tồn tại khóa riêng tư",
+        "unknownError": "Lỗi chung không xác định",
+        "uninitializedDevice": "Thiết bị chưa được khởi tạo",
+        "initializedDevice": "Thiết bị đã được khởi tạo",
+        "noRequestId": "Chưa khởi tạo phiên làm việc",
+        "notAvailableInitialize": "SDK chưa được khởi tạo",
+        "invalidRecoverCode": "Mã phục hồi không chính xác"
+    },
+    "initializeTexts": {
+        "invalidLicense": "License không hợp lệ",
+        "invalidLicenseContent": "Nội dung license không hợp lệ",
+        "emptyLicense": "License trống"
+    },
+    "openSessionTexts": {
+        "invalidUserAccount": "Tài khoản hoặc mật khẩu không chính xác",
+        "invalidUsername": "Tài khoản hoặc mật khẩu không hợp lệ",
+        "invalidPassword": "Mật khẩu sai định dạng"
+
+    },
+    "closeSessionTexts": {
+        "uninitializedSessionID": "Chưa khởi tạo phiên làm việc"
+    },
+    "registerDeviceTexts": {
+        "generateRSAKeysFail": "gen cặp khoá thất bại",
+        "retrieveKeysFail": "Giải mãi thất bại",
+        "invalidRequestID": "Session không hợp lệ"
+    },
+    "listSignRequestTexts": {
+        "invalidRequestID": "Session không hợp lệ"
+    },
+    "confirmSignTexts": {
+        "signatureVerificationFailed": "Xác thực chữ ký thất bại",
+        "invalidDataInput": "Dữ liệu truyền vào k hợp lệ",
+        "invalidVerify": "Không xác thực tính toàn vẹn và tính hợp lệ của dữ liệu đã ký",
+        "signError": "Dùng privateKey để ký thất bại"
+
+    },
+    "showLogTexts": {
+        "noLogAvailable": "Không có nhật ký (log) nào",
+        "wrongFormatDate": "Ngày truyền vào sai định dạng",
+        "searchError": "Tìm kiếm lỗi"
+    }
+}

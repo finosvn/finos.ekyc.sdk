@@ -1,0 +1,916 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)
+// swift-module-flags: -target arm64-apple-ios14.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name SDKCA
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import CommonCrypto
+import Foundation
+@_exported import SDKCA
+import Security
+import Swift
+import SwiftyRSA
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_hasMissingDesignatedInitializers public class APIService {
+  public func sendRequest<T, R>(endpoint: Swift.String, method: Swift.String, body: T?, responseModel: R.Type?, useToken: Swift.Bool = true) async throws -> SDKCA.BaseResponseAPI<R?> where T : Swift.Encodable, R : Swift.Decodable
+  public func sendRequestList<T, R>(endpoint: Swift.String, method: Swift.String, body: T?, responseModel: R.Type?, useToken: Swift.Bool = true) async throws -> SDKCA.BaseResponseAPIList<R> where T : Swift.Encodable, R : Swift.Decodable
+  @objc deinit
+}
+public struct Authorize : Swift.Encodable {
+  public init(request_id: Swift.String, authorize_request_id: Swift.String, auth_id: Swift.String, auth_signature: Swift.String, nonce: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct ConfirmInfo : Swift.Encodable {
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct ConfirmSignModel : Swift.Encodable {
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct RecoverDeviceModel : Swift.Encodable {
+  public init(request_id: Swift.String, auth_id: Swift.String, otp: Swift.String, auth_signature: Swift.String, nonce: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct InitAuthorizeModel : Swift.Encodable {
+  public init(request_id: Swift.String, serial: Swift.String, quantity: Swift.Int, time: Swift.String, message: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct InitRegisterDeviceModel : Swift.Encodable {
+  public init(request_id: Swift.String, nonce: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct OpenSessionModel : Swift.Encodable {
+  public init(request_id: Swift.String, device_id: Swift.String, username: Swift.String, password: Swift.String, nonce: Swift.String, partner_app_info: Swift.String, sdk_version: Swift.String, os_version: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct RegisterDeviceModel : Swift.Encodable {
+  public init(request_id: Swift.String, auth_id: Swift.String, otp: Swift.String, auth_signature: Swift.String, kak_public: Swift.String, kak_private: Swift.String, nonce: Swift.String, recovery_code: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct ShowLogsModel : Swift.Encodable {
+  public init(request_id: Swift.String, from_date: Swift.String, to_date: Swift.String, function_name: Swift.String, cert_serial: Swift.String, level: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct BaseResponseAPI<T> : Swift.Decodable where T : Swift.Decodable {
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct BaseResponseAPIList<T> : Swift.Decodable where T : Swift.Decodable {
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc(EasyCAObjectCSDKImp) public class EasyCAObjectCSDKImp : ObjectiveC.NSObject {
+  final public let isProd: Swift.Bool
+  @objc(initWithIsProd:) public init(isProd: Swift.Bool)
+  public func initialize(licenseCode: Swift.String) async -> SDKCA.InitializeResponseSDK
+  public func openSession(user: Swift.String, password: Swift.String) async -> SDKCA.SessionResponseSDK
+  public func registerDevice(pin: Swift.String, recoveryCode: Swift.String, fcmToken: Swift.String) async -> SDKCA.RegisterDeviceSDK
+  public func listCerts(pageSize: Swift.Int, pageIndex: Swift.Int) async -> SDKCA.ListCertsSDK
+  public func verifyCert(serial: Swift.String) async -> SDKCA.VerifyCertSDK
+  public func listSignRequest(pageSize: Swift.Int, pageIndex: Swift.Int) async -> SDKCA.ListSignSDK
+  public func confirmSign(userPin: Swift.String, authData: Swift.String, authId: Swift.String, signRequestId: Swift.String, confirm: Swift.Bool) async -> SDKCA.ConfirmSignSDK
+  public func initAuthorize(serial: Swift.String, quantity: Swift.Int, time: Swift.Int, message: Swift.String) async -> SDKCA.InitAuthorizeSDK
+  public func listAuthorize(pageSize: Swift.Int, pageNumber: Swift.Int, status: Swift.String) async -> SDKCA.ListAuthorizeSDK
+  public func registerAuthorize(authorizeRequestId: Swift.String, authId: Swift.String, authData: Swift.String, pin: Swift.String, confirm: Swift.Bool) async -> SDKCA.RegisterAuthorizeSDK
+  public func openSessionId(user: Swift.String, accessToken: Swift.String) async -> SDKCA.SessionResponseSDK
+  @objc(initializeWithLicenseCode:completion:) public func initializeObjC(licenseCode: Swift.String, completion: @escaping (SDKCA.InitializeResponseObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc(openSessionWithUser:password:completion:) public func openSessionObjC(user: Swift.String, password: Swift.String, completion: @escaping (SDKCA.SessionResponseObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc(registerDeviceWithPin:recoveryCode:fcmToken:completion:) public func registerDeviceObjC(pin: Swift.String, recoveryCode: Swift.String, fcmToken: Swift.String, completion: @escaping (SDKCA.RegisterDeviceObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc(listCertsWithPageSize:pageIndex:completion:) public func listCertsObjC(pageSize: Swift.Int, pageIndex: Swift.Int, completion: @escaping (SDKCA.ListCertsObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc(verifyCertWithSerial:completion:) public func verifyCertObjC(serial: Swift.String, completion: @escaping (SDKCA.VerifyCertObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc(listSignRequestWithPageSize:pageIndex:completion:) public func listSignRequestObjC(pageSize: Swift.Int, pageIndex: Swift.Int, completion: @escaping (SDKCA.ListSignObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc(confirmSignWithUserPin:authData:authId:signRequestId:confirm:completion:) public func confirmSignObjC(userPin: Swift.String, authData: Swift.String, authId: Swift.String, signRequestId: Swift.String, confirm: Swift.Bool, completion: @escaping (SDKCA.ConfirmSignObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc(initAuthorizeWithSerial:quantity:time:message:completion:) public func initAuthorizeObjC(serial: Swift.String, quantity: Swift.Int, time: Swift.Int, message: Swift.String, completion: @escaping (SDKCA.InitAuthorizeObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc(listAuthorizeWithPageSize:pageNumber:status:completion:) public func listAuthorizeObjC(pageSize: Swift.Int, pageNumber: Swift.Int, status: Swift.String, completion: @escaping (SDKCA.ListAuthorizeObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc(registerAuthorizeWithId:authId:authData:pin:confirm:completion:) public func registerAuthorizeObjC(authorizeRequestId: Swift.String, authId: Swift.String, authData: Swift.String, pin: Swift.String, confirm: Swift.Bool, completion: @escaping (SDKCA.RegisterAuthorizeObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc(openSessionIdWithUser:accessToken:completion:) public func openSessionIdObjC(user: Swift.String, accessToken: Swift.String, completion: @escaping (SDKCA.SessionResponseObjC?, Foundation.NSError?) -> Swift.Void)
+  @objc deinit
+}
+public class EasyCASDKImp {
+  public init(isProd: Swift.Bool)
+  public func initialize(licenseCode: Swift.String) async -> SDKCA.InitializeResponseSDK
+  public func openSession(user: Swift.String, password: Swift.String) async -> SDKCA.SessionResponseSDK
+  public func registerDevice(pin: Swift.String, recoveryCode: Swift.String, fcmToken: Swift.String) async -> SDKCA.RegisterDeviceSDK
+  public func listCerts(pageSize: Swift.Int, pageIndex: Swift.Int) async -> SDKCA.ListCertsSDK
+  public func verifyCert(serial: Swift.String) async -> SDKCA.VerifyCertSDK
+  public func listSignRequest(pageSize: Swift.Int, pageIndex: Swift.Int) async -> SDKCA.ListSignSDK
+  public func confirmSign(userPin: Swift.String, authData: Swift.String, authId: Swift.String, signRequestId: Swift.String, confirm: Swift.Bool) async -> SDKCA.ConfirmSignSDK
+  public func initAuthorize(serial: Swift.String, quantity: Swift.Int, time: Swift.Int, message: Swift.String) async -> SDKCA.InitAuthorizeSDK
+  public func listAuthorize(pageSize: Swift.Int, pageNumber: Swift.Int, status: Swift.String) async -> SDKCA.ListAuthorizeSDK
+  public func registerAuthorize(authorizeRequestId: Swift.String, authId: Swift.String, authData: Swift.String, pin: Swift.String, confirm: Swift.Bool) async -> SDKCA.RegisterAuthorizeSDK
+  public func openSessionId(user: Swift.String, accessToken: Swift.String) async -> SDKCA.SessionResponseSDK
+  @objc deinit
+}
+extension Swift.String {
+  public func x509parser() -> (cert: SDKCA.X509Certificate?, subject: [Swift.String]?, issuer: Swift.String?, expiredDate: Foundation.Date?, thumbprint: Swift.String?)
+}
+public protocol JSONConvertible : Swift.Decodable, Swift.Encodable {
+  func toJSONString() -> Swift.String?
+}
+extension SDKCA.JSONConvertible {
+  public func toJSONString() -> Swift.String?
+}
+public struct CertInfoSDK : SDKCA.JSONConvertible {
+  public init(errorCode: Swift.String, errorMessage: Swift.String, certInfo: SDKCA.CertInfoResponse? = nil)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct CertInfoResponse : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct CloseSessionSDK : SDKCA.JSONConvertible {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc @objcMembers public class ConfirmSignObjC : ObjectiveC.NSObject {
+  @objc final public let error_code: Foundation.NSString
+  @objc final public let error_message: Foundation.NSString
+  @objc public init(error_code: Swift.String, error_message: Swift.String)
+  @nonobjc convenience public init(from swift: SDKCA.ConfirmSignSDK)
+  @objc deinit
+}
+public struct ConfirmSignSDK : SDKCA.JSONConvertible {
+  public init(errorCode: Swift.String, errorMessage: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct GenOTPSDK : SDKCA.JSONConvertible {
+  public init(errorCode: Swift.String, errorMessage: Swift.String, otpTransactionId: Swift.String = "")
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct GenOTPResponse : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc(InitAuthorizeResponseObjC) public class InitAuthorizeResponseObjC : ObjectiveC.NSObject {
+  @objc final public let authId: Swift.String
+  @objc final public let authData: Swift.String
+  @objc final public let authorizeRequestId: Swift.String
+  @objc public init(authId: Swift.String, authData: Swift.String, authorizeRequestId: Swift.String)
+  public init(from swiftModel: SDKCA.InitAuthorizeResponse)
+  @objc deinit
+}
+@objc(InitAuthorizeObjC) public class InitAuthorizeObjC : ObjectiveC.NSObject {
+  @objc final public let error_code: Swift.String
+  @objc final public let error_message: Swift.String
+  @objc final public let initAuthorizeResponse: SDKCA.InitAuthorizeResponseObjC?
+  @objc public init(errorCode: Swift.String, errorMessage: Swift.String, response: SDKCA.InitAuthorizeResponseObjC? = nil)
+  public init(from swiftSDK: SDKCA.InitAuthorizeSDK)
+  @objc deinit
+}
+public struct InitAuthorizeSDK : SDKCA.JSONConvertible {
+  public init(errorCode: Swift.String, errorMessage: Swift.String, initAuthorizeResponse: SDKCA.InitAuthorizeResponse? = nil)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc(RegisterAuthorizeObjC) public class RegisterAuthorizeObjC : ObjectiveC.NSObject {
+  @objc final public let error_code: Swift.String
+  @objc final public let error_message: Swift.String
+  @objc public init(errorCode: Swift.String, errorMessage: Swift.String)
+  public init(from swiftSDK: SDKCA.RegisterAuthorizeSDK)
+  @objc deinit
+}
+public struct RegisterAuthorizeSDK : SDKCA.JSONConvertible {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct InitAuthorizeResponse : SDKCA.JSONConvertible {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct registerAuthorizeResponse : Swift.Decodable {
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc @objcMembers public class InitializeResponseObjC : ObjectiveC.NSObject {
+  @objc final public let error_code: Foundation.NSString
+  @objc final public let error_message: Foundation.NSString
+  @objc public init(error_code: Swift.String, error_message: Swift.String)
+  @nonobjc convenience public init(from swift: SDKCA.InitializeResponseSDK)
+  @objc deinit
+}
+public struct InitializeResponseSDK : SDKCA.JSONConvertible {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct InitializeRequestServer : Swift.Encodable {
+  public init(requestId: Swift.String, licenseCode: Swift.String, deviceId: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@objc(ListAuthorizeObjC) public class ListAuthorizeObjC : ObjectiveC.NSObject {
+  @objc final public let errorCode: Swift.String
+  @objc final public let errorMessage: Swift.String
+  @objc final public let listAuthorize: [SDKCA.ListAuthorizeResponseObjC]?
+  @objc public init(errorCode: Swift.String, errorMessage: Swift.String, listAuthorize: [SDKCA.ListAuthorizeResponseObjC]? = nil)
+  public init(from swiftSDK: SDKCA.ListAuthorizeSDK)
+  @objc deinit
+}
+public struct ListAuthorizeSDK : SDKCA.JSONConvertible {
+  public init(errorCode: Swift.String, errorMessage: Swift.String, ListAuthorize: [SDKCA.ListAuthorizeResponse]? = nil)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ListAuthorizeResponse : SDKCA.JSONConvertible {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc(ListAuthorizeResponseObjC) public class ListAuthorizeResponseObjC : ObjectiveC.NSObject {
+  @objc final public let authorizeRequestId: Swift.String
+  @objc final public let serial: Swift.String
+  @objc final public let quantity: Swift.Int
+  @objc final public let time: Swift.Int
+  @objc final public let message: Swift.String
+  @objc final public let initUserInfo: Swift.String
+  @objc final public let initEnvInfo: Swift.String
+  @objc final public let authId: Swift.String
+  @objc final public let authData: Swift.String
+  @objc final public let createTime: Swift.String
+  @objc final public let expireTime: Swift.String
+  @objc public init(authorizeRequestId: Swift.String, serial: Swift.String, quantity: Swift.Int, time: Swift.Int, message: Swift.String, initUserInfo: Swift.String, initEnvInfo: Swift.String, authId: Swift.String, authData: Swift.String, createTime: Swift.String, expireTime: Swift.String)
+  public init(from swiftModel: SDKCA.ListAuthorizeResponse)
+  @objc deinit
+}
+@objc @objcMembers public class ListCertsObjC : ObjectiveC.NSObject {
+  @objc final public let error_code: Foundation.NSString
+  @objc final public let error_message: Foundation.NSString
+  @objc final public let certs: Foundation.NSArray?
+  @objc public init(error_code: Swift.String, error_message: Swift.String, certs: Foundation.NSArray? = nil)
+  @nonobjc convenience public init(from swift: SDKCA.ListCertsSDK)
+  @objc deinit
+}
+public struct ListCertsSDK : SDKCA.JSONConvertible {
+  public init(errorCode: Swift.String, errorMessage: Swift.String, certs: [SDKCA.ListCertsResponse]? = nil)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ListCertsResponse : SDKCA.JSONConvertible {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc @objcMembers public class ListSignObjC : ObjectiveC.NSObject {
+  @objc final public let error_code: Foundation.NSString
+  @objc final public let error_message: Foundation.NSString
+  @objc final public let sign_requests: Foundation.NSArray?
+  @objc public init(error_code: Swift.String, error_message: Swift.String, sign_requests: Foundation.NSArray? = nil)
+  @nonobjc convenience public init(from swift: SDKCA.ListSignSDK)
+  @objc deinit
+}
+public struct ListSignSDK : SDKCA.JSONConvertible {
+  public init(errorCode: Swift.String, errorMessage: Swift.String, signRequests: [SDKCA.ListSignResponse]? = nil)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ListSignRequest : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ListSignResponse : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct LoggerSDK : SDKCA.JSONConvertible {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc @objcMembers public class SessionResponseObjC : ObjectiveC.NSObject {
+  @objc final public let error_code: Foundation.NSString
+  @objc final public let error_message: Foundation.NSString
+  @objc final public let create_time: Foundation.NSString?
+  @objc final public let expire_time: Foundation.NSString?
+  @objc final public let session_info: Foundation.NSString?
+  @objc final public let device_state: Foundation.NSString?
+  @objc public init(error_code: Swift.String, error_message: Swift.String, create_time: Swift.String? = nil, expire_time: Swift.String? = nil, session_info: Swift.String? = nil, device_state: Swift.String? = nil)
+  @nonobjc convenience public init(from swift: SDKCA.SessionResponseSDK)
+  @objc deinit
+}
+public struct SessionResponseSDK : SDKCA.JSONConvertible {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct OpenSessionIDRequestServer : Swift.Codable {
+  public init(request_id: Swift.String, partner_app_code: Swift.String, device_id: Swift.String, nonce: Swift.String, sdk_version: Swift.String, os_version: Swift.String, username: Swift.String, accessToken: Swift.String, remember_me: Swift.Bool? = false)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct OpenSessionIDResponseServer : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct OpenSessionRequestServer : Swift.Codable {
+  public init(request_id: Swift.String, partner_app_code: Swift.String, device_id: Swift.String, nonce: Swift.String, sdk_version: Swift.String, os_version: Swift.String, username: Swift.String, password: Swift.String, remember_me: Swift.Bool? = false)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct OpenSessionResponseServer : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct RecoverSDK : SDKCA.JSONConvertible {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ActiveRecoverRequest : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ActiveRecoverResponse : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct RecoverRequest : Swift.Codable {
+  public struct DeviceInfoRecover : Swift.Codable {
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct RecoverResponse : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct AuthDataDTO : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc @objcMembers public class RegisterDeviceObjC : ObjectiveC.NSObject {
+  @objc final public let error_code: Foundation.NSString
+  @objc final public let error_message: Foundation.NSString
+  @objc public init(error_code: Swift.String, error_message: Swift.String)
+  @nonobjc convenience public init(from swift: SDKCA.RegisterDeviceSDK)
+  @objc deinit
+}
+public struct RegisterDeviceSDK : SDKCA.JSONConvertible {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct InitDeviceRequest : Swift.Encodable {
+  public init(requestId: Swift.String, nonce: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct InitDeviceResponse : Swift.Decodable {
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct RegisterDeviceResponse : Swift.Decodable {
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc @objcMembers public class VerifyCertObjC : ObjectiveC.NSObject {
+  @objc final public let error_code: Foundation.NSString
+  @objc final public let error_message: Foundation.NSString
+  @objc public init(error_code: Swift.String, error_message: Swift.String)
+  @nonobjc convenience public init(from swift: SDKCA.VerifyCertSDK)
+  @objc deinit
+}
+public struct VerifyCertSDK : SDKCA.JSONConvertible {
+  public init(errorCode: Swift.String, errorMessage: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct VerifyCertResponse : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct VerifyOTPSDK : SDKCA.JSONConvertible {
+  public init(errorCode: Swift.String, errorMessage: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct VerifyOTPResponse : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public class GetInfoApp {
+  public init()
+  final public let pattern1: Swift.String
+  final public let patternDd: Swift.String
+  final public let patternMm: Swift.String
+  final public let patternY: Swift.String
+  final public let patternYy: Swift.String
+  final public let pattern2: Swift.String
+  final public let pattern3: Swift.String
+  final public let pattern4: Swift.String
+  final public let pattern5: Swift.String
+  final public let pattern6: Swift.String
+  final public let pattern7: Swift.String
+  final public let pattern8: Swift.String
+  final public let pattern9: Swift.String
+  final public let pattern10: Swift.String
+  final public let pattern11: Swift.String
+  final public let pattern13: Swift.String
+  final public let pattern12: Swift.String
+  final public let patternDefault: Swift.String
+  final public let pattern14: Swift.String
+  final public let pattern15: Swift.String
+  final public let pattern16: Swift.String
+  final public let pattern17: Swift.String
+  final public let pattern18: Swift.String
+  final public let pattern19: Swift.String
+  final public let pattern20: Swift.String
+  final public let pattern21: Swift.String
+  final public let pattern22: Swift.String
+  final public let pattern23: Swift.String
+  final public let pattern24: Swift.String
+  final public let pattern25: Swift.String
+  public func isDeviceRootedOrEmulated() -> Swift.Bool
+  public func getDeviceDetails() -> [Swift.String : Swift.String]
+  public func getCurrentTimestamp() -> Swift.String
+  public func getAppVersion() -> Swift.String
+  public func convertDateToString(date: Foundation.Date, format: Swift.String) -> Swift.String
+  public func getTimestampJsonString() -> Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ASN1DERDecoder {
+  public static func decode(data: Foundation.Data) throws -> [SDKCA.ASN1Object]
+  @objc deinit
+}
+extension Foundation.Data {
+  public var uint64Value: Swift.UInt64? {
+    get
+  }
+}
+extension Foundation.Data {
+  public var sequenceContent: Foundation.Data {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @available(*, deprecated, message: "Use OID instead")
+public class ASN1DistinguishedNames {
+  final public let oid: Swift.String
+  final public let representation: Swift.String
+  public static let commonName: SDKCA.ASN1DistinguishedNames
+  public static let dnQualifier: SDKCA.ASN1DistinguishedNames
+  public static let serialNumber: SDKCA.ASN1DistinguishedNames
+  public static let givenName: SDKCA.ASN1DistinguishedNames
+  public static let surname: SDKCA.ASN1DistinguishedNames
+  public static let organizationalUnitName: SDKCA.ASN1DistinguishedNames
+  public static let organizationName: SDKCA.ASN1DistinguishedNames
+  public static let streetAddress: SDKCA.ASN1DistinguishedNames
+  public static let localityName: SDKCA.ASN1DistinguishedNames
+  public static let stateOrProvinceName: SDKCA.ASN1DistinguishedNames
+  public static let countryName: SDKCA.ASN1DistinguishedNames
+  public static let email: SDKCA.ASN1DistinguishedNames
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ASN1DistinguishedNameFormatter {
+  @objc public static var separator: Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ASN1DEREncoder {
+  public static func encodeSequence(content: Foundation.Data) -> Foundation.Data
+  @objc deinit
+}
+extension Foundation.Data {
+  public var derEncodedSequence: Foundation.Data {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class ASN1Identifier : Swift.CustomStringConvertible {
+  public enum Class : Swift.UInt8 {
+    case universal
+    case application
+    case contextSpecific
+    case `private`
+    public init?(rawValue: Swift.UInt8)
+    public typealias RawValue = Swift.UInt8
+    public var rawValue: Swift.UInt8 {
+      get
+    }
+  }
+  public enum TagNumber : Swift.UInt8 {
+    case endOfContent
+    case boolean
+    case integer
+    case bitString
+    case octetString
+    case null
+    case objectIdentifier
+    case objectDescriptor
+    case external
+    case read
+    case enumerated
+    case embeddedPdv
+    case utf8String
+    case relativeOid
+    case sequence
+    case set
+    case numericString
+    case printableString
+    case t61String
+    case videotexString
+    case ia5String
+    case utcTime
+    case generalizedTime
+    case graphicString
+    case visibleString
+    case generalString
+    case universalString
+    case characterString
+    case bmpString
+    public init?(rawValue: Swift.UInt8)
+    public typealias RawValue = Swift.UInt8
+    public var rawValue: Swift.UInt8 {
+      get
+    }
+  }
+  public static let constructedTag: Swift.UInt8
+  public func typeClass() -> SDKCA.ASN1Identifier.Class
+  public func isPrimitive() -> Swift.Bool
+  public func isConstructed() -> Swift.Bool
+  public func tagNumber() -> SDKCA.ASN1Identifier.TagNumber
+  public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ASN1Object : Swift.CustomStringConvertible {
+  public var rawValue: Foundation.Data?
+  public var value: Any?
+  public var identifier: SDKCA.ASN1Identifier?
+  weak public var parent: SDKCA.ASN1Object? {
+    get
+  }
+  public func sub(_ index: Swift.Int) -> SDKCA.ASN1Object?
+  public func subCount() -> Swift.Int
+  public func findOid(_ oid: SDKCA.OID) -> SDKCA.ASN1Object?
+  public func findOid(_ oid: Swift.String) -> SDKCA.ASN1Object?
+  public var description: Swift.String {
+    get
+  }
+  public var asString: Swift.String? {
+    get
+  }
+  @objc deinit
+}
+public class PKCS7 {
+  final public let mainBlock: SDKCA.ASN1Object
+  public init(data: Foundation.Data) throws
+  public var digestAlgorithm: Swift.String? {
+    get
+  }
+  public var digestAlgorithmName: Swift.String? {
+    get
+  }
+  public var certificate: SDKCA.X509Certificate? {
+    get
+  }
+  public var certificates: [SDKCA.X509Certificate] {
+    get
+  }
+  public var data: Foundation.Data? {
+    get
+  }
+  @objc deinit
+}
+public enum OID : Swift.String {
+  case etsiQcsCompliance
+  case etsiQcsRetentionPeriod
+  case etsiQcsQcSSCD
+  case dsa
+  case ecPublicKey
+  case prime256v1
+  case ecdsaWithSHA256
+  case ecdsaWithSHA512
+  case rsaEncryption
+  case sha256WithRSAEncryption
+  case md5WithRSAEncryption
+  case sha1WithRSAEncryption
+  case sha1
+  case pkcsSha256
+  case sha2Family
+  case sha3_244
+  case sha3_256
+  case sha3_384
+  case md5
+  case pkcs7data
+  case pkcs7signedData
+  case pkcs7envelopedData
+  case emailAddress
+  case signingCertificateV2
+  case contentType
+  case messageDigest
+  case signingTime
+  case certificateExtension
+  case jurisdictionLocalityName
+  case jurisdictionStateOrProvinceName
+  case jurisdictionCountryName
+  case authorityInfoAccess
+  case qcStatements
+  case cps
+  case unotice
+  case serverAuth
+  case clientAuth
+  case ocsp
+  case caIssuers
+  case dateOfBirth
+  case sha256
+  case VeriSignEVpolicy
+  case extendedValidation
+  case organizationValidated
+  case subjectKeyIdentifier
+  case keyUsage
+  case subjectAltName
+  case issuerAltName
+  case basicConstraints
+  case cRLDistributionPoints
+  case certificatePolicies
+  case authorityKeyIdentifier
+  case extKeyUsage
+  case subjectDirectoryAttributes
+  case commonName
+  case surname
+  case serialNumber
+  case countryName
+  case localityName
+  case stateOrProvinceName
+  case streetAddress
+  case organizationName
+  case organizationalUnitName
+  case businessCategory
+  case postalCode
+  case givenName
+  case dnQualifier
+  case domainComponent
+  case userId
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension SDKCA.PKCS7 {
+  public struct ReceiptInfo {
+    public var bundleIdentifier: Swift.String? {
+      get
+    }
+    public var bundleIdentifierData: Foundation.Data? {
+      get
+    }
+    public var bundleVersion: Swift.String? {
+      get
+    }
+    public var originalApplicationVersion: Swift.String? {
+      get
+    }
+    public var opaqueValue: Foundation.Data? {
+      get
+    }
+    public var sha1: Foundation.Data? {
+      get
+    }
+    public var receiptCreationDate: Foundation.Date? {
+      get
+    }
+    public var receiptCreationDateString: Swift.String? {
+      get
+    }
+    public var receiptExpirationDate: Foundation.Date? {
+      get
+    }
+    public var receiptExpirationDateString: Swift.String? {
+      get
+    }
+    public var inAppPurchases: [SDKCA.PKCS7.InAppPurchaseInfo]? {
+      get
+    }
+  }
+  public struct InAppPurchaseInfo {
+    public var quantity: Swift.UInt64? {
+      get
+    }
+    public var productId: Swift.String? {
+      get
+    }
+    public var transactionId: Swift.String? {
+      get
+    }
+    public var originalTransactionId: Swift.String? {
+      get
+    }
+    public var purchaseDate: Foundation.Date? {
+      get
+    }
+    public var originalPurchaseDate: Foundation.Date? {
+      get
+    }
+    public var expiresDate: Foundation.Date? {
+      get
+    }
+    public var isInIntroOfferPeriod: Swift.UInt64? {
+      get
+    }
+    public var cancellationDate: Foundation.Date? {
+      get
+    }
+    public var webOrderLineItemId: Swift.UInt64? {
+      get
+    }
+  }
+  public func receipt() -> SDKCA.PKCS7.ReceiptInfo?
+}
+extension SDKCA.PKCS7 {
+  public var signatures: [SDKCA.SignatureInfo]? {
+    get
+  }
+}
+public class SignatureInfo {
+  final public let version: SDKCA.ASN1Object?
+  final public let signerIdentifier: SDKCA.ASN1Object?
+  final public let digestAlgorithmIdentifier: SDKCA.ASN1Object?
+  final public let signedAttributes: SDKCA.ASN1Object?
+  final public let signatureAlgorithm: SDKCA.ASN1Object?
+  final public let signature: SDKCA.ASN1Object?
+  public var signatureData: Foundation.Data? {
+    get
+  }
+  public var disgestAlgorithmName: Swift.String? {
+    get
+  }
+  public var digestAlgorithmOID: SDKCA.OID? {
+    get
+  }
+  public var signatureAlgorithmName: Swift.String? {
+    get
+  }
+  public var signatureAlgorithmOID: SDKCA.OID? {
+    get
+  }
+  public init(asn1: SDKCA.ASN1Object)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class X509Certificate : Swift.CustomStringConvertible {
+  convenience public init(data: Foundation.Data) throws
+  public init(der: Foundation.Data) throws
+  convenience public init(pem: Foundation.Data) throws
+  public var description: Swift.String {
+    get
+  }
+  public func checkValidity(_ date: Foundation.Date = Date()) -> Swift.Bool
+  public var version: Swift.Int? {
+    get
+  }
+  public var serialNumber: Foundation.Data? {
+    get
+  }
+  public var issuerDistinguishedName: Swift.String? {
+    get
+  }
+  public var issuerOIDs: [Swift.String] {
+    get
+  }
+  public func issuer(oidString: Swift.String) -> Swift.String?
+  public func issuer(oid: SDKCA.OID) -> Swift.String?
+  @available(*, deprecated, message: "Use issuer(oid:) instead")
+  public func issuer(dn: SDKCA.ASN1DistinguishedNames) -> Swift.String?
+  public var subjectDistinguishedName: Swift.String? {
+    get
+  }
+  public var subjectOIDs: [Swift.String] {
+    get
+  }
+  public func subject(oidString: Swift.String) -> [Swift.String]?
+  public func subject(oid: SDKCA.OID) -> [Swift.String]?
+  @available(*, deprecated, message: "Use subject(oid:) instead")
+  public func subject(dn: SDKCA.ASN1DistinguishedNames) -> [Swift.String]?
+  public var notBefore: Foundation.Date? {
+    get
+  }
+  public var notAfter: Foundation.Date? {
+    get
+  }
+  public var signature: Foundation.Data? {
+    get
+  }
+  public var sigAlgName: Swift.String? {
+    get
+  }
+  public var sigAlgOID: Swift.String? {
+    get
+  }
+  public var sigAlgParams: Foundation.Data? {
+    get
+  }
+  public var keyUsage: [Swift.Bool] {
+    get
+  }
+  public var extendedKeyUsage: [Swift.String] {
+    get
+  }
+  public var subjectAlternativeNames: [Swift.String] {
+    get
+  }
+  public var issuerAlternativeNames: [Swift.String] {
+    get
+  }
+  public var publicKey: SDKCA.X509PublicKey? {
+    get
+  }
+  public var criticalExtensionOIDs: [Swift.String] {
+    get
+  }
+  public var nonCriticalExtensionOIDs: [Swift.String] {
+    get
+  }
+  public func extensionObject(oid: SDKCA.OID) -> SDKCA.X509Extension?
+  public func extensionObject(oid: Swift.String) -> SDKCA.X509Extension?
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class X509Extension {
+  public var oid: Swift.String? {
+    get
+  }
+  public var name: Swift.String? {
+    get
+  }
+  public var isCritical: Swift.Bool {
+    get
+  }
+  public var value: Any? {
+    get
+  }
+  @objc deinit
+}
+extension SDKCA.X509Certificate {
+  @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class BasicConstraintExtension : SDKCA.X509Extension {
+    public var isCA: Swift.Bool {
+      get
+    }
+    public var pathLenConstraint: Swift.UInt64? {
+      get
+    }
+    @objc deinit
+  }
+  @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class SubjectKeyIdentifierExtension : SDKCA.X509Extension {
+    override public var value: Any? {
+      get
+    }
+    @objc deinit
+  }
+  public struct AuthorityInfoAccess {
+    public let method: Swift.String
+    public let location: Swift.String
+  }
+  @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class AuthorityInfoAccessExtension : SDKCA.X509Extension {
+    public var infoAccess: [SDKCA.X509Certificate.AuthorityInfoAccess]? {
+      get
+    }
+    @objc deinit
+  }
+  @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class AuthorityKeyIdentifierExtension : SDKCA.X509Extension {
+    public var keyIdentifier: Foundation.Data? {
+      get
+    }
+    public var certificateIssuer: [Swift.String]? {
+      get
+    }
+    public var serialNumber: Foundation.Data? {
+      get
+    }
+    @objc deinit
+  }
+  public struct CertificatePolicyQualifier {
+    public let oid: Swift.String
+    public let value: Swift.String?
+  }
+  public struct CertificatePolicy {
+    public let oid: Swift.String
+    public let qualifiers: [SDKCA.X509Certificate.CertificatePolicyQualifier]?
+  }
+  @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class CertificatePoliciesExtension : SDKCA.X509Extension {
+    public var policies: [SDKCA.X509Certificate.CertificatePolicy]? {
+      get
+    }
+    @objc deinit
+  }
+  @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class CRLDistributionPointsExtension : SDKCA.X509Extension {
+    public var crls: [Swift.String]? {
+      get
+    }
+    @objc deinit
+  }
+}
+@_hasMissingDesignatedInitializers public class X509PublicKey {
+  public var algOid: Swift.String? {
+    get
+  }
+  public var algName: Swift.String? {
+    get
+  }
+  public var algParams: Swift.String? {
+    get
+  }
+  public var derEncodedKey: Foundation.Data? {
+    get
+  }
+  public var key: Foundation.Data? {
+    get
+  }
+  @objc deinit
+}
+extension SDKCA.ASN1Identifier.Class : Swift.Equatable {}
+extension SDKCA.ASN1Identifier.Class : Swift.Hashable {}
+extension SDKCA.ASN1Identifier.Class : Swift.RawRepresentable {}
+extension SDKCA.ASN1Identifier.TagNumber : Swift.Equatable {}
+extension SDKCA.ASN1Identifier.TagNumber : Swift.Hashable {}
+extension SDKCA.ASN1Identifier.TagNumber : Swift.RawRepresentable {}
+extension SDKCA.OID : Swift.Equatable {}
+extension SDKCA.OID : Swift.Hashable {}
+extension SDKCA.OID : Swift.RawRepresentable {}

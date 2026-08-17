@@ -1,0 +1,11 @@
+framework module SDKCA {
+  umbrella header "SDKCA.h"
+  export *
+
+  module * { export * }
+}
+
+module SDKCA.Swift {
+  header "SDKCA-Swift.h"
+  requires objc
+}
