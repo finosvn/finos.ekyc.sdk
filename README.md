@@ -6,4 +6,4 @@ Source code lives in a separate private repository.
 - `ios/` — XCFrameworks (device slices) consumed via CocoaPods / Swift Package Manager.
 - `android/` — AARs (`asia.finos:*`) consumed via Maven / GitHub Packages.
 
-Version: 2.0.3
+Version: 2.0.8
